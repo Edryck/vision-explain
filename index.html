@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IC4 — Edryck — Painel de Pesquisa</title>
+<style>
+:root{
+  --bg:#f5f6f8; --panel:#ffffff; --ink:#1b2430; --ink-soft:#5b6572; --line:#dde2e8;
+  --brand:#2e5fa3; --brand-dark:#1f4278; --accent:#1f7a4d; --warn:#b4740e; --danger:#b23a3a;
+  --todo:#8a93a0; --doing:#2e5fa3; --done:#1f7a4d; --late:#b23a3a;
+  --radius:10px; --shadow:0 1px 3px rgba(20,30,50,.08), 0 1px 2px rgba(20,30,50,.06);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--font);line-height:1.45;}
+body{min-height:100vh;}
+a{color:var(--brand);}
+h1,h2,h3,h4{line-height:1.25;margin:0 0 .5em 0;}
+.layout{display:flex;min-height:100vh;}
+nav.sidebar{
+  width:230px;flex-shrink:0;background:var(--panel);border-right:1px solid var(--line);
+  padding:16px 10px;position:sticky;top:0;height:100vh;overflow-y:auto;
+}
+nav.sidebar h1{font-size:1.05rem;margin-bottom:2px;color:var(--brand-dark);}
+nav.sidebar .student{font-size:.85rem;color:var(--ink-soft);margin-bottom:14px;}
+nav.sidebar a{display:block;padding:8px 10px;border-radius:8px;color:var(--ink);text-decoration:none;font-size:.88rem;margin-bottom:2px;}
+nav.sidebar a:hover{background:var(--bg);}
+nav.sidebar a.active{background:var(--brand);color:#fff;}
+nav.sidebar .menu-group{margin-top:12px;font-size:.7rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);padding:0 10px;}
+main{flex:1;min-width:0;padding:22px 26px 60px;}
+.topbar{display:none;}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px 20px;margin-bottom:18px;}
+.grid{display:grid;gap:16px;}
+.grid.cols-2{grid-template-columns:1fr 1fr;}
+.grid.cols-3{grid-template-columns:repeat(3,1fr);}
+.grid.cols-4{grid-template-columns:repeat(4,1fr);}
+@media (max-width:900px){.grid.cols-2,.grid.cols-3,.grid.cols-4{grid-template-columns:1fr;}}
+.kpi{padding:14px 16px;}
+.kpi .num{font-size:1.7rem;font-weight:700;}
+.kpi .label{font-size:.78rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.03em;}
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:.72rem;font-weight:600;color:#fff;}
+.badge.todo{background:var(--todo);}
+.badge.doing{background:var(--doing);}
+.badge.done{background:var(--done);}
+.badge.late{background:var(--late);}
+table{width:100%;border-collapse:collapse;font-size:.86rem;}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+th{color:var(--ink-soft);font-weight:600;font-size:.76rem;text-transform:uppercase;letter-spacing:.02em;}
+tr:hover td{background:#fafbfc;}
+.table-wrap{overflow-x:auto;}
+button,.btn{font-family:inherit;font-size:.84rem;background:var(--brand);color:#fff;border:none;padding:7px 14px;border-radius:7px;cursor:pointer;}
+button.secondary,.btn.secondary{background:var(--bg);color:var(--ink);border:1px solid var(--line);}
+button.danger{background:var(--danger);}
+button:hover{opacity:.92;}
+select,input[type=text],input[type=number],input[type=date],textarea{
+  width:100%;padding:7px 9px;border:1px solid var(--line);border-radius:7px;font-family:inherit;font-size:.86rem;background:#fff;color:var(--ink);
+}
+textarea{min-height:64px;resize:vertical;}
+label{display:block;font-size:.78rem;color:var(--ink-soft);margin-bottom:3px;font-weight:600;}
+.field{margin-bottom:10px;}
+form.record-form{border:1px dashed var(--line);border-radius:8px;padding:14px;margin-top:10px;background:#fcfdfe;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;}
+.form-grid .full{grid-column:1/-1;}
+@media (max-width:700px){.form-grid{grid-template-columns:1fr;}}
+.muted{color:var(--ink-soft);}
+.small{font-size:.8rem;}
+.hl-box{background:#eef4ff;border:1px solid #c7d9f5;border-radius:8px;padding:14px 16px;margin-bottom:12px;}
+.hl-box h3{color:var(--brand-dark);}
+.tag{display:inline-block;background:var(--bg);border:1px solid var(--line);padding:1px 8px;border-radius:6px;font-size:.72rem;margin:1px 3px 1px 0;}
+.phase-bar{display:flex;gap:3px;margin:10px 0;flex-wrap:wrap;}
+.phase-chip{flex:1;min-width:70px;text-align:center;padding:6px 4px;border-radius:6px;font-size:.72rem;background:var(--bg);border:1px solid var(--line);}
+.phase-chip.current{background:var(--brand);color:#fff;border-color:var(--brand);}
+.progress-outer{background:var(--bg);border-radius:999px;height:10px;overflow:hidden;border:1px solid var(--line);}
+.progress-inner{background:var(--accent);height:100%;}
+.alert{padding:10px 12px;border-radius:7px;margin-bottom:8px;font-size:.85rem;border-left:4px solid var(--warn);background:#fff8ec;}
+.alert.danger{border-color:var(--danger);background:#fdf1f1;}
+.alert.ok{border-color:var(--accent);background:#f0f9f3;}
+.week-detail{font-size:.84rem;}
+.week-detail dt{font-weight:700;margin-top:8px;color:var(--brand-dark);}
+.week-detail dd{margin:2px 0 0 0;}
+.actions-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+.ref-url{font-size:.78rem;word-break:break-all;}
+.checklist label{display:flex;align-items:center;gap:8px;font-weight:400;color:var(--ink);font-size:.85rem;padding:3px 0;}
+.checklist input[type=checkbox]{width:auto;}
+.footer-note{margin-top:30px;font-size:.75rem;color:var(--ink-soft);text-align:center;}
+.print-only{display:none;}
+@media print{
+  nav.sidebar,.no-print{display:none !important;}
+  main{padding:0;}
+  .layout{display:block;}
+  .panel{box-shadow:none;border:1px solid #ccc;break-inside:avoid;}
+  .print-only{display:block;}
+}
+.topnav-mobile{display:none;}
+@media (max-width:860px){
+  .layout{flex-direction:column;}
+  nav.sidebar{width:100%;height:auto;position:static;display:none;border-right:none;border-bottom:1px solid var(--line);}
+  nav.sidebar.open{display:block;}
+  .topnav-mobile{display:flex;justify-content:space-between;align-items:center;background:var(--panel);padding:10px 16px;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;}
+  .topnav-mobile button{background:var(--brand);}
+  main{padding:16px;}
+}
+.inline-form{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-top:10px;}
+.inline-form .field{margin-bottom:0;flex:1;min-width:140px;}
+.nowrap{white-space:nowrap;}
+.right{text-align:right;}
+hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
+</style>
+</head>
+<body>
+<div class="topnav-mobile no-print">
+  <strong>Edryck · IC4</strong>
+  <button data-action="toggle-menu">Menu</button>
+</div>
+<div class="layout">
+  <nav class="sidebar no-print" id="sidebar">
+    <h1>VisionExplain</h1>
+    <div class="student">Edryck · IC4</div>
+    <a href="#dashboard" data-route="dashboard" data-label="Dashboard">Dashboard</a>
+    <a href="#projeto" data-route="projeto" data-label="Projeto">Projeto</a>
+    <a href="#fundamentacao" data-route="fundamentacao" data-label="Fundamentação">Fundamentação</a>
+    <a href="#cronograma" data-route="cronograma" data-label="Cronograma">Cronograma</a>
+    <a href="#semana-atual" data-route="semana-atual" data-label="Semana Atual">Semana Atual</a>
+    <a href="#tarefas" data-route="tarefas" data-label="Tarefas">Tarefas</a>
+    <a href="#referencias" data-route="referencias" data-label="Referências">Referências</a>
+    <a href="#fichamentos" data-route="fichamentos" data-label="Fichamentos">Fichamentos</a>
+    <a href="#experimentos" data-route="experimentos" data-label="Experimentos">Experimentos</a>
+    <a href="#resultados" data-route="resultados" data-label="Resultados">Resultados</a>
+    <a href="#artigo1" data-route="artigo1" data-label="Artigo 1">Artigo 1</a>
+    <a href="#artigo2" data-route="artigo2" data-label="Artigo 2">Artigo 2</a>
+    <a href="#artefato" data-route="artefato" data-label="Artefato">Artefato</a>
+    <a href="#diario" data-route="diario" data-label="Diário">Diário</a>
+    <a href="#problemas" data-route="problemas" data-label="Problemas">Problemas</a>
+    <a href="#reunioes" data-route="reunioes" data-label="Reuniões">Reuniões</a>
+    <a href="#checkpoints" data-route="checkpoints" data-label="Checkpoints">Checkpoints</a>
+    <a href="#backup" data-route="backup" data-label="Backup">Backup</a>
+    <div class="menu-group">Pequenos Modelos Vision-Language para Explicação de Resultad…</div>
+  </nav>
+  <main id="app"></main>
+</div>
+<script id="seed-data" type="application/json">{"projectId": "IC4", "cronograma": {"estudante": "Edryck", "projeto": "IC4", "fases": [{"id": 1, "nome": "Fundamentos", "semanas": "1-4"}, {"id": 2, "nome": "Implementação", "semanas": "5-8"}, {"id": 3, "nome": "Reprodução", "semanas": "9-14"}, {"id": 4, "nome": "Experimentação", "semanas": "15-22"}, {"id": 5, "nome": "Análise e Artigo 1", "semanas": "19-26"}, {"id": 6, "nome": "Nova hipótese (Artigo 2)", "semanas": "27-30"}, {"id": 7, "nome": "Experimentos de contribuição", "semanas": "31-40"}, {"id": 8, "nome": "Redação Artigo 2", "semanas": "41-46"}, {"id": 9, "nome": "Artefato (VisionExplain)", "semanas": "47-50"}, {"id": 10, "nome": "Consolidação final", "semanas": "51-52"}], "semanas": [{"semana": 1, "fase": 1, "mes": 1, "titulo": "Ambiente, Git e estrutura do projeto", "objetivo": "Configurar ambiente Python para VLMs (PyTorch, Hugging Face Transformers, accelerate), criar repositório Git e estrutura inicial.", "porque": "Base reprodutível obrigatória antes de qualquer experimento com modelos multimodais (seção 48).", "como": ["Instalar Python, ambiente virtual, PyTorch, transformers, accelerate", "Criar repositório Git: data/, notebooks/, src/, experiments/, docs/", "Primeiro notebook de 'hello world' carregando uma imagem", "Primeiro commit"], "horas": 6, "recursos": [{"ref": "Hugging Face — Vision Language Models task docs", "url": "https://huggingface.co/docs/transformers/tasks/image_text_to_text", "motivo": "ponto de partida oficial para modelos imagem+texto→texto"}], "resultado_esperado": "Ambiente funcional e repositório criado.", "criterio_conclusao": "`python -c \"import torch, transformers\"` sem erro; `git log` mostra 1+ commit.", "evidencia": "Commit inicial + notebooks/00_setup.ipynb", "dicas": "Verifique a memória de GPU disponível antes de escolher o Small VLM — mesmo 'small', alguns exigem alguns GB de VRAM."}, {"semana": 2, "fase": 1, "mes": 1, "titulo": "Fundamentos de VLMs: ler LLaVA e o survey de Small VLMs", "objetivo": "Ler o paper fundacional do LLaVA (E1) e o survey de Small Vision-Language Models (E2), fichando ambos.", "porque": "Entender a arquitetura geral (encoder visual + LLM) e o panorama específico de modelos pequenos é pré-requisito para todo o projeto.", "como": ["Ler E1 e fichar: problema, método, dataset de instrução, resultado", "Ler E2 (ao menos as seções de arquiteturas e técnicas de eficiência) e fichar", "Listar 3-5 Small VLMs candidatos mencionados em E2"], "horas": 6, "recursos": [{"ref": "E1 — LLaVA (Liu et al. 2023)", "url": "https://arxiv.org/abs/2304.08485", "motivo": "arquitetura fundacional de VLMs instruction-tuned"}, {"ref": "E2 — Small Vision-Language Models: A Survey (2025)", "url": "https://arxiv.org/abs/2503.10665", "motivo": "mapa do campo de Small VLMs"}], "resultado_esperado": "Fichamentos de E1 e E2 + lista de Small VLMs candidatos.", "criterio_conclusao": "Fichamentos preenchidos no dashboard; lista com pelo menos 3 candidatos e critérios de escolha (tamanho, licença, facilidade de uso).", "evidencia": "Fichamentos (E1, E2) no dashboard", "dicas": "Priorize candidatos com checkpoint pronto no Hugging Face Hub e boa documentação — isso acelera MUITO as próximas semanas."}, {"semana": 3, "fase": 1, "mes": 1, "titulo": "Primeiro modelo pré-treinado: inferência com SmolVLM", "objetivo": "Rodar inferência com SmolVLM (E3) em 3-5 imagens, fazendo perguntas simples ('o que há nesta imagem?'), apenas para entender entrada/saída.", "porque": "Entender a interface de um Small VLM (imagem + texto → texto) antes de qualquer avaliação formal.", "como": ["Carregar SmolVLM via Hugging Face (pipeline ou AutoModel)", "Fazer 2-3 perguntas simples sobre cada imagem de teste", "Documentar o formato de entrada (prompt + imagem) e saída (texto gerado)"], "horas": 5, "recursos": [{"ref": "E3 — SmolVLM (Marafioti et al. 2025)", "url": "https://arxiv.org/abs/2504.05299", "motivo": "Small VLM principal do projeto"}], "resultado_esperado": "Notebook de inferência SmolVLM funcionando.", "criterio_conclusao": "O modelo gera respostas coerentes (mesmo que imprecisas) para pelo menos 3 perguntas sobre imagens de teste.", "evidencia": "notebooks/01_smolvlm_inferencia.ipynb", "dicas": "Teste desde já um caso em que o modelo claramente alucina (inventa algo que não está na imagem) — isso ilustra o problema central do projeto."}, {"semana": 4, "fase": 1, "mes": 1, "titulo": "Primeiro experimento reprodutível: avaliação manual de factualidade", "objetivo": "Fazer 10 perguntas sobre 5 imagens ao SmolVLM e avaliar manualmente (checklist simples) se cada afirmação da resposta é verificável na imagem.", "porque": "Primeiro experimento científico formal — estabelece a disciplina de registro e já introduz o conceito de 'verificação fato a fato' que será automatizado depois (FaithScore).", "como": ["Selecionar 5 imagens e formular 2 perguntas por imagem", "Coletar as respostas do SmolVLM", "Para cada resposta, listar as afirmações e marcar manualmente cada uma como verificável/não verificável na imagem", "Registrar o experimento completo"], "horas": 7, "recursos": [{"ref": "E4 — FaithScore (Jing et al. 2024)", "url": "https://aclanthology.org/2024.findings-emnlp.290/", "motivo": "metodologia de verificação fato-a-fato que inspira esta primeira avaliação manual"}], "resultado_esperado": "Primeiro experimento formal com avaliação manual de factualidade registrada.", "criterio_conclusao": "Entrada completa no gerenciador de experimentos (10 perguntas, afirmações listadas, marcação manual, proporção de afirmações verificáveis).", "evidencia": "experiments/exp001_avaliacao_manual.json", "dicas": "Essa avaliação manual de 10 perguntas é trabalhosa mas essencial — ela é a 'verdade fundamental' que vai calibrar sua confiança na métrica automática mais adiante."}, {"semana": 5, "fase": 2, "mes": 2, "titulo": "Escolha do domínio/aplicação e do modelo de CV produtor de evidências", "objetivo": "Escolher formalmente o domínio/aplicação (ex. inspeção industrial com MVTec AD, ou outro domínio justificável) e o modelo de CV que produzirá as evidências estruturadas.", "porque": "Decisão central que direciona todo o pipeline IMAGEM→CV→EVIDÊNCIAS→VLM→EXPLICAÇÃO (seção 8 do plano mestre).", "como": ["Avaliar 2-3 domínios candidatos (disponibilidade de dataset, modelo de CV já treinado ou fácil de obter)", "Escolher 1 domínio e justificar por escrito", "Escolher o modelo de CV (ex. um detector treinado em MVTec AD para anomalias)"], "horas": 6, "recursos": [{"ref": "E6 — MVTec AD (Bergmann et al. 2019)", "url": "https://openaccess.thecvf.com/content_CVPR_2019/html/Bergmann_MVTec_AD_--_A_Comprehensive_Real-World_Dataset_for_Unsupervised_Anomaly_CVPR_2019_paper.html", "motivo": "candidato principal de aplicação industrial com ground truth em pixel"}], "resultado_esperado": "Domínio e modelo de CV escolhidos e justificados.", "criterio_conclusao": "Entrada no Diário Científico com a decisão e justificativa.", "evidencia": "Diário Científico (semana 5)", "dicas": "Prefira um domínio em que já exista um modelo de CV pré-treinado disponível — treinar um novo modelo de CV do zero não é o foco deste projeto."}, {"semana": 6, "fase": 2, "mes": 2, "titulo": "Pipeline de extração de evidências estruturadas", "objetivo": "Implementar a função que roda o modelo de CV escolhido e converte sua saída (classes, caixas/máscaras, confiança) em uma representação estruturada (ex. JSON) pronta para ser injetada no prompt do VLM.", "porque": "Núcleo técnico do pipeline central do projeto (IMAGEM→CV→EVIDÊNCIAS).", "como": ["Rodar o modelo de CV em uma imagem de teste", "Converter a saída para um formato estruturado legível (ex. lista de objetos/regiões com classe, posição, confiança)", "Testar em 5 imagens variadas"], "horas": 7, "recursos": [], "resultado_esperado": "Função de extração de evidências estruturadas (src/extract_evidence.py).", "criterio_conclusao": "Função roda em 5 imagens de teste e produz JSON estruturado válido para cada uma.", "evidencia": "src/extract_evidence.py + experiments/exp002_evidencias.json", "dicas": "Pense em como esse JSON será transformado em texto para o prompt do VLM — comece a esboçar o template de prompt já nesta semana."}, {"semana": 7, "fase": 2, "mes": 2, "titulo": "Template de prompt para Configuração A e Configuração B", "objetivo": "Desenhar e implementar os templates de prompt para a Configuração A (só imagem + pergunta) e Configuração B (imagem + pergunta + evidências estruturadas em texto).", "porque": "Define precisamente a variável experimental central do projeto — a diferença entre A e B deve ser SOMENTE a presença das evidências.", "como": ["Escrever o template de prompt da Configuração A", "Escrever o template de prompt da Configuração B (injetando o JSON de evidências de forma legível)", "Testar ambos os templates em 2-3 imagens"], "horas": 6, "recursos": [], "resultado_esperado": "Templates de prompt A e B implementados e testados.", "criterio_conclusao": "Os dois templates produzem respostas coerentes e a única diferença entre eles é a presença das evidências.", "evidencia": "src/prompts.py + notebooks/02_templates_prompt.ipynb", "dicas": "Mantenha a pergunta do usuário IDÊNTICA entre A e B — só o contexto (evidências) deve mudar."}, {"semana": 8, "fase": 2, "mes": 2, "titulo": "Preparar subconjunto de avaliação + fechamento da Fase 2", "objetivo": "Selecionar e organizar um subconjunto de imagens do domínio escolhido (ex. MVTec AD) para servir de base de avaliação do projeto, com perguntas padronizadas.", "porque": "Fecha o protocolo de dados antes da fase de reprodução — evita ambiguidade na escrita do Artigo 1.", "como": ["Selecionar um subconjunto gerenciável (ex. 30-50 imagens, cobrindo casos normais e anômalos)", "Formular um conjunto padronizado de perguntas por imagem (ex. 'há algum defeito nesta imagem? Onde? Qual o tipo?')", "Documentar o protocolo"], "horas": 5, "recursos": [], "resultado_esperado": "Subconjunto de avaliação com perguntas padronizadas.", "criterio_conclusao": "Arquivo de configuração lista as imagens e perguntas padronizadas do subconjunto.", "evidencia": "data/subset_avaliacao.json + docs/protocolo_dataset.md", "dicas": "Perguntas padronizadas (mesma pergunta para todas as imagens de um tipo) facilitam comparação consistente entre Configuração A e B."}, {"semana": 9, "fase": 3, "mes": 3, "titulo": "Reprodução: Configuração A em todo o subconjunto", "objetivo": "Rodar a Configuração A (SmolVLM + imagem, sem evidências) em todo o subconjunto de avaliação e coletar as respostas.", "porque": "Primeiro baseline completo e formal do projeto.", "como": ["Rodar o pipeline Configuração A em todas as imagens do subconjunto", "Salvar todas as respostas geradas de forma estruturada", "Registrar o experimento"], "horas": 7, "recursos": [], "resultado_esperado": "Conjunto completo de respostas da Configuração A.", "criterio_conclusao": "Respostas salvas para 100% das imagens do subconjunto.", "evidencia": "experiments/exp003_configA_completo.json", "dicas": "Salve as respostas em formato estruturado (ex. JSON por imagem) — serão reutilizadas por todas as métricas das próximas semanas."}, {"semana": 10, "fase": 3, "mes": 3, "titulo": "Implementar métrica de factualidade (FaithScore ou equivalente)", "objetivo": "Implementar (ou adaptar uma implementação existente de) uma métrica de factualidade/groundedness, como o FaithScore (E4), e validá-la contra a avaliação manual da semana 4.", "porque": "Métrica automática é indispensável para avaliar dezenas de respostas de forma consistente; validá-la contra avaliação manual aumenta a confiança nela.", "como": ["Estudar a metodologia do FaithScore (extração de fatos atômicos + verificação)", "Implementar uma versão simplificada (ou usar código oficial, se disponível e viável computacionalmente)", "Rodar a métrica nas 10 respostas já avaliadas manualmente na semana 4 e comparar"], "horas": 8, "recursos": [{"ref": "E4 — FaithScore (Jing et al. 2024)", "url": "https://aclanthology.org/2024.findings-emnlp.290/", "motivo": "metodologia de referência para a métrica de factualidade"}], "resultado_esperado": "Pipeline de métrica de factualidade implementado e validado contra avaliação manual.", "criterio_conclusao": "Métrica calculada para as 10 respostas da semana 4, com comparação explícita à avaliação manual (concordância razoável ou divergências documentadas).", "evidencia": "src/faithscore.py + experiments/exp004_validacao_metrica.json", "dicas": "Se o FaithScore completo depender de chamadas a um LLM externo caro, documente essa limitação e considere uma versão simplificada (ex. usando o próprio Small VLM ou um modelo de NLI leve como verificador)."}, {"semana": 11, "fase": 3, "mes": 3, "titulo": "Avaliar factualidade da Configuração A", "objetivo": "Aplicar a métrica de factualidade (semana 10) em todas as respostas da Configuração A (semana 9).", "porque": "Produz o primeiro resultado quantitativo completo de factualidade — base de comparação para a Configuração B.", "como": ["Rodar a métrica em todas as respostas da Configuração A", "Calcular estatísticas agregadas (média, distribuição)", "Registrar"], "horas": 6, "recursos": [], "resultado_esperado": "Factualidade média da Configuração A no subconjunto completo.", "criterio_conclusao": "Valor agregado de factualidade registrado, calculado sobre 100% do subconjunto.", "evidencia": "experiments/results/exp003_factualidade_configA.json", "dicas": "Guarde também a distribuição por imagem (não só a média) — útil para identificar casos extremos de alucinação."}, {"semana": 12, "fase": 3, "mes": 3, "titulo": "Medir custo computacional da Configuração A", "objetivo": "Medir latência de inferência e uso de memória (VRAM) do SmolVLM na Configuração A.", "porque": "Objetivo específico do projeto (custo computacional) — parte central da pergunta de pesquisa (menor custo que modelos maiores).", "como": ["Medir tempo de inferência por imagem (média de várias execuções)", "Medir pico de uso de VRAM durante a inferência", "Registrar"], "horas": 5, "recursos": [], "resultado_esperado": "Latência e uso de memória da Configuração A registrados.", "criterio_conclusao": "Valores medidos no mesmo hardware, documentados com a configuração exata (modelo, precisão, batch size).", "evidencia": "experiments/results/custo_configA.json", "dicas": "Essa medição será repetida para a Configuração B e C — garanta que o método de medição seja idêntico em todos os casos."}, {"semana": 13, "fase": 3, "mes": 4, "titulo": "Análise qualitativa de alucinações na Configuração A", "objetivo": "Selecionar e categorizar exemplos de alucinação (afirmações não verificáveis na imagem) nas respostas da Configuração A.", "porque": "Entender PADRÕES de alucinação é essencial para a discussão do Artigo 1 e para desenhar a Configuração B de forma direcionada.", "como": ["Selecionar 8-10 respostas com baixa factualidade", "Categorizar o tipo de alucinação (ex. objeto inexistente, localização errada, severidade inventada)", "Organizar galeria comentada"], "horas": 6, "recursos": [], "resultado_esperado": "Galeria de alucinações categorizadas.", "criterio_conclusao": "Pelo menos 3 categorias de alucinação identificadas, cada uma com exemplo.", "evidencia": "experiments/figs/alucinacoes_configA/", "dicas": "Essa categorização é um dos achados mais citáveis do Artigo 1 — documente com cuidado."}, {"semana": 14, "fase": 3, "mes": 4, "titulo": "Checkpoint de reprodução (mês 3-4)", "objetivo": "Consolidar os resultados da Fase 3 em relatório intermediário e preencher o checkpoint mensal.", "porque": "Ponto de controle regular (seções 37-38) antes de entrar na fase de experimentação sistemática.", "como": ["Reunir tabelas e figuras geradas até aqui", "Preencher checkpoint mensal no dashboard", "Preparar pauta de reunião com o orientador"], "horas": 5, "recursos": [], "resultado_esperado": "Checkpoint do mês 3-4 preenchido.", "criterio_conclusao": "Checkpoint completo no dashboard, todas as perguntas respondidas.", "evidencia": "Checkpoints do dashboard (mês 4)", "dicas": "Avalie se a métrica de factualidade está suficientemente confiável antes de escalar seu uso na Fase 4."}, {"semana": 15, "fase": 4, "mes": 4, "titulo": "Implementar e rodar Configuração B em todo o subconjunto", "objetivo": "Rodar a Configuração B (SmolVLM + imagem + evidências estruturadas) em todo o subconjunto de avaliação.", "porque": "Núcleo experimental do projeto — permite a comparação direta A vs. B.", "como": ["Rodar o pipeline completo (extração de evidências + Configuração B) em todas as imagens", "Salvar todas as respostas de forma estruturada", "Registrar"], "horas": 8, "recursos": [], "resultado_esperado": "Conjunto completo de respostas da Configuração B.", "criterio_conclusao": "Respostas salvas para 100% das imagens do subconjunto, mesmas imagens/perguntas da Configuração A.", "evidencia": "experiments/exp005_configB_completo.json", "dicas": "Garanta que é EXATAMENTE o mesmo conjunto de imagens/perguntas da Configuração A — comparação só é válida se tudo mais for igual."}, {"semana": 16, "fase": 4, "mes": 4, "titulo": "Avaliar factualidade e custo da Configuração B", "objetivo": "Aplicar a métrica de factualidade e medir custo computacional da Configuração B, e montar a primeira comparação direta A vs. B.", "porque": "Primeiro teste direto da hipótese H1 do projeto.", "como": ["Rodar a métrica de factualidade em todas as respostas da Configuração B", "Medir latência/memória (mesmo protocolo da semana 12)", "Montar tabela comparativa A vs. B"], "horas": 7, "recursos": [], "resultado_esperado": "Tabela comparativa A vs. B (factualidade + custo).", "criterio_conclusao": "Tabela com valores reais de factualidade e custo para as duas configurações.", "evidencia": "experiments/results/tabela_A_vs_B.csv", "dicas": "Esse é provavelmente o resultado mais importante do projeto — revise os números com cuidado antes de seguir."}, {"semana": 17, "fase": 4, "mes": 5, "titulo": "Iniciar Configuração C (VLM maior, se viável)", "objetivo": "Avaliar a viabilidade computacional de rodar uma Configuração C (VLM multimodal maior) e, se viável, rodar em um subconjunto menor para referência.", "porque": "Configuração C é opcional mas fortalece a resposta à pergunta de pesquisa (comparação de custo com modelos maiores).", "como": ["Avaliar opções de VLM maior disponíveis (ex. LLaVA maior, ou API se houver acesso)", "Se viável, rodar em um subconjunto reduzido (ex. 10-15 imagens)", "Se inviável, documentar a decisão e seguir sem Configuração C"], "horas": 7, "recursos": [{"ref": "E1 — LLaVA (Liu et al. 2023)", "url": "https://arxiv.org/abs/2304.08485", "motivo": "candidato a Configuração C (VLM maior de referência)"}], "resultado_esperado": "Resultado da Configuração C em subconjunto reduzido, OU decisão documentada de não incluí-la.", "criterio_conclusao": "Decisão e (se aplicável) resultado parcial registrados.", "evidencia": "experiments/exp006_configC.json (ou nota de decisão no Diário Científico)", "dicas": "Não deixe a Configuração C bloquear o progresso do projeto — ela é um complemento, não o núcleo da pergunta de pesquisa."}, {"semana": 18, "fase": 4, "mes": 5, "titulo": "Análise qualitativa comparativa A vs. B", "objetivo": "Selecionar pares de respostas (mesma imagem, Configuração A vs. B) que ilustrem claramente o efeito das evidências estruturadas.", "porque": "Complementa os números com evidência visual/textual interpretável para a discussão do Artigo 1.", "como": ["Selecionar 8-10 pares de respostas A/B para a mesma imagem", "Comparar lado a lado, destacando onde B corrigiu uma alucinação de A (ou não)", "Organizar galeria comentada"], "horas": 6, "recursos": [], "resultado_esperado": "Galeria comparativa A vs. B.", "criterio_conclusao": "Pelo menos 8 pares de respostas comparados e comentados.", "evidencia": "docs/artigo1/figs/comparacao_A_B/", "dicas": "Inclua também casos em que B NÃO melhorou (ou piorou) — é importante para uma discussão honesta."}, {"semana": 19, "fase": 5, "mes": 5, "titulo": "Consolidar resultados finais do Artigo 1 + iniciar redação (estrutura)", "objetivo": "Fechar a tabela/figuras finais da Fase 3-4 e montar o esqueleto do Artigo 1.", "porque": "Transição de 'rodar experimentos' para 'escrever ciência' (seção 19). Nota: no Artigo 1, a comparação A vs. B é avaliação preliminar; a investigação aprofundada por tipo de evidência é o foco do Artigo 2.", "como": ["Reunir todas as tabelas/figuras em um documento único", "Criar esqueleto do Artigo 1 com todas as seções", "Preencher checklist inicial do Artigo 1"], "horas": 6, "recursos": [], "resultado_esperado": "Esqueleto do Artigo 1 + tabela mestre de resultados.", "criterio_conclusao": "Documento do artigo criado com todas as seções nomeadas.", "evidencia": "docs/artigo1/artigo1.md", "dicas": "Reaproveite a estrutura padrão (introdução, trabalhos relacionados, metodologia, experimentos, resultados, discussão, conclusão, referências)."}, {"semana": 20, "fase": 5, "mes": 5, "titulo": "Redação Artigo 1 — Introdução e trabalhos relacionados", "objetivo": "Escrever introdução e revisão bibliográfica cobrindo Small VLMs, LLaVA, o pipeline CV→evidências→VLM e a crítica metodológica de E5.", "porque": "Decomposição semanal da escrita (seção 19).", "como": ["Escrever introdução citando E1, E2, E3 como motivação", "Escrever trabalhos relacionados organizando por tema (Small VLMs, factualidade/alucinação)", "Marcar referências usadas no gerenciador"], "horas": 6, "recursos": [{"ref": "research/IC4_Edryck_referencias.md (E1-E7)", "url": "", "motivo": "base bibliográfica verificada do projeto"}], "resultado_esperado": "Introdução e trabalhos relacionados redigidos.", "criterio_conclusao": "Seções citam no mínimo 5 referências verificadas.", "evidencia": "docs/artigo1/artigo1.md", "dicas": "Cite E5 (crítica metodológica) já na introdução para mostrar que o projeto está ciente das armadilhas de avaliação da área."}, {"semana": 21, "fase": 5, "mes": 6, "titulo": "Redação Artigo 1 — Metodologia e protocolo experimental", "objetivo": "Escrever a metodologia descrevendo o domínio escolhido, o modelo de CV, o Small VLM, os templates de prompt (A/B) e a métrica de factualidade.", "porque": "Garante reprodutibilidade por terceiros.", "como": ["Descrever o subconjunto de avaliação (imagens, perguntas padronizadas)", "Descrever o pipeline de extração de evidências", "Descrever a métrica de factualidade e como foi validada (semana 10)"], "horas": 6, "recursos": [], "resultado_esperado": "Seção de metodologia completa.", "criterio_conclusao": "Seção descreve dataset, pipeline e métrica com detalhes suficientes para reprodução.", "evidencia": "docs/artigo1/artigo1.md", "dicas": "Inclua o template exato de prompt usado em A e B — é informação essencial para reprodutibilidade."}, {"semana": 22, "fase": 5, "mes": 6, "titulo": "Redação Artigo 1 — Resultados (tabelas e figuras)", "objetivo": "Montar e descrever as tabelas/figuras finais (factualidade A vs. B, custo computacional, galeria qualitativa).", "porque": "Comunicação clara dos resultados quantitativos e qualitativos.", "como": ["Formatar tabela comparativa final A vs. B (e C, se disponível)", "Inserir galeria de alucinações e comparação qualitativa", "Escrever texto descritivo de cada tabela/figura"], "horas": 6, "recursos": [], "resultado_esperado": "Seção de resultados com tabelas e figuras finais.", "criterio_conclusao": "Todas as figuras citadas existem como arquivo com legenda.", "evidencia": "docs/artigo1/figs/ + docs/artigo1/artigo1.md", "dicas": "Apresente custo computacional e factualidade juntos (ex. gráfico de dispersão) para destacar o trade-off central da pergunta de pesquisa."}, {"semana": 23, "fase": 5, "mes": 6, "titulo": "Análise de erros/alucinações aprofundada", "objetivo": "Aprofundar a categorização de alucinações comparando Configuração A e B, identificando em que tipos de pergunta/imagem o ganho de B é maior ou menor.", "porque": "Métrica isolada não é conclusão — entender padrões sustenta a discussão e antecipa a hipótese do Artigo 2.", "como": ["Cruzar a categorização de erro da semana 13 com os resultados da Configuração B", "Identificar se algum tipo de alucinação persiste mesmo com evidências", "Escrever seção de discussão/limitações"], "horas": 6, "recursos": [], "resultado_esperado": "Categorização comparativa de erro + discussão redigida.", "criterio_conclusao": "Pelo menos 3 padrões de erro comparados entre A e B.", "evidencia": "docs/artigo1/artigo1.md (seção discussão)", "dicas": "Esta análise é a ponte direta para a hipótese do Artigo 2 (qual TIPO de evidência ajuda mais) — escreva pensando nessa conexão."}, {"semana": 24, "fase": 5, "mes": 6, "titulo": "Redação Artigo 1 — Conclusão e referências", "objetivo": "Escrever a conclusão e finalizar a lista de referências formatada.", "porque": "Fecha o ciclo de escrita do primeiro artigo.", "como": ["Escrever conclusão resumindo contribuição e achados", "Formatar e conferir todas as referências citadas"], "horas": 5, "recursos": [], "resultado_esperado": "Conclusão e referências finalizadas.", "criterio_conclusao": "Nenhuma referência citada ausente da lista e vice-versa.", "evidencia": "docs/artigo1/artigo1.md", "dicas": "Use o gerenciador de referências para conferir rapidamente quais estão marcadas como 'utilizada no artigo'."}, {"semana": 25, "fase": 5, "mes": 6, "titulo": "Revisão cruzada do Artigo 1", "objetivo": "Revisar o artigo com checklist formal e aplicar correções.", "porque": "Reduz erros antes da reunião com o orientador.", "como": ["Ler o artigo do início ao fim", "Verificar consistência de números", "Aplicar correções"], "horas": 5, "recursos": [], "resultado_esperado": "Artigo 1 revisado.", "criterio_conclusao": "Checklist do Artigo 1 100% preenchido.", "evidencia": "Checklist Artigo 1 no dashboard", "dicas": "Leia a introdução e a conclusão em voz alta para checar clareza."}, {"semana": 26, "fase": 5, "mes": 6, "titulo": "Fechamento do Artigo 1 (checkpoint mês 6)", "objetivo": "Congelar a versão do Artigo 1 e preencher o checkpoint do mês 6.", "porque": "Marco formal do cronograma (seção 19).", "como": ["Exportar versão final", "Preparar pauta de reunião", "Preencher checkpoint mensal"], "horas": 5, "recursos": [], "resultado_esperado": "Artigo 1 congelado + checkpoint preenchido.", "criterio_conclusao": "Versão v1.0 registrada no controle de versões.", "evidencia": "docs/artigo1/artigo1_v1.pdf + Checkpoints (mês 6)", "dicas": "Reflita explicitamente: a Configuração B melhorou a factualidade de forma consistente, ou apenas em alguns casos? Isso direciona o Artigo 2."}, {"semana": 27, "fase": 6, "mes": 7, "titulo": "Leitura dirigida (E5) + formulação da hipótese do Artigo 2", "objetivo": "Reler em profundidade E5 (crítica metodológica sobre grounding e alucinação) e formular por escrito a hipótese H1 do Artigo 2, focada em QUAL tipo de evidência ajuda mais.", "porque": "O Artigo 2 precisa de hipótese própria, testável e distinta do Artigo 1 (seção 20) — não pode ser só 'rodar mais imagens em A vs. B'.", "como": ["Reler E5 com atenção ao protocolo de avaliação criticado", "Revisitar a análise da semana 23 (quais tipos de evidência parecem ajudar mais)", "Formular H1 por escrito: qual tipo de evidência (classe, posição, confiança) tem maior efeito na factualidade"], "horas": 6, "recursos": [{"ref": "E5 — Does Object Grounding Really Reduce Hallucination? (EMNLP 2024)", "url": "https://aclanthology.org/2024.emnlp-main.159.pdf", "motivo": "crítica metodológica central que molda o desenho do protocolo do Artigo 2"}], "resultado_esperado": "Hipótese do Artigo 2 redigida formalmente, evitando as armadilhas apontadas por E5.", "criterio_conclusao": "Hipótese registrada no Diário Científico, com referência explícita a como o protocolo evita os problemas de E5.", "evidencia": "Diário Científico (semana 27)", "dicas": "Uma boa hipótese deve ser falseável — escreva também o que observaríamos se nenhum tipo de evidência ajudasse mais que outro."}, {"semana": 28, "fase": 6, "mes": 7, "titulo": "Desenho do protocolo por tipo de evidência", "objetivo": "Desenhar o protocolo experimental que isola o efeito de cada tipo de evidência (ex. só classe; classe+posição; classe+posição+confiança) na factualidade da explicação.", "porque": "Protocolo controlado permite isolar QUAL evidência contribui mais — núcleo da hipótese H1 do Artigo 2.", "como": ["Definir 3-4 variantes de Configuração B, cada uma com um subconjunto diferente de tipos de evidência", "Documentar precisamente o conteúdo de cada variante", "Evitar os problemas de avaliação apontados por E5 (ex. usar a mesma métrica validada, mesmo protocolo)"], "horas": 6, "recursos": [], "resultado_esperado": "Documento de protocolo por tipo de evidência.", "criterio_conclusao": "Protocolo define claramente 3-4 variantes de evidência e como serão comparadas.", "evidencia": "docs/artigo2/protocolo_tipos_evidencia.md", "dicas": "Mantenha o mesmo subconjunto de imagens/perguntas do Artigo 1 para que os resultados sejam diretamente comparáveis."}, {"semana": 29, "fase": 6, "mes": 7, "titulo": "Preparar variantes de extração de evidências", "objetivo": "Implementar as variações do pipeline de extração de evidências necessárias para cada tipo definido no protocolo (semana 28).", "porque": "Sem essas variantes implementadas, o protocolo da semana 28 não pode ser executado.", "como": ["Adaptar src/extract_evidence.py para gerar cada variante (ex. só classe; classe+posição; etc.)", "Testar cada variante em 2-3 imagens", "Validar que cada variante produz o conteúdo esperado"], "horas": 6, "recursos": [], "resultado_esperado": "Pipeline de extração de evidências com múltiplas variantes implementado.", "criterio_conclusao": "Cada variante testada produz um prompt de evidências visivelmente diferente e correto.", "evidencia": "src/extract_evidence.py (versão com variantes) + notebooks/03_variantes_evidencia.ipynb", "dicas": "Nomeie claramente cada variante no código (ex. 'evidencia_classe', 'evidencia_classe_posicao') para evitar confusão nos experimentos."}, {"semana": 30, "fase": 6, "mes": 7, "titulo": "Piloto do protocolo por tipo de evidência", "objetivo": "Rodar um piloto pequeno (5-8 imagens) com todas as variantes de evidência, para validar o pipeline completo antes de escalar.", "porque": "Pilotar reduz o risco de descobrir um erro de protocolo depois de rodar o experimento completo (Fase 7).", "como": ["Rodar todas as variantes em um subconjunto pequeno", "Calcular a métrica de factualidade para cada variante", "Verificar se os resultados fazem sentido qualitativamente"], "horas": 5, "recursos": [], "resultado_esperado": "Piloto validado do protocolo por tipo de evidência.", "criterio_conclusao": "Pipeline roda para todas as variantes sem erro e produz resultados plausíveis.", "evidencia": "notebooks/04_piloto_tipos_evidencia.ipynb", "dicas": "Se alguma variante não mostrar NENHUMA diferença em relação à Configuração A, revise se a evidência está realmente sendo injetada corretamente no prompt."}, {"semana": 31, "fase": 7, "mes": 8, "titulo": "Experimento completo — variante 'só classe'", "objetivo": "Rodar o pipeline completo da variante 'só classe' em todo o subconjunto de avaliação.", "porque": "Primeiro ponto formal da curva por tipo de evidência.", "como": ["Rodar a variante em todas as imagens do subconjunto", "Calcular factualidade", "Registrar"], "horas": 8, "recursos": [], "resultado_esperado": "Resultado de factualidade para a variante 'só classe'.", "criterio_conclusao": "Resultado registrado para 100% do subconjunto.", "evidencia": "experiments/exp0XX_variante_classe.json", "dicas": "Esta variante é o ponto mais simples de evidência — serve de piso para comparar com variantes mais ricas."}, {"semana": 32, "fase": 7, "mes": 8, "titulo": "Experimento completo — variante 'classe + posição'", "objetivo": "Rodar o pipeline completo da variante 'classe + posição' em todo o subconjunto.", "porque": "Segundo ponto da curva, testa se informação espacial agrega factualidade.", "como": ["Rodar a variante em todas as imagens", "Calcular factualidade", "Registrar"], "horas": 8, "recursos": [], "resultado_esperado": "Resultado de factualidade para a variante 'classe + posição'.", "criterio_conclusao": "Resultado registrado para 100% do subconjunto.", "evidencia": "experiments/exp0XX_variante_classe_posicao.json", "dicas": "Compare já informalmente com a variante 'só classe' — a posição ajuda mais em perguntas sobre localização do defeito?"}, {"semana": 33, "fase": 7, "mes": 8, "titulo": "Experimento completo — variante 'classe + posição + confiança'", "objetivo": "Rodar o pipeline completo da variante mais rica (equivalente à Configuração B original) em todo o subconjunto, reconfirmando o resultado do Artigo 1.", "porque": "Terceiro ponto da curva — ponto mais rico de evidência, reutilizável também como validação de consistência com o Artigo 1.", "como": ["Rodar a variante em todas as imagens", "Calcular factualidade", "Comparar com o resultado da Configuração B do Artigo 1 (semana 16) — devem ser consistentes"], "horas": 7, "recursos": [], "resultado_esperado": "Resultado de factualidade para a variante mais rica + confirmação de consistência com o Artigo 1.", "criterio_conclusao": "Resultado registrado e comparado explicitamente ao resultado da semana 16.", "evidencia": "experiments/exp0XX_variante_completa.json", "dicas": "Se os dois resultados divergirem muito, investigue antes de seguir — pode indicar não-determinismo do modelo ou mudança acidental no pipeline."}, {"semana": 34, "fase": 7, "mes": 8, "titulo": "Consolidar curva por tipo de evidência", "objetivo": "Consolidar os resultados das 3 variantes (+ Configuração A como piso) em um gráfico único e testar formalmente a hipótese H1.", "porque": "Visualização central do Artigo 2 — resposta direta à pergunta de pesquisa.", "como": ["Montar gráfico de barras com as 4 condições (A, +classe, +posição, +confiança)", "Identificar qual tipo de evidência traz o maior ganho marginal", "Escrever interpretação"], "horas": 6, "recursos": [], "resultado_esperado": "Gráfico consolidado + interpretação da hipótese H1.", "criterio_conclusao": "Gráfico com as 4 condições e discussão explícita de H1 (confirmada/parcial/refutada).", "evidencia": "docs/artigo2/figs/curva_tipos_evidencia.png", "dicas": "Não force a conclusão — se o ganho marginal for pequeno ou não-monotônico, isso é um resultado interessante e deve ser discutido honestamente."}, {"semana": 35, "fase": 7, "mes": 9, "titulo": "Investigar custo computacional por variante", "objetivo": "Medir se o custo computacional (latência) varia significativamente entre as variantes de evidência (prompts mais longos podem ser mais lentos).", "porque": "Conecta o achado de factualidade por tipo de evidência com a dimensão de custo computacional, central à pergunta de pesquisa do projeto.", "como": ["Medir latência de inferência para cada variante (mesmo protocolo da semana 12)", "Montar gráfico factualidade × latência por variante", "Identificar o melhor trade-off"], "horas": 6, "recursos": [], "resultado_esperado": "Gráfico de trade-off factualidade × custo por variante.", "criterio_conclusao": "Gráfico com as variantes posicionadas por factualidade e latência, valores reais.", "evidencia": "docs/artigo2/figs/tradeoff_variantes.png", "dicas": "Esse resultado é diretamente aplicável à escolha de configuração padrão do artefato VisionExplain."}, {"semana": 36, "fase": 7, "mes": 9, "titulo": "Repetir com Configuração C (se disponível) nas variantes mais informativas", "objetivo": "Se a Configuração C (VLM maior) estiver disponível, rodá-la nas 1-2 variantes mais informativas identificadas, para comparação de referência.", "porque": "Fortalece a resposta à pergunta de pesquisa (Small VLM com evidências se aproxima de um modelo maior?).", "como": ["Rodar a Configuração C no subconjunto reduzido (mesmo subconjunto da semana 17) com a(s) variante(s) de evidência mais informativa(s)", "Comparar factualidade e custo com o Small VLM equivalente"], "horas": 7, "recursos": [], "resultado_esperado": "Comparação Small VLM+evidências vs. VLM maior (se aplicável).", "criterio_conclusao": "Resultado registrado, ou decisão documentada de não executar por inviabilidade.", "evidencia": "experiments/exp0XX_configC_evidencia.json (ou nota de decisão)", "dicas": "Esse resultado, se obtido, é um ótimo argumento para a conclusão central do projeto (custo-benefício de Small VLMs)."}, {"semana": 37, "fase": 7, "mes": 9, "titulo": "Análise qualitativa por tipo de evidência", "objetivo": "Selecionar exemplos que ilustrem como a resposta muda conforme o tipo de evidência fornecida (mesma imagem, 4 variantes).", "porque": "Complementa os números com evidência textual interpretável.", "como": ["Selecionar 5-6 imagens e mostrar a resposta nas 4 condições (A, +classe, +posição, +confiança)", "Comentar onde a evidência adicional corrigiu (ou não) uma alucinação", "Organizar galeria"], "horas": 6, "recursos": [], "resultado_esperado": "Galeria comparativa por tipo de evidência.", "criterio_conclusao": "Pelo menos 5 imagens com as 4 respostas comparadas e comentadas.", "evidencia": "docs/artigo2/figs/galeria_tipos_evidencia/", "dicas": "Essa galeria é um ótimo material tanto para o artigo quanto para a demonstração do artefato VisionExplain."}, {"semana": 38, "fase": 7, "mes": 9, "titulo": "Checkpoint intermediário + ajuste de escopo se necessário", "objetivo": "Revisar o progresso dos experimentos do Artigo 2 e ajustar escopo se o tempo estiver apertado.", "porque": "Ponto de controle regular que permite correção de rota antes do prazo de redação.", "como": ["Revisar status de todos os experimentos planejados", "Decidir se algo precisa ser cortado ou simplificado", "Documentar a decisão"], "horas": 5, "recursos": [], "resultado_esperado": "Escopo revisado e ajustado, se necessário.", "criterio_conclusao": "Decisão de escopo documentada no Diário Científico.", "evidencia": "Diário Científico (semana 38)", "dicas": "É melhor reduzir escopo conscientemente agora do que entregar um Artigo 2 incompleto no mês 11."}, {"semana": 39, "fase": 7, "mes": 9, "titulo": "Experimento complementar de robustez (segunda rodada de perguntas)", "objetivo": "Repetir o protocolo principal (variantes de evidência) com um segundo conjunto de perguntas (ex. perguntas mais abertas) para testar a generalidade da conclusão.", "porque": "Fortalece a robustez da contribuição do Artigo 2, mostrando que o achado não depende de um único tipo de pergunta.", "como": ["Formular um segundo conjunto de perguntas (diferente estilo das originais)", "Rodar as variantes de evidência mais informativas com esse novo conjunto", "Comparar o padrão de resultado com o conjunto original"], "horas": 7, "recursos": [], "resultado_esperado": "Resultado complementar com segundo conjunto de perguntas.", "criterio_conclusao": "Resultado registrado e comparado ao padrão observado com o conjunto original de perguntas.", "evidencia": "experiments/exp0XX_segundo_conjunto_perguntas.json", "dicas": "Se o padrão se mantiver com perguntas diferentes, isso é uma evidência forte de que a conclusão não é um artefato do desenho específico das perguntas originais."}, {"semana": 40, "fase": 7, "mes": 9, "titulo": "Checkpoint final de experimentos do Artigo 2", "objetivo": "Revisar a completude de todos os experimentos do Artigo 2 e preencher o checkpoint mensal correspondente.", "porque": "Último ponto de controle antes de concentrar esforço em escrita.", "como": ["Checklist de experimentos planejados vs. executados", "Resolver pendências críticas", "Preencher checkpoint mensal"], "horas": 5, "recursos": [], "resultado_esperado": "Checklist de experimentos do Artigo 2 revisado.", "criterio_conclusao": "Nenhum experimento crítico sem status final.", "evidencia": "Checkpoints do dashboard (mês 9)", "dicas": "Documente explicitamente qualquer experimento que não pôde ser concluído e o impacto nas conclusões."}, {"semana": 41, "fase": 8, "mes": 10, "titulo": "Redação Artigo 2 — Introdução, hipótese e revisão específica", "objetivo": "Escrever introdução (motivação, H1, diferenciação do Artigo 1) e revisão bibliográfica focada na crítica metodológica de E5 e em groundedness.", "porque": "Deixa claro que o Artigo 2 é uma contribuição distinta (seção 20).", "como": ["Escrever introdução citando E5 como motivação direta do desenho experimental", "Explicitar H1 e como foi testada (variantes por tipo de evidência)", "Escrever revisão bibliográfica focada em groundedness/faithfulness"], "horas": 6, "recursos": [], "resultado_esperado": "Introdução e revisão bibliográfica do Artigo 2.", "criterio_conclusao": "Seção menciona explicitamente a diferença em relação ao Artigo 1.", "evidencia": "docs/artigo2/artigo2.md", "dicas": "Reaproveite o fichamento de E5 (semana 27) diretamente nesta seção."}, {"semana": 42, "fase": 8, "mes": 10, "titulo": "Redação Artigo 2 — Protocolo experimental e resultados principais", "objetivo": "Escrever a seção de protocolo (variantes por tipo de evidência) e os resultados principais (curva por tipo de evidência).", "porque": "Continua a decomposição semanal da escrita.", "como": ["Descrever o protocolo das 4 condições (A + 3 variantes de evidência)", "Inserir e descrever o gráfico consolidado (semana 34)"], "horas": 6, "recursos": [], "resultado_esperado": "Seções de protocolo e resultados principais redigidas.", "criterio_conclusao": "Seção de resultados referencia o gráfico das 4 condições.", "evidencia": "docs/artigo2/artigo2.md", "dicas": "Inclua também o gráfico de trade-off custo×factualidade (semana 35) nesta seção."}, {"semana": 43, "fase": 8, "mes": 10, "titulo": "Redação Artigo 2 — Resultados complementares e discussão", "objetivo": "Escrever os resultados do experimento complementar (segundo conjunto de perguntas) e, se aplicável, da Configuração C, e a discussão geral do artigo.", "porque": "Fecha a apresentação de resultados e conecta todos os achados em uma discussão coerente.", "como": ["Descrever o resultado do segundo conjunto de perguntas (semana 39)", "Descrever o resultado da Configuração C, se obtido (semana 36)", "Escrever discussão conectando tudo e discutindo explicitamente H1"], "horas": 6, "recursos": [], "resultado_esperado": "Seções de resultados complementares e discussão redigidas.", "criterio_conclusao": "Discussão menciona explicitamente se H1 foi confirmada, parcialmente confirmada ou refutada.", "evidencia": "docs/artigo2/artigo2.md", "dicas": "Seja honesto sobre as limitações da métrica de factualidade usada (seção 10) — isso fortalece a credibilidade científica."}, {"semana": 44, "fase": 8, "mes": 11, "titulo": "Redação Artigo 2 — Conclusão, limitações e revisão completa (checkpoint mês 11)", "objetivo": "Escrever conclusão e limitações, revisar o texto completo e preencher o checkpoint do mês 11.", "porque": "Marco formal do cronograma (seção 20).", "como": ["Escrever conclusão e limitações", "Revisar o artigo com checklist", "Preencher checkpoint mensal"], "horas": 7, "recursos": [], "resultado_esperado": "Artigo 2 completo e revisado.", "criterio_conclusao": "Checklist do Artigo 2 100% preenchido.", "evidencia": "Checklist Artigo 2 + Checkpoints (mês 11)", "dicas": "Compare a conclusão do Artigo 2 com a do Artigo 1 — devem ser complementares, não repetidas."}, {"semana": 45, "fase": 8, "mes": 11, "titulo": "Revisão cruzada final do Artigo 2", "objetivo": "Segunda rodada de revisão após intervalo e ajuste final de figuras/tabelas.", "porque": "Revisar após pausa revela problemas não visíveis imediatamente.", "como": ["Reler após 2-3 dias de intervalo", "Ajustar figuras/tabelas finais", "Conferir consistência entre Artigo 1 e Artigo 2"], "horas": 5, "recursos": [], "resultado_esperado": "Artigo 2 revisado com figuras finais ajustadas.", "criterio_conclusao": "Nenhuma inconsistência numérica entre os dois artigos.", "evidencia": "docs/artigo2/artigo2_v1.pdf", "dicas": "Peça uma leitura externa antes do fechamento definitivo."}, {"semana": 46, "fase": 8, "mes": 11, "titulo": "Buffer/contingência de pendências", "objetivo": "Semana reservada para resolver pendências de experimentos ou escrita.", "porque": "Atrasos são normais; um buffer explícito evita acúmulo até o mês final.", "como": ["Revisar status de tarefas em aberto", "Priorizar e concluir o crítico", "Documentar o que ficou de fora"], "horas": 6, "recursos": [], "resultado_esperado": "Pendências críticas resolvidas.", "criterio_conclusao": "Nenhuma tarefa atrasada crítica permanece em aberto.", "evidencia": "Seção Problemas/Riscos do dashboard atualizada", "dicas": "Use esta semana para FECHAR pendências, não iniciar algo novo."}, {"semana": 47, "fase": 9, "mes": 12, "titulo": "VisionExplain — estrutura básica", "objetivo": "Implementar a estrutura básica do artefato: carregar imagem + executar o modelo de CV + extrair evidências.", "porque": "Início da Fase 9 — consolida os melhores resultados do ano em um produto utilizável.", "como": ["Definir interface (CLI ou notebook interativo)", "Implementar carregamento de imagem, execução do modelo de CV e extração de evidências (reaproveitando src/extract_evidence.py)", "Testar end-to-end"], "horas": 6, "recursos": [], "resultado_esperado": "Estrutura inicial do VisionExplain funcionando.", "criterio_conclusao": "Script roda sem erro e produz evidências estruturadas para uma imagem nova.", "evidencia": "src/visionexplain/app.py — v0.1", "dicas": "Use a variante de evidência que obteve o melhor trade-off factualidade×custo (semana 35) como configuração padrão."}, {"semana": 48, "fase": 9, "mes": 12, "titulo": "VisionExplain — geração de explicação + apresentação de evidências", "objetivo": "Integrar o envio das evidências ao Small VLM, a geração da explicação e a apresentação das evidências usadas junto com o texto gerado.", "porque": "Funcionalidade central do artefato (seção 8/34 do plano mestre).", "como": ["Implementar o fluxo completo: imagem → CV → evidências → VLM → explicação", "Exibir as evidências (ex. caixas/máscaras sobrepostas) junto com o texto da explicação", "Testar em 10+ imagens variadas"], "horas": 7, "recursos": [], "resultado_esperado": "VisionExplain v0.2 com geração de explicação e evidências visíveis.", "criterio_conclusao": "Rodar o sistema em uma imagem nova produz explicação em texto + evidências visuais correspondentes.", "evidencia": "src/visionexplain/app.py — v0.2 + examples/", "dicas": "Trate explicitamente o caso de nenhuma evidência detectada pelo modelo de CV (ex. imagem sem anomalia)."}, {"semana": 49, "fase": 9, "mes": 12, "titulo": "VisionExplain — comparação de explicações e registro de métricas", "objetivo": "Adicionar a funcionalidade de comparar a explicação da Configuração A vs. B (ou entre variantes de evidência) lado a lado, e registrar métricas de factualidade.", "porque": "Funcionalidades explicitamente exigidas na seção 8 do plano mestre, conectando o artefato diretamente aos achados dos dois artigos.", "como": ["Implementar modo de comparação lado a lado (com/sem evidências, ou entre variantes)", "Integrar o cálculo da métrica de factualidade (quando aplicável)", "Testar o fluxo completo"], "horas": 6, "recursos": [], "resultado_esperado": "VisionExplain v0.3 com comparação de explicações e métricas.", "criterio_conclusao": "Comparar 2 configurações na mesma imagem produz 2 explicações lado a lado + métrica (quando aplicável).", "evidencia": "src/visionexplain/app.py — v0.3", "dicas": "Essa funcionalidade de comparação é uma ótima forma de demonstrar visualmente o achado central do projeto em uma apresentação."}, {"semana": 50, "fase": 9, "mes": 12, "titulo": "Documentação do VisionExplain", "objetivo": "Escrever README completo e registrar a versão final do artefato no controle de versões.", "porque": "Exigência explícita da seção 21.", "como": ["Escrever README com instalação, uso e exemplos", "Incluir 2+ exemplos completos (imagem → evidências → explicação)", "Registrar versão v1.0 no dashboard"], "horas": 6, "recursos": [], "resultado_esperado": "README completo + versão v1.0 registrada.", "criterio_conclusao": "Uma pessoa nova consegue rodar o sistema seguindo o README.", "evidencia": "README.md + Seção Artefato do dashboard (v1.0)", "dicas": "Peça para alguém seguir o README do zero antes de considerar concluído."}, {"semana": 51, "fase": 10, "mes": 12, "titulo": "Relatório final e organização de dados/experimentos", "objetivo": "Escrever o relatório final consolidado e organizar dados/experimentos para backup.", "porque": "Fecha formalmente os 12 meses com um documento único de referência.", "como": ["Escrever relatório final (objetivos, metodologia, Artigo 1, Artigo 2, artefato, conclusões, trabalhos futuros)", "Organizar pastas de dados/experimentos", "Exportar backup completo via dashboard"], "horas": 7, "recursos": [], "resultado_esperado": "Relatório final redigido + backup exportado.", "criterio_conclusao": "Backup JSON exportado e relatório cobre todas as seções exigidas.", "evidencia": "docs/relatorio_final.md + backup_ic4_edryck_AAAA-MM-DD.json", "dicas": "Guarde o backup em pelo menos 2 lugares diferentes."}, {"semana": 52, "fase": 10, "mes": 12, "titulo": "Apresentação final e revisão geral", "objetivo": "Preparar apresentação final e revisar tudo (artigos, artefato, dashboard), planejando continuidade futura.", "porque": "Encerramento formal do ciclo de 12 meses, com abertura para trabalhos futuros (ex. uso do VisionExplain para explicar resultados dos outros 3 ICs).", "como": ["Montar apresentação resumindo problema, metodologia, Artigo 1, Artigo 2, artefato, conclusões", "Revisar todas as seções do dashboard", "Escrever seção de trabalhos futuros"], "horas": 6, "recursos": [], "resultado_esperado": "Apresentação final pronta + dashboard revisado.", "criterio_conclusao": "Apresentação cobre todos os elementos do projeto; dashboard sem pendências críticas.", "evidencia": "docs/apresentacao_final.md", "dicas": "Reserve tempo para ensaiar, não só produzir a apresentação."}]}, "referencias": [{"id": "E1", "autores": "Liu, Li, Wu, Lee", "ano": 2023, "titulo": "Visual Instruction Tuning (LLaVA)", "evento": "NeurIPS 2023 (Oral) / arXiv:2304.08485", "doi": "", "url": "https://arxiv.org/abs/2304.08485", "categoria": "Fundamento", "etapa": "Fundamentos"}, {"id": "E2", "autores": "Patnaik, Nayak, Agrawal, Khamaru, Bal, Panda, Raj, Meena, Vadlamani", "ano": 2025, "titulo": "Small Vision-Language Models: A Survey on Compact Architectures and Techniques", "evento": "arXiv:2503.10665", "doi": "", "url": "https://arxiv.org/abs/2503.10665", "categoria": "Revisão", "etapa": "Fundamentos"}, {"id": "E3", "autores": "Marafioti, Zohar, Farré, Noyan, Bakouch, Cuenca, Zakka, Ben Allal, Lozhkov, Tazi, Srivastav, Lochner, Larcher, Morlon, Tunstall, von Werra, Wolf", "ano": 2025, "titulo": "SmolVLM: Redefining small and efficient multimodal models", "evento": "arXiv:2504.05299", "doi": "", "url": "https://arxiv.org/abs/2504.05299", "categoria": "Modelo", "etapa": "Fundamentos"}, {"id": "E4", "autores": "Jing, Li, Chen, Du", "ano": 2024, "titulo": "FaithScore: Fine-grained Evaluations of Hallucinations in Large Vision-Language Models", "evento": "Findings of ACL: EMNLP 2024, pp. 5042-5063", "doi": "", "url": "https://aclanthology.org/2024.findings-emnlp.290/", "categoria": "Métrica", "etapa": "Artigo 1"}, {"id": "E5", "autores": "(ver artigo)", "ano": 2024, "titulo": "Does Object Grounding Really Reduce Hallucination of Vision-Language Models?", "evento": "EMNLP 2024 (main)", "doi": "", "url": "https://aclanthology.org/2024.emnlp-main.159.pdf", "categoria": "Crítica metodológica", "etapa": "Artigo 2"}, {"id": "E6", "autores": "Bergmann, Fauser, Sattlegger, Steger", "ano": 2019, "titulo": "MVTec AD — A Comprehensive Real-World Dataset for Unsupervised Anomaly Detection", "evento": "CVPR 2019, pp. 9592-9600", "doi": "10.1109/CVPR.2019.00982", "url": "https://openaccess.thecvf.com/content_CVPR_2019/html/Bergmann_MVTec_AD_--_A_Comprehensive_Real-World_Dataset_for_Unsupervised_Anomaly_CVPR_2019_paper.html", "categoria": "Dataset (aplicação industrial)", "etapa": "Fundamentos"}, {"id": "E7", "autores": "Bergmann, Batzner, Fauser, Sattlegger, Steger", "ano": 2022, "titulo": "Beyond Dents and Scratches: Logical Constraints in Unsupervised Anomaly Detection and Localization (MVTec LOCO AD)", "evento": "International Journal of Computer Vision", "doi": "", "url": "https://link.springer.com/article/10.1007/s11263-022-01578-9", "categoria": "Dataset (aplicação industrial)", "etapa": "Artigo 2"}, {"id": "E8", "autores": "vikhyatk (independente)", "ano": 2025, "titulo": "Moondream2 — model card", "evento": "Hugging Face", "doi": "", "url": "https://huggingface.co/vikhyatk/moondream2", "categoria": "Modelo (comparação adicional, Small VLM mais leve)", "etapa": "Revisão de modelos"}], "formatoFinal": {"estudante": "Edryck", "titulo": "Pequenos Modelos Vision-Language para Explicação de Resultados de Visão Computacional", "duracao": "12 meses (52 semanas), ~10h/semana", "dominio": "Projeto geral de Visão Computacional + Vision-Language Models (não restrito à agricultura).", "problema": "Modelos de Visão Computacional produzem saídas estruturadas (classes, caixas, máscaras, confiança), mas não geram explicações em linguagem natural. Small VLMs poderiam gerar essas explicações, mas são propensos a alucinação; não está claro quanto fornecer explicitamente as evidências estruturadas melhora a fidelidade/groundedness da explicação.", "pergunta": "Pequenos Vision-Language Models conseguem produzir explicações fundamentadas nas evidências geradas por modelos de Visão Computacional, mantendo qualidade adequada e menor custo computacional que modelos multimodais maiores?", "hipotese": "H1: Fornecer evidências estruturadas (classes, caixas, máscaras, confiança) como contexto adicional ao Small VLM (Configuração B) produz explicações mais fundamentadas/factuais — medidas por FaithScore — do que fornecer apenas a imagem (Configuração A), mesmo mantendo o mesmo modelo e custo computacional.", "objetivo_geral": "Investigar se Small Vision-Language Models produzem explicações mais fundamentadas/factuais quando recebem evidências estruturadas de um modelo de Visão Computacional, comparando a um cenário sem essas evidências e, quando viável, a um modelo multimodal maior.", "objetivos_especificos": ["Montar o pipeline IMAGEM → MODELO DE CV → EVIDÊNCIAS ESTRUTURADAS → SMALL VLM → EXPLICAÇÃO.", "Implementar e avaliar a Configuração A (Small VLM + imagem).", "Implementar e avaliar a Configuração B (Small VLM + imagem + evidências).", "Quando viável, implementar a Configuração C (VLM maior) como referência.", "Medir factualidade/groundedness (FaithScore), custo computacional e qualidade percebida.", "Desenvolver o artefato VisionExplain."], "contribuicao": "Evidência experimental controlada (A vs. B vs. C opcional) sobre o efeito de evidências estruturadas na fidelidade de explicações geradas por Small VLMs, motivada pela crítica metodológica de que grounding nem sempre reduz alucinação de forma trivial.", "artigo1": {"titulo": "Avaliação de Small Vision-Language Models para interpretação de resultados visuais", "desc": "Mapeamento de Small VLMs, Configuração A como baseline, métricas de qualidade/factualidade, custo computacional. Meta: mês 6."}, "artigo2": {"titulo": "Explicação fundamentada em evidências estruturadas produzidas por modelos de Visão Computacional", "desc": "Configuração B melhora factualidade/groundedness/consistência em relação à A? Em qual tipo de evidência o ganho é maior? Meta: mês 11."}, "artefato": {"nome": "VisionExplain", "desc": "Carregar imagem → executar modelo de CV → extrair evidências → enviar ao Small VLM → gerar explicação → apresentar evidências usadas → comparar explicações → registrar métricas."}, "datasets": ["MVTec AD (73 tipos de anomalia, ground truth em pixel) [E6]", "MVTec LOCO AD (anomalias estruturais/lógicas) [E7]", "Outras alternativas gerais (VQA/visual grounding) a definir conforme domínio escolhido"], "modelos": ["SmolVLM (256M-2.2B parâmetros) [E3] — mantido como modelo principal (ainda a opção mais eficiente em VRAM/throughput entre Small VLMs, confirmado nesta revisão)", "Moondream2 (1,8-2B parâmetros, Apache 2.0) [E8] — adicionado nesta revisão como comparação opcional: Small VLM ainda mais leve (roda em 2GB de memória), pesos abertos, bom encaixe na investigação já planejada de 'diferentes Small VLMs'", "Modelo de CV produtor de evidências (detector/segmentador já treinado) — mantido", "LLaVA ou VLM maior como Configuração C opcional [E1] — mantido"], "metricas": ["FaithScore ou métrica equivalente de factualidade/groundedness [E4]", "Latência de inferência, uso de memória/VRAM", "Avaliação estruturada (checklist) complementar"], "riscos": ["Configuração C pode exigir recursos indisponíveis → tratar como opcional/comparação limitada.", "FaithScore pode exigir chamadas a LLMs externos → documentar custo; usar avaliação manual estruturada se inviável.", "'Evidências não ajudam' é um resultado possível e cientificamente válido, conforme a crítica metodológica de E5."]}, "recursos": [{"titulo": "Vision Language Models — Task Docs", "autor": "Hugging Face", "url": "https://huggingface.co/docs/transformers/tasks/image_text_to_text", "duracao": "1h", "prereq": "Python básico", "objetivo": "Rodar um Small VLM via pipeline", "tarefa": "Primeira inferência com SmolVLM (Semana 3)"}, {"titulo": "FaithScore — Repositório oficial", "autor": "bcdnlp (GitHub)", "url": "https://github.com/bcdnlp/FAITHSCORE", "duracao": "1-2h", "prereq": "Python, acesso a um LLM verificador", "objetivo": "Entender/adaptar a métrica de factualidade", "tarefa": "Implementar pipeline de métrica de factualidade (Semana 10)"}, {"titulo": "Moondream2 — Model Card (atualização da revisão de modelos)", "autor": "vikhyatk (Hugging Face)", "url": "https://huggingface.co/vikhyatk/moondream2", "duracao": "30-45min", "prereq": "Nenhum", "objetivo": "Conhecer um Small VLM ainda mais leve para comparação opcional", "tarefa": "Comparação de diferentes Small VLMs (Fase de experimentação)"}], "extraSections": []}</script>
+<script>
+(function(){
+"use strict";
+const SEED = JSON.parse(document.getElementById('seed-data').textContent);
+const STORAGE_KEY = "icdash_edryck_v1";
+const TOTAL_WEEKS = SEED.cronograma.semanas.length;
+const STATUS_OPTS = ["Não iniciado","Em andamento","Concluído","Atrasado"];
+
+function defaultState(){
+  return {
+    projectStart: null,
+    tasks: {},
+    refState: {},
+    customRefs: [],
+    fichamentos: [],
+    experimentos: [],
+    resultados: [],
+    artigo1: {checklist:{}},
+    artigo2: {checklist:{}},
+    artefato: {objetivo:"",arquitetura:"",funcionalidades:"",limitacoes:"",testes:"",exemplos:"",documentacao:"",releases:[]},
+    diario: [],
+    problemas: [],
+    reunioes: [],
+    checkpoints: {}
+  };
+}
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return defaultState();
+    const parsed = JSON.parse(raw);
+    return Object.assign(defaultState(), parsed);
+  }catch(e){ return defaultState(); }
+}
+let STATE = loadState();
+(SEED.extraSections||[]).forEach(s=>{ if(!Array.isArray(STATE[s.key])) STATE[s.key] = []; });
+function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(STATE)); }
+
+function esc(s){
+  if(s===undefined||s===null) return "";
+  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function nl2br(s){ return esc(s).replace(/\n/g,"<br>"); }
+function uid(){ return 'id'+Date.now().toString(36)+Math.random().toString(36).slice(2,8); }
+function todayISO(){ return new Date().toISOString().slice(0,10); }
+
+function ensureProjectStart(){
+  if(!STATE.projectStart){
+    STATE.projectStart = todayISO();
+    saveState();
+  }
+}
+function currentWeekNumber(){
+  ensureProjectStart();
+  const start = new Date(STATE.projectStart+"T00:00:00");
+  const now = new Date();
+  const diffDays = Math.floor((now - start) / 86400000);
+  const wk = Math.floor(diffDays/7) + 1;
+  return Math.min(Math.max(wk,1), TOTAL_WEEKS);
+}
+function weekData(n){ return SEED.cronograma.semanas.find(w=>w.semana===n); }
+function taskState(n){
+  return STATE.tasks[n] || {status:"Não iniciado", horasRealizadas:0, data:"", observacoes:""};
+}
+function setTaskState(n, patch){
+  STATE.tasks[n] = Object.assign(taskState(n), patch);
+  saveState();
+}
+function isLate(n){
+  const t = taskState(n);
+  if(t.status==="Concluído") return false;
+  return n < currentWeekNumber();
+}
+function effectiveStatus(n){
+  const t = taskState(n);
+  if(t.status==="Concluído") return "Concluído";
+  if(isLate(n)) return "Atrasado";
+  return t.status==="Em andamento" ? "Em andamento" : "Não iniciado";
+}
+function phaseOf(weekNum){
+  return SEED.cronograma.fases.find(f=>{
+    const [a,b] = f.semanas.split("-").map(Number);
+    return weekNum>=a && weekNum<=(b||a);
+  });
+}
+function countBy(pred){ return SEED.cronograma.semanas.filter(w=>pred(effectiveStatus(w.semana))).length; }
+
+function refState(id){ return STATE.refState[id] || {lida:false, fichada:false, utilizada:false}; }
+function setRefState(id, patch){ STATE.refState[id] = Object.assign(refState(id), patch); saveState(); }
+function allRefs(){ return SEED.referencias.concat(STATE.customRefs); }
+
+function badge(status){
+  const map = {"Não iniciado":"todo","Em andamento":"doing","Concluído":"done","Atrasado":"late"};
+  return `<span class="badge ${map[status]||'todo'}">${esc(status)}</span>`;
+}
+
+/* ---------- generic CRUD engine ---------- */
+function crudSection(opts){
+  // opts: {key, title, fields:[{name,label,type,options,default}], summaryCols:[names], extra(record)->string}
+  const list = STATE[opts.key];
+  const rows = list.map((r,idx)=>{
+    const cells = opts.summaryCols.map(c=>`<td>${esc(trunc(r[c],80))}</td>`).join("");
+    return `<tr>
+      <td class="nowrap">${esc(r.data||'')}</td>
+      ${cells}
+      <td class="nowrap right">
+        <button class="secondary small" data-action="edit-record" data-key="${opts.key}" data-id="${r.id}">Editar</button>
+        <button class="danger small" data-action="delete-record" data-key="${opts.key}" data-id="${r.id}">Excluir</button>
+      </td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="${opts.summaryCols.length+2}" class="muted">Nenhum registro ainda — use o formulário abaixo para adicionar o primeiro.</td></tr>`;
+
+  const formFields = opts.fields.map(f=>fieldHtml(f, {})).join("");
+
+  return `
+  <div class="panel">
+    <h2>${opts.title}</h2>
+    ${opts.intro?`<p class="muted small">${opts.intro}</p>`:""}
+    <div class="table-wrap">
+    <table><thead><tr><th>Data</th>${opts.summaryCols.map(c=>`<th>${esc(opts.fields.find(f=>f.name===c)?.label||c)}</th>`).join("")}<th></th></tr></thead>
+    <tbody>${rows}</tbody></table>
+    </div>
+    <form class="record-form" data-form="crud-add" data-key="${opts.key}">
+      <h3 class="small" style="margin-bottom:8px;">Novo registro</h3>
+      <div class="form-grid">${formFields}</div>
+      <div class="actions-row"><button type="submit">Adicionar</button></div>
+    </form>
+  </div>`;
+}
+function trunc(s,n){ s = (s===undefined||s===null)?'':String(s); return s.length>n ? s.slice(0,n)+'…' : s; }
+function fieldHtml(f, record, prefix){
+  prefix = prefix||'';
+  const val = record[f.name]!==undefined ? record[f.name] : (f.default!==undefined?f.default:'');
+  const id = prefix+f.name;
+  const full = f.full ? ' full' : '';
+  let input;
+  if(f.type==='textarea'){
+    input = `<textarea name="${f.name}" id="${id}">${esc(val)}</textarea>`;
+  } else if(f.type==='select'){
+    input = `<select name="${f.name}" id="${id}">${f.options.map(o=>`<option value="${esc(o)}" ${o===val?'selected':''}>${esc(o)}</option>`).join('')}</select>`;
+  } else if(f.type==='date'){
+    input = `<input type="date" name="${f.name}" id="${id}" value="${esc(val||todayISO())}">`;
+  } else if(f.type==='number'){
+    input = `<input type="number" step="0.5" name="${f.name}" id="${id}" value="${esc(val)}">`;
+  } else {
+    input = `<input type="text" name="${f.name}" id="${id}" value="${esc(val)}">`;
+  }
+  return `<div class="field${full}"><label for="${id}">${esc(f.label)}</label>${input}</div>`;
+}
+function crudFieldDefs(key){
+  return CRUD_DEFS[key].fields;
+}
+function handleCrudAdd(key, form){
+  const fields = crudFieldDefs(key);
+  const rec = {id:uid()};
+  fields.forEach(f=>{ rec[f.name] = form.elements[f.name] ? form.elements[f.name].value : ''; });
+  if(!rec.data) rec.data = todayISO();
+  STATE[key].push(rec);
+  saveState();
+}
+function handleCrudUpdate(key, id, form){
+  const fields = crudFieldDefs(key);
+  const rec = STATE[key].find(r=>r.id===id);
+  if(!rec) return;
+  fields.forEach(f=>{ rec[f.name] = form.elements[f.name] ? form.elements[f.name].value : ''; });
+  saveState();
+}
+function handleCrudDelete(key, id){
+  if(!confirm('Excluir este registro? Esta ação não pode ser desfeita.')) return;
+  STATE[key] = STATE[key].filter(r=>r.id!==id);
+  saveState();
+  render();
+}
+
+const CRUD_DEFS = {
+  fichamentos: {
+    title: "Fichamentos",
+    intro: "Um fichamento por referência estudada em profundidade — obrigatório antes de usar a referência em um artigo.",
+    fields: [
+      {name:'referencia', label:'Referência (ID ou título)', type:'text', full:true},
+      {name:'problema', label:'Problema', type:'textarea', full:true},
+      {name:'metodo', label:'Método', type:'textarea', full:true},
+      {name:'dataset', label:'Dataset', type:'text'},
+      {name:'baseline', label:'Baseline', type:'text'},
+      {name:'metricas', label:'Métricas', type:'text'},
+      {name:'resultados', label:'Resultados', type:'textarea', full:true},
+      {name:'limitacoes', label:'Limitações', type:'textarea', full:true},
+      {name:'ideias', label:'Ideias reutilizáveis', type:'textarea', full:true},
+      {name:'relacao', label:'Relação com o projeto', type:'textarea', full:true},
+      {name:'data', label:'Data', type:'date'}
+    ],
+    summaryCols:['referencia','problema']
+  },
+  experimentos: {
+    title: "Experimentos",
+    intro: "Toda rodada de treino/avaliação relevante deve virar um registro aqui — código não é resultado científico; o registro é.",
+    fields: [
+      {name:'hipotese', label:'Hipótese', type:'textarea', full:true},
+      {name:'pergunta', label:'Pergunta', type:'text', full:true},
+      {name:'dataset', label:'Dataset', type:'text'},
+      {name:'modelo', label:'Modelo', type:'text'},
+      {name:'configuracao', label:'Configuração', type:'text'},
+      {name:'parametros', label:'Parâmetros', type:'textarea'},
+      {name:'variaveis', label:'Variáveis', type:'text'},
+      {name:'metricas', label:'Métricas', type:'text'},
+      {name:'resultado', label:'Resultado', type:'textarea', full:true, default:'A SER PREENCHIDO PELO ALUNO'},
+      {name:'analise', label:'Análise', type:'textarea', full:true},
+      {name:'conclusao', label:'Conclusão', type:'textarea', full:true},
+      {name:'proximoPasso', label:'Próximo passo', type:'text', full:true},
+      {name:'data', label:'Data', type:'date'},
+      {name:'status', label:'Status', type:'select', options:['Planejado','Em andamento','Concluído']}
+    ],
+    summaryCols:['modelo','status']
+  },
+  resultados: {
+    title: "Resultados",
+    intro: "Nunca preencha números fictícios — use 'A SER REALIZADO' até o experimento ser executado de fato.",
+    fields: [
+      {name:'titulo', label:'Título', type:'text', full:true},
+      {name:'metricas', label:'Métricas', type:'textarea', full:true, default:'A SER REALIZADO'},
+      {name:'tabelas', label:'Tabelas (descrição/link)', type:'textarea'},
+      {name:'graficos', label:'Gráficos (descrição/link)', type:'textarea'},
+      {name:'observacoes', label:'Observações', type:'textarea', full:true},
+      {name:'arquivos', label:'Arquivos (caminho)', type:'text'},
+      {name:'interpretacao', label:'Interpretação', type:'textarea', full:true},
+      {name:'relacaoHipotese', label:'Relação com a hipótese', type:'textarea', full:true},
+      {name:'data', label:'Data', type:'date'}
+    ],
+    summaryCols:['titulo']
+  },
+  diario: {
+    title: "Diário Científico",
+    intro: "Registro cronológico de atividades, descobertas, decisões e problemas — a memória do projeto.",
+    fields: [
+      {name:'data', label:'Data', type:'date'},
+      {name:'atividade', label:'Atividade', type:'textarea', full:true},
+      {name:'descoberta', label:'Descoberta', type:'textarea', full:true},
+      {name:'problema', label:'Problema', type:'textarea'},
+      {name:'decisao', label:'Decisão', type:'textarea'},
+      {name:'hipotese', label:'Hipótese', type:'text'},
+      {name:'resultado', label:'Resultado', type:'text'},
+      {name:'proximoPasso', label:'Próximo passo', type:'text', full:true}
+    ],
+    summaryCols:['atividade']
+  },
+  problemas: {
+    title: "Problemas e Riscos",
+    fields: [
+      {name:'problema', label:'Problema', type:'textarea', full:true},
+      {name:'data', label:'Data', type:'date'},
+      {name:'impacto', label:'Impacto', type:'text'},
+      {name:'prioridade', label:'Prioridade', type:'select', options:['Alta','Média','Baixa']},
+      {name:'solucaoTentada', label:'Solução tentada', type:'textarea', full:true},
+      {name:'resultado', label:'Resultado', type:'text', full:true},
+      {name:'status', label:'Status', type:'select', options:['Aberto','Investigando','Resolvido','Descartado']}
+    ],
+    summaryCols:['problema','status']
+  },
+  reunioes: {
+    title: "Reuniões com o Orientador",
+    fields: [
+      {name:'data', label:'Data', type:'date'},
+      {name:'pauta', label:'Pauta', type:'textarea', full:true},
+      {name:'decisoes', label:'Decisões', type:'textarea', full:true},
+      {name:'duvidas', label:'Dúvidas', type:'textarea', full:true},
+      {name:'proximosPassos', label:'Próximos passos', type:'textarea', full:true}
+    ],
+    summaryCols:['pauta']
+  }
+};
+
+/* ---------- routing ---------- */
+const ROUTES = {
+  dashboard: renderDashboard, projeto: renderProjeto, fundamentacao: renderFundamentacao,
+  cronograma: renderCronograma, 'semana-atual': renderSemanaAtual, tarefas: renderTarefas,
+  referencias: renderReferencias, fichamentos: ()=>crudSection(Object.assign({key:'fichamentos'},CRUD_DEFS.fichamentos)),
+  experimentos: ()=>crudSection(Object.assign({key:'experimentos'},CRUD_DEFS.experimentos)),
+  resultados: ()=>crudSection(Object.assign({key:'resultados'},CRUD_DEFS.resultados)),
+  artigo1: ()=>renderArtigo('artigo1','Artigo 1', SEED.formatoFinal.artigo1),
+  artigo2: ()=>renderArtigo('artigo2','Artigo 2', SEED.formatoFinal.artigo2),
+  artefato: renderArtefato,
+  diario: ()=>crudSection(Object.assign({key:'diario'},CRUD_DEFS.diario)),
+  problemas: ()=>crudSection(Object.assign({key:'problemas'},CRUD_DEFS.problemas)),
+  reunioes: renderReunioes,
+  checkpoints: renderCheckpoints,
+  backup: renderBackup
+};
+
+(SEED.extraSections||[]).forEach(s=>{
+  CRUD_DEFS[s.key] = s;
+  ROUTES[s.route] = ()=>crudSection(Object.assign({key:s.key}, CRUD_DEFS[s.key]));
+});
+
+function injectExtraMenu(){
+  (SEED.extraSections||[]).forEach(s=>{
+    if(document.querySelector(`nav.sidebar a[data-route="${s.route}"]`)) return;
+    const anchor = document.querySelector(`nav.sidebar a[data-route="${s.afterRoute}"]`);
+    if(!anchor) return;
+    const a = document.createElement('a');
+    a.href = '#'+s.route; a.dataset.route = s.route; a.dataset.label = s.label; a.textContent = s.label;
+    anchor.insertAdjacentElement('afterend', a);
+  });
+}
+function renumberMenu(){
+  document.querySelectorAll('nav.sidebar a[data-route]').forEach((a,i)=>{
+    a.textContent = (i+1)+'. '+a.dataset.label;
+  });
+}
+
+function route(){
+  const hash = (location.hash||'#dashboard').replace('#','');
+  const fn = ROUTES[hash] || renderDashboard;
+  document.querySelectorAll('nav.sidebar a').forEach(a=>a.classList.toggle('active', a.dataset.route===hash));
+  document.getElementById('app').innerHTML = fn();
+  document.getElementById('sidebar').classList.remove('open');
+  window.scrollTo(0,0);
+}
+
+/* ---------- Dashboard ---------- */
+function renderDashboard(){
+  const wk = currentWeekNumber();
+  const wkData = weekData(wk);
+  const ph = phaseOf(wk);
+  const done = countBy(s=>s==="Concluído");
+  const late = countBy(s=>s==="Atrasado");
+  const doing = countBy(s=>s==="Em andamento");
+  const todo = TOTAL_WEEKS - done - late - doing;
+  const pct = Math.round(done/TOTAL_WEEKS*100);
+  const a1pct = checklistPct('artigo1'); const a2pct = checklistPct('artigo2');
+  const nextTask = SEED.cronograma.semanas.find(w=>effectiveStatus(w.semana)!=="Concluído") || wkData;
+  const alerts = computeAlerts();
+
+  return `
+  <div class="hl-box">
+    <h3>O QUE FAZER AGORA</h3>
+    <p><strong>Semana ${nextTask.semana} — ${esc(nextTask.titulo)}</strong></p>
+    <p class="small">${esc(nextTask.objetivo)}</p>
+    <div class="actions-row"><a class="btn" href="#semana-atual">Ver semana completa</a></div>
+  </div>
+  <div class="panel">
+    <h3>COMO AVANÇAR</h3>
+    <p class="small">Fase atual: <strong>${ph?esc(ph.nome):'-'}</strong> (semanas ${ph?ph.semanas:'-'}). Conclua a tarefa da Semana Atual, registre horas e evidência, e siga para a próxima semana do Cronograma. Use o menu Tarefas para marcar status e o Diário Científico para registrar o que aprendeu a cada sessão de trabalho.</p>
+  </div>
+  <div class="grid cols-4">
+    <div class="panel kpi"><div class="num">${pct}%</div><div class="label">Progresso geral</div><div class="progress-outer" style="margin-top:6px;"><div class="progress-inner" style="width:${pct}%"></div></div></div>
+    <div class="panel kpi"><div class="num">${wk}/${TOTAL_WEEKS}</div><div class="label">Semana atual</div></div>
+    <div class="panel kpi"><div class="num">${done}</div><div class="label">Tarefas concluídas</div></div>
+    <div class="panel kpi"><div class="num">${late}</div><div class="label">Tarefas atrasadas</div></div>
+  </div>
+  <div class="grid cols-4">
+    <div class="panel kpi"><div class="num">${doing}</div><div class="label">Em andamento</div></div>
+    <div class="panel kpi"><div class="num">${todo}</div><div class="label">Não iniciadas</div></div>
+    <div class="panel kpi"><div class="num">${STATE.experimentos.length}</div><div class="label">Experimentos registrados</div></div>
+    <div class="panel kpi"><div class="num">v${STATE.artefato.releases.length?STATE.artefato.releases[STATE.artefato.releases.length-1].versao:'0'}</div><div class="label">${esc(SEED.formatoFinal.artefato.nome)}</div></div>
+  </div>
+  <div class="grid cols-2">
+    <div class="panel"><h3>Artigo 1</h3><div class="progress-outer"><div class="progress-inner" style="width:${a1pct}%"></div></div><p class="small">${a1pct}% do checklist concluído</p><a href="#artigo1">Abrir Artigo 1 →</a></div>
+    <div class="panel"><h3>Artigo 2</h3><div class="progress-outer"><div class="progress-inner" style="width:${a2pct}%"></div></div><p class="small">${a2pct}% do checklist concluído</p><a href="#artigo2">Abrir Artigo 2 →</a></div>
+  </div>
+  <div class="panel">
+    <h3>Alertas (${alerts.length})</h3>
+    ${alerts.length? alerts.map(a=>`<div class="alert ${a.level}">${a.text}</div>`).join('') : `<div class="alert ok">Nenhum alerta no momento — bom trabalho.</div>`}
+  </div>
+  `;
+}
+function checklistPct(key){
+  const items = ARTIGO_CHECKLIST_ITEMS;
+  const cl = STATE[key].checklist;
+  const n = items.filter(i=>cl[i]).length;
+  return Math.round(n/items.length*100);
+}
+const ARTIGO_CHECKLIST_ITEMS = ['problema','hipotese','revisao','metodologia','dataset','protocolo','experimentos','resultados','analise','discussao','limitacoes','conclusao','referencias','figuras','tabelas','revisao_final','submissao'];
+const ARTIGO_CHECKLIST_LABELS = {problema:'Problema',hipotese:'Hipótese',revisao:'Revisão bibliográfica',metodologia:'Metodologia',dataset:'Dataset',protocolo:'Protocolo experimental',experimentos:'Experimentos',resultados:'Resultados',analise:'Análise',discussao:'Discussão',limitacoes:'Limitações',conclusao:'Conclusão',referencias:'Referências',figuras:'Figuras',tabelas:'Tabelas',revisao_final:'Revisão final',submissao:'Submissão/preparação'};
+
+function computeAlerts(){
+  const alerts = [];
+  const wk = currentWeekNumber();
+  const late = SEED.cronograma.semanas.filter(w=>effectiveStatus(w.semana)==="Atrasado");
+  if(late.length) alerts.push({level:'danger', text:`${late.length} tarefa(s) atrasada(s): semana(s) ${late.map(w=>w.semana).join(', ')}.`});
+  const curr = weekData(wk);
+  if(curr && effectiveStatus(curr.semana)!=="Concluído") alerts.push({level:'', text:`A tarefa da semana atual (Semana ${curr.semana} — ${esc(curr.titulo)}) ainda não foi concluída.`});
+  const unanalyzed = STATE.experimentos.filter(e=>!e.analise || !e.analise.trim());
+  if(unanalyzed.length) alerts.push({level:'', text:`${unanalyzed.length} experimento(s) sem análise preenchida.`});
+  ['artigo1','artigo2'].forEach(k=>{
+    const pct = checklistPct(k);
+    if(pct<100) alerts.push({level:'', text:`${k==='artigo1'?'Artigo 1':'Artigo 2'} com checklist em ${pct}% — ainda há lacunas.`});
+  });
+  const unread = SEED.referencias.filter(r=>!refState(r.id).lida);
+  if(unread.length) alerts.push({level:'', text:`${unread.length} referência(s) obrigatória(s) ainda não marcada(s) como lida(s).`});
+  const openProblems = STATE.problemas.filter(p=>p.status==='Aberto'||p.status==='Investigando');
+  if(openProblems.length) alerts.push({level:'danger', text:`${openProblems.length} problema(s) em aberto na seção Problemas.`});
+  return alerts;
+}
+
+/* ---------- Projeto ---------- */
+function renderProjeto(){
+  const f = SEED.formatoFinal;
+  return `
+  <div class="panel">
+    <h2>Identificação</h2>
+    <p><strong>Estudante:</strong> ${esc(f.estudante)}<br>
+    <strong>Título:</strong> ${esc(f.titulo)}<br>
+    <strong>Duração:</strong> ${esc(f.duracao)}<br>
+    <strong>Domínio:</strong> ${esc(f.dominio)}</p>
+  </div>
+  <div class="panel"><h2>Problema</h2><p>${esc(f.problema)}</p></div>
+  <div class="panel"><h2>Pergunta de pesquisa</h2><p>${esc(f.pergunta)}</p></div>
+  ${f.questoes_secundarias ? `<div class="panel"><h2>Questões secundárias</h2><ol>${f.questoes_secundarias.map(o=>`<li class="small">${esc(o)}</li>`).join('')}</ol></div>` : ''}
+  <div class="panel"><h2>Hipótese</h2><p>${esc(f.hipotese)}</p>${f.hipoteses_adicionais ? `<ul>${f.hipoteses_adicionais.map(h=>`<li class="small">${esc(h)}</li>`).join('')}</ul>` : ''}</div>
+  <div class="panel"><h2>Objetivo geral</h2><p>${esc(f.objetivo_geral)}</p></div>
+  <div class="panel"><h2>Objetivos específicos</h2><ul>${f.objetivos_especificos.map(o=>`<li>${esc(o)}</li>`).join('')}</ul></div>
+  ${(f.contribuicao_cientifica || f.contribuicao_tecnologica) ? `
+  <div class="grid cols-2">
+    <div class="panel"><h3>Contribuição científica</h3><p class="small">${esc(f.contribuicao_cientifica||'')}</p></div>
+    <div class="panel"><h3>Contribuição tecnológica</h3><p class="small">${esc(f.contribuicao_tecnologica||'')}</p></div>
+  </div>` : `<div class="panel"><h2>Contribuição científica esperada</h2><p>${esc(f.contribuicao)}</p></div>`}
+  <div class="grid cols-2">
+    <div class="panel"><h3>Artigo 1</h3><p><strong>${esc(f.artigo1.titulo)}</strong></p><p class="small">${esc(f.artigo1.desc)}</p></div>
+    <div class="panel"><h3>Artigo 2</h3><p><strong>${esc(f.artigo2.titulo)}</strong></p><p class="small">${esc(f.artigo2.desc)}</p></div>
+  </div>
+  <div class="panel"><h3>Artefato — ${esc(f.artefato.nome)}</h3><p class="small">${esc(f.artefato.desc)}</p></div>
+  <div class="grid cols-3">
+    <div class="panel"><h3>Datasets</h3><ul>${f.datasets.map(d=>`<li class="small">${esc(d)}</li>`).join('')}</ul></div>
+    <div class="panel"><h3>Modelos</h3><ul>${f.modelos.map(d=>`<li class="small">${esc(d)}</li>`).join('')}</ul></div>
+    <div class="panel"><h3>Métricas</h3><ul>${f.metricas.map(d=>`<li class="small">${esc(d)}</li>`).join('')}</ul></div>
+  </div>
+  <div class="panel"><h3>Riscos</h3><ul>${f.riscos.map(r=>`<li class="small">${esc(r)}</li>`).join('')}</ul></div>
+  ${f.ameacas_validade ? `<div class="panel"><h3>Ameaças à validade</h3><ul>${f.ameacas_validade.map(r=>`<li class="small">${esc(r)}</li>`).join('')}</ul></div>` : ''}
+  `;
+}
+
+/* ---------- Fundamentação ---------- */
+function renderFundamentacao(){
+  const recs = SEED.recursos || [];
+  return `
+  <div class="panel"><h2>Fundamentação — Recursos Educacionais</h2>
+  <p class="muted small">Recursos didáticos específicos (capítulo/seção/tutorial exato, não "o curso inteiro"), associados a uma tarefa concreta do cronograma.</p>
+  </div>
+  ${recs.map(r=>`
+  <div class="panel">
+    <h3>${esc(r.titulo)}</h3>
+    <p class="small"><strong>Autor/Organização:</strong> ${esc(r.autor)} · <strong>Duração estimada:</strong> ${esc(r.duracao)}</p>
+    <p class="small ref-url"><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.url)}</a></p>
+    <p class="small"><strong>Pré-requisitos:</strong> ${esc(r.prereq)}</p>
+    <p class="small"><strong>Objetivo:</strong> ${esc(r.objetivo)}</p>
+    <p class="small"><strong>Tarefa prática relacionada:</strong> ${esc(r.tarefa)}</p>
+  </div>`).join('')}
+  <div class="panel"><h3>Base bibliográfica completa</h3><p class="small">Ver menu <a href="#referencias">Referências</a> para a lista completa de artigos científicos verificados usados neste projeto.</p></div>
+  `;
+}
+
+/* ---------- Cronograma ---------- */
+function renderCronograma(){
+  const wk = currentWeekNumber();
+  const phaseBlocks = SEED.cronograma.fases.map(f=>{
+    const [a,b] = f.semanas.split("-").map(Number); const end=b||a;
+    const weeksInPhase = SEED.cronograma.semanas.filter(w=>w.semana>=a&&w.semana<=end);
+    const doneInPhase = weeksInPhase.filter(w=>effectiveStatus(w.semana)==="Concluído").length;
+    return `<div class="panel">
+      <h3>Fase ${f.id} — ${esc(f.nome)} <span class="muted small">(semanas ${f.semanas})</span></h3>
+      <div class="progress-outer"><div class="progress-inner" style="width:${Math.round(doneInPhase/weeksInPhase.length*100)}%"></div></div>
+      <div class="table-wrap"><table><thead><tr><th>Sem.</th><th>Mês</th><th>Título</th><th>Status</th></tr></thead><tbody>
+      ${weeksInPhase.map(w=>`<tr${w.semana===wk?' style="background:#eef4ff;"':''}><td class="nowrap">${w.semana}</td><td class="nowrap">${w.mes}</td><td><a href="#semana-atual" data-action="goto-week" data-week="${w.semana}">${esc(w.titulo)}</a></td><td>${badge(effectiveStatus(w.semana))}</td></tr>`).join('')}
+      </tbody></table></div>
+    </div>`;
+  }).join('');
+  return `<div class="panel"><h2>Cronograma — 12 meses / ${TOTAL_WEEKS} semanas</h2>
+    <p class="small muted">Progressão: Aprender → Implementar → Reproduzir → Experimentar → Analisar → Formular hipótese → Contribuir → Publicar.</p>
+  </div>${phaseBlocks}`;
+}
+
+/* ---------- Semana Atual ---------- */
+let selectedWeek = null;
+function renderSemanaAtual(){
+  const wk = selectedWeek || currentWeekNumber();
+  return renderWeekDetail(wk, true);
+}
+function renderWeekDetail(wk, withNav){
+  const w = weekData(wk);
+  if(!w) return `<div class="panel">Semana inválida.</div>`;
+  const t = taskState(wk);
+  const nav = withNav ? `
+    <div class="actions-row no-print">
+      <button class="secondary" data-action="prev-week" ${wk<=1?'disabled':''}>&larr; Semana anterior</button>
+      <select data-action="jump-week" style="max-width:160px;">${SEED.cronograma.semanas.map(x=>`<option value="${x.semana}" ${x.semana===wk?'selected':''}>Semana ${x.semana}</option>`).join('')}</select>
+      <button class="secondary" data-action="next-week" ${wk>=TOTAL_WEEKS?'disabled':''}>Próxima semana &rarr;</button>
+    </div>`:'';
+  return `
+  <div class="panel">
+    <h2>Semana ${w.semana} — ${esc(w.titulo)} ${badge(effectiveStatus(wk))}</h2>
+    <p class="small muted">Fase: ${esc(phaseOf(wk)?.nome||'')} · Mês ${w.mes} · Horas estimadas: ${w.horas}h</p>
+    ${nav}
+    <dl class="week-detail">
+      <dt>Objetivo</dt><dd>${esc(w.objetivo)}</dd>
+      <dt>Por que fazer</dt><dd>${esc(w.porque)}</dd>
+      <dt>Como fazer</dt><dd><ol>${w.como.map(s=>`<li>${esc(s)}</li>`).join('')}</ol></dd>
+      <dt>Recursos</dt><dd>${w.recursos.length? w.recursos.map(r=>`<div class="small">${r.url?`<a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.ref)}</a>`:esc(r.ref)} — <em>${esc(r.motivo)}</em></div>`).join('') : '<span class="muted">Ver base bibliográfica em Referências.</span>'}</dd>
+      <dt>Resultado esperado</dt><dd>${esc(w.resultado_esperado)}</dd>
+      <dt>Critério de conclusão</dt><dd>${esc(w.criterio_conclusao)}</dd>
+      <dt>Evidência</dt><dd>${esc(w.evidencia)}</dd>
+      <dt>Dicas</dt><dd>${esc(w.dicas)}</dd>
+    </dl>
+    <hr class="sep">
+    <form data-form="task-update" data-week="${wk}" class="form-grid">
+      <div class="field"><label>Status</label><select name="status">${STATUS_OPTS.map(s=>`<option ${t.status===s?'selected':''}>${s}</option>`).join('')}</select></div>
+      <div class="field"><label>Horas planejadas</label><input type="text" value="${w.horas}h" disabled></div>
+      <div class="field"><label>Horas realizadas</label><input type="number" step="0.5" name="horasRealizadas" value="${esc(t.horasRealizadas)}"></div>
+      <div class="field"><label>Data</label><input type="date" name="data" value="${esc(t.data)}"></div>
+      <div class="field full"><label>Observações</label><textarea name="observacoes">${esc(t.observacoes)}</textarea></div>
+      <div class="field full"><button type="submit">Salvar</button></div>
+    </form>
+  </div>`;
+}
+
+/* ---------- Tarefas ---------- */
+function renderTarefas(){
+  const rows = SEED.cronograma.semanas.map(w=>{
+    const t = taskState(w.semana);
+    return `<tr>
+      <td class="nowrap">${w.semana}</td>
+      <td class="nowrap">${esc(phaseOf(w.semana)?.nome||'')}</td>
+      <td><a href="#semana-atual" data-action="goto-week" data-week="${w.semana}">${esc(w.titulo)}</a></td>
+      <td>${badge(effectiveStatus(w.semana))}</td>
+      <td class="nowrap">${w.horas}h / ${esc(t.horasRealizadas||0)}h</td>
+    </tr>`;
+  }).join('');
+  return `<div class="panel">
+    <h2>Todas as Tarefas</h2>
+    <div class="table-wrap"><table><thead><tr><th>Sem.</th><th>Fase</th><th>Título</th><th>Status</th><th>Horas (plan./real.)</th></tr></thead><tbody>${rows}</tbody></table></div>
+  </div>`;
+}
+
+/* ---------- Referências ---------- */
+function renderReferencias(){
+  const refs = allRefs();
+  const rows = refs.map(r=>{
+    const s = refState(r.id);
+    return `<tr>
+      <td class="nowrap">${esc(r.id)}</td>
+      <td>${esc(r.titulo)}<div class="small muted">${esc(r.autores)} (${esc(r.ano)}) — ${esc(r.evento)}${r.doi?` · DOI: ${esc(r.doi)}`:''}</div><div class="ref-url"><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.url)}</a></div></td>
+      <td class="nowrap">${esc(r.categoria)}</td>
+      <td class="nowrap">${esc(r.etapa)}</td>
+      <td class="nowrap"><label class="small"><input type="checkbox" data-action="ref-flag" data-id="${r.id}" data-flag="lida" ${s.lida?'checked':''}> Lida</label></td>
+      <td class="nowrap"><label class="small"><input type="checkbox" data-action="ref-flag" data-id="${r.id}" data-flag="fichada" ${s.fichada?'checked':''}> Fichada</label></td>
+      <td class="nowrap"><label class="small"><input type="checkbox" data-action="ref-flag" data-id="${r.id}" data-flag="utilizada" ${s.utilizada?'checked':''}> Usada</label></td>
+    </tr>`;
+  }).join('');
+  return `<div class="panel">
+    <h2>Gerenciador de Referências</h2>
+    <div class="table-wrap"><table><thead><tr><th>ID</th><th>Referência</th><th>Categoria</th><th>Etapa</th><th>Lida</th><th>Fichada</th><th>Usada</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <form class="record-form" data-form="add-ref">
+      <h3 class="small">Adicionar referência própria (encontrada pelo aluno)</h3>
+      <div class="form-grid">
+        ${fieldHtml({name:'autores',label:'Autores'},{})}
+        ${fieldHtml({name:'ano',label:'Ano'},{})}
+        ${fieldHtml({name:'titulo',label:'Título',full:true},{})}
+        ${fieldHtml({name:'evento',label:'Evento/Periódico'},{})}
+        ${fieldHtml({name:'doi',label:'DOI'},{})}
+        ${fieldHtml({name:'url',label:'URL',full:true},{})}
+        ${fieldHtml({name:'categoria',label:'Categoria'},{})}
+        ${fieldHtml({name:'etapa',label:'Etapa'},{})}
+      </div>
+      <div class="actions-row"><button type="submit">Adicionar referência</button></div>
+      <p class="small muted">Importante: só adicione referências que você verificou pessoalmente (URL/DOI reais) — nunca invente uma referência.</p>
+    </form>
+  </div>`;
+}
+
+/* ---------- Artigo 1 / 2 ---------- */
+function renderArtigo(key, label, meta){
+  const cl = STATE[key].checklist;
+  const pct = checklistPct(key);
+  return `<div class="panel">
+    <h2>${label}</h2>
+    <p><strong>${esc(meta.titulo)}</strong></p>
+    <p class="small">${esc(meta.desc)}</p>
+    <div class="progress-outer"><div class="progress-inner" style="width:${pct}%"></div></div>
+    <p class="small muted">${pct}% do checklist concluído</p>
+  </div>
+  <div class="panel">
+    <h3>Checklist</h3>
+    <div class="checklist">
+    ${ARTIGO_CHECKLIST_ITEMS.map(it=>`<label><input type="checkbox" data-action="toggle-checklist" data-artigo="${key}" data-item="${it}" ${cl[it]?'checked':''}> ${ARTIGO_CHECKLIST_LABELS[it]}</label>`).join('')}
+    </div>
+  </div>`;
+}
+
+/* ---------- Artefato ---------- */
+function renderArtefato(){
+  const a = STATE.artefato;
+  const rows = a.releases.map(r=>`<tr><td class="nowrap">v${esc(r.versao)}</td><td class="nowrap">${esc(r.data)}</td><td>${esc(r.notas)}</td></tr>`).join('') || `<tr><td colspan="3" class="muted">Nenhuma versão registrada ainda.</td></tr>`;
+  return `<div class="panel">
+    <h2>Artefato — ${esc(SEED.formatoFinal.artefato.nome)}</h2>
+    <p class="small">${esc(SEED.formatoFinal.artefato.desc)}</p>
+    <form data-form="artefato-update" class="form-grid">
+      <div class="field full"><label>Objetivo</label><textarea name="objetivo">${esc(a.objetivo)}</textarea></div>
+      <div class="field full"><label>Arquitetura</label><textarea name="arquitetura">${esc(a.arquitetura)}</textarea></div>
+      <div class="field full"><label>Funcionalidades</label><textarea name="funcionalidades">${esc(a.funcionalidades)}</textarea></div>
+      <div class="field full"><label>Limitações</label><textarea name="limitacoes">${esc(a.limitacoes)}</textarea></div>
+      <div class="field full"><label>Testes</label><textarea name="testes">${esc(a.testes)}</textarea></div>
+      <div class="field full"><label>Exemplos</label><textarea name="exemplos">${esc(a.exemplos)}</textarea></div>
+      <div class="field full"><label>Documentação</label><textarea name="documentacao">${esc(a.documentacao)}</textarea></div>
+      <div class="field full"><button type="submit">Salvar</button></div>
+    </form>
+  </div>
+  <div class="panel">
+    <h3>Controle de versões</h3>
+    <div class="table-wrap"><table><thead><tr><th>Versão</th><th>Data</th><th>Notas</th></tr></thead><tbody>${rows}</tbody></table></div>
+    <form data-form="artefato-release" class="inline-form">
+      <div class="field"><label>Versão</label><input type="text" name="versao" placeholder="ex: 0.1"></div>
+      <div class="field"><label>Data</label><input type="date" name="data" value="${todayISO()}"></div>
+      <div class="field" style="flex:2;"><label>Notas</label><input type="text" name="notas"></div>
+      <button type="submit">Registrar versão</button>
+    </form>
+  </div>`;
+}
+
+/* ---------- Reuniões (com preparação automática) ---------- */
+function renderReunioes(){
+  const alerts = computeAlerts();
+  const prep = `<div class="panel">
+    <h3>Preparação automática</h3>
+    ${alerts.length? alerts.map(a=>`<div class="alert ${a.level}">${a.text}</div>`).join('') : `<div class="alert ok">Nada pendente no momento.</div>`}
+  </div>`;
+  return prep + crudSection(Object.assign({key:'reunioes'},CRUD_DEFS.reunioes));
+}
+
+/* ---------- Checkpoints ---------- */
+const CHECKPOINT_FIELDS = [
+  {name:'realizado', label:'O que foi realizado?', type:'textarea', full:true},
+  {name:'naoRealizado', label:'O que não foi realizado?', type:'textarea', full:true},
+  {name:'porque', label:'Por quê?', type:'textarea', full:true},
+  {name:'principalResultado', label:'Qual foi o principal resultado?', type:'textarea', full:true},
+  {name:'hipoteseConfirmada', label:'Qual hipótese foi confirmada/refutada?', type:'textarea', full:true},
+  {name:'problemaSurgiu', label:'Qual problema surgiu?', type:'textarea', full:true},
+  {name:'mudancaPlanejamento', label:'O que mudou no planejamento?', type:'textarea', full:true},
+  {name:'proximoPasso', label:'Qual será o próximo passo?', type:'textarea', full:true},
+  {name:'discutirOrientador', label:'O que precisa ser discutido com o orientador?', type:'textarea', full:true}
+];
+function renderCheckpoints(){
+  const months = Array.from({length:12},(_,i)=>i+1);
+  return `<div class="panel"><h2>Checkpoints Mensais</h2><p class="small muted">Preencha ao final de cada mês do projeto.</p></div>
+  ${months.map(m=>{
+    const data = STATE.checkpoints[m] || {};
+    const filled = CHECKPOINT_FIELDS.some(f=>data[f.name]);
+    return `<div class="panel">
+      <h3>Mês ${m} ${filled?'<span class="badge done">preenchido</span>':'<span class="badge todo">pendente</span>'}</h3>
+      <form data-form="checkpoint-update" data-month="${m}" class="form-grid">
+        ${CHECKPOINT_FIELDS.map(f=>fieldHtml(f, data)).join('')}
+        <div class="field full"><button type="submit">Salvar checkpoint do mês ${m}</button></div>
+      </form>
+    </div>`;
+  }).join('')}`;
+}
+
+/* ---------- Backup ---------- */
+function renderBackup(){
+  return `<div class="panel">
+    <h2>Backup</h2>
+    <p class="small">Projeto: <strong>${esc(SEED.formatoFinal.estudante)} — ${esc(SEED.projectId)}</strong>. Todos os dados ficam salvos localmente no seu navegador (localStorage), em uma chave exclusiva deste projeto.</p>
+    <div class="actions-row">
+      <button data-action="export-backup">Exportar backup (JSON)</button>
+      <button class="secondary" data-action="trigger-import">Importar backup</button>
+      <input type="file" id="import-file" accept="application/json" style="display:none;">
+      <button class="secondary" data-action="print-report">Imprimir relatório</button>
+      <button class="danger" data-action="reset-data">Resetar dados locais</button>
+    </div>
+    <p class="small muted" style="margin-top:10px;">O reset exige dupla confirmação e apaga permanentemente todos os dados deste projeto salvos neste navegador.</p>
+  </div>
+  <div class="panel print-only">
+    <h2>Relatório — ${esc(SEED.formatoFinal.estudante)} (${esc(SEED.projectId)})</h2>
+    <p>${esc(SEED.formatoFinal.titulo)}</p>
+    <p>Progresso: ${Math.round(countBy(s=>s==="Concluído")/TOTAL_WEEKS*100)}% · Semana atual: ${currentWeekNumber()}/${TOTAL_WEEKS}</p>
+  </div>`;
+}
+
+/* ---------- event handling ---------- */
+document.addEventListener('click', function(e){
+  const el = e.target.closest('[data-action]');
+  if(!el) return;
+  const action = el.dataset.action;
+  if(action==='toggle-menu'){ document.getElementById('sidebar').classList.toggle('open'); }
+  else if(action==='goto-week'){ selectedWeek = Number(el.dataset.week); location.hash = '#semana-atual'; route(); }
+  else if(action==='prev-week'){ selectedWeek = Math.max(1, (selectedWeek||currentWeekNumber())-1); render(); }
+  else if(action==='next-week'){ selectedWeek = Math.min(TOTAL_WEEKS, (selectedWeek||currentWeekNumber())+1); render(); }
+  else if(action==='ref-flag'){ const id=el.dataset.id, flag=el.dataset.flag; setRefState(id, {[flag]: el.checked}); }
+  else if(action==='toggle-checklist'){ const a=el.dataset.artigo, it=el.dataset.item; STATE[a].checklist[it]=el.checked; saveState(); render(); }
+  else if(action==='edit-record'){ startEdit(el.dataset.key, el.dataset.id); }
+  else if(action==='delete-record'){ handleCrudDelete(el.dataset.key, el.dataset.id); }
+  else if(action==='export-backup'){ exportBackup(); }
+  else if(action==='trigger-import'){ document.getElementById('import-file').click(); }
+  else if(action==='print-report'){ window.print(); }
+  else if(action==='reset-data'){ resetData(); }
+});
+document.addEventListener('change', function(e){
+  if(e.target.id==='import-file'){ importBackup(e.target.files[0]); }
+});
+
+function startEdit(key, id){
+  const rec = STATE[key].find(r=>r.id===id);
+  if(!rec) return;
+  const def = CRUD_DEFS[key];
+  const html = `<div class="panel" id="edit-panel">
+    <h3>Editar registro</h3>
+    <form data-form="crud-edit" data-key="${key}" data-id="${id}" class="form-grid">
+      ${def.fields.map(f=>fieldHtml(f, rec)).join('')}
+      <div class="field full"><button type="submit">Salvar alterações</button> <button type="button" class="secondary" data-action="cancel-edit">Cancelar</button></div>
+    </form>
+  </div>`;
+  const app = document.getElementById('app');
+  app.insertAdjacentHTML('afterbegin', html);
+  document.getElementById('edit-panel').scrollIntoView({behavior:'smooth'});
+}
+document.addEventListener('click', function(e){
+  if(e.target.closest('[data-action="cancel-edit"]')){ render(); }
+});
+
+document.addEventListener('submit', function(e){
+  const form = e.target;
+  if(!form.dataset.form) return;
+  e.preventDefault();
+  const type = form.dataset.form;
+  if(type==='task-update'){
+    const wk = Number(form.dataset.week);
+    setTaskState(wk, {
+      status: form.elements.status.value,
+      horasRealizadas: form.elements.horasRealizadas.value,
+      data: form.elements.data.value,
+      observacoes: form.elements.observacoes.value
+    });
+    render();
+  } else if(type==='crud-add'){
+    handleCrudAdd(form.dataset.key, form);
+    render();
+  } else if(type==='crud-edit'){
+    handleCrudUpdate(form.dataset.key, form.dataset.id, form);
+    render();
+  } else if(type==='add-ref'){
+    const rec = {id:'C'+uid()};
+    ['autores','ano','titulo','evento','doi','url','categoria','etapa'].forEach(k=>rec[k]=form.elements[k].value);
+    STATE.customRefs.push(rec);
+    saveState(); render();
+  } else if(type==='artefato-update'){
+    ['objetivo','arquitetura','funcionalidades','limitacoes','testes','exemplos','documentacao'].forEach(k=>{
+      STATE.artefato[k]=form.elements[k].value;
+    });
+    saveState(); render();
+  } else if(type==='artefato-release'){
+    STATE.artefato.releases.push({versao:form.elements.versao.value||'0.'+(STATE.artefato.releases.length+1), data:form.elements.data.value, notas:form.elements.notas.value});
+    saveState(); render();
+  } else if(type==='checkpoint-update'){
+    const m = form.dataset.month;
+    const data = {};
+    CHECKPOINT_FIELDS.forEach(f=>{ data[f.name] = form.elements[f.name].value; });
+    STATE.checkpoints[m] = data;
+    saveState(); render();
+  }
+});
+
+function exportBackup(){
+  const blob = new Blob([JSON.stringify({storageKey:STORAGE_KEY, exportedAt:new Date().toISOString(), state:STATE}, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `${STORAGE_KEY}_backup_${todayISO()}.json`;
+  document.body.appendChild(a); a.click(); a.remove();
+  URL.revokeObjectURL(url);
+}
+function importBackup(file){
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(ev){
+    try{
+      const parsed = JSON.parse(ev.target.result);
+      const incoming = parsed.state || parsed;
+      if(!confirm('Importar este backup substituirá todos os dados atuais deste projeto neste navegador. Continuar?')) return;
+      STATE = Object.assign(defaultState(), incoming);
+      saveState();
+      render();
+      alert('Backup importado com sucesso.');
+    }catch(err){ alert('Arquivo inválido: '+err.message); }
+  };
+  reader.readAsText(file);
+}
+function resetData(){
+  if(!confirm('Tem certeza que deseja apagar TODOS os dados locais deste projeto? Esta ação não pode ser desfeita.')) return;
+  if(!confirm('Confirmação final: apagar permanentemente os dados de '+STORAGE_KEY+'?')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  STATE = defaultState();
+  render();
+}
+
+function render(){ route(); }
+window.addEventListener('hashchange', route);
+window.addEventListener('DOMContentLoaded', function(){ ensureProjectStart(); injectExtraMenu(); renumberMenu(); route(); });
+if(document.readyState !== 'loading'){ ensureProjectStart(); injectExtraMenu(); renumberMenu(); route(); }
+})();
+</script>
+</body>
+</html>
