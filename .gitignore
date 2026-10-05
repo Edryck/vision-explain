@@ -1,0 +1,15 @@
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.env
+# dados pesados (ex.: MVTec AD) ficam fora do git
+data/*
+!data/.gitkeep
+!data/subset_avaliacao.json
+# pesos de modelos
+*.pt
+*.pth
+*.safetensors
+.vercel
+.DS_Store
