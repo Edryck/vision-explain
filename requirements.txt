@@ -1,0 +1,7 @@
+torch
+torchvision
+transformers>=4.45
+accelerate
+pillow
+jupyter
+ipykernel
