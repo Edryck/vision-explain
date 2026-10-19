@@ -24,6 +24,9 @@ nav.sidebar{
 }
 nav.sidebar h1{font-size:1.05rem;margin-bottom:2px;color:var(--brand-dark);}
 nav.sidebar .student{font-size:.85rem;color:var(--ink-soft);margin-bottom:14px;}
+.sync-status{font-size:.75rem;margin:-8px 0 12px;color:var(--ink-soft);}
+.sync-synced{color:#2e7d32;}
+.sync-error,.sync-locked{color:#c62828;}
 nav.sidebar a{display:block;padding:8px 10px;border-radius:8px;color:var(--ink);text-decoration:none;font-size:.88rem;margin-bottom:2px;}
 nav.sidebar a:hover{background:var(--bg);}
 nav.sidebar a.active{background:var(--brand);color:#fff;}
@@ -117,6 +120,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:16px 0;}
   <nav class="sidebar no-print" id="sidebar">
     <h1>VisionExplain</h1>
     <div class="student">Edryck · IC4</div>
+    <div id="sync-status" class="sync-status sync-local">Somente local</div>
     <a href="#dashboard" data-route="dashboard" data-label="Dashboard">Dashboard</a>
     <a href="#projeto" data-route="projeto" data-label="Projeto">Projeto</a>
     <a href="#fundamentacao" data-route="fundamentacao" data-label="Fundamentação">Fundamentação</a>
@@ -176,7 +180,87 @@ function loadState(){
 }
 let STATE = loadState();
 (SEED.extraSections||[]).forEach(s=>{ if(!Array.isArray(STATE[s.key])) STATE[s.key] = []; });
-function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(STATE)); }
+const META_KEY = STORAGE_KEY + "_meta";
+const TOKEN_KEY = STORAGE_KEY + "_token";
+const SYNC_URL = "/api/state";
+let syncReady = false;
+let pushTimer = null;
+let syncStatus = "local";
+
+function readMeta(){
+  try{ return JSON.parse(localStorage.getItem(META_KEY)) || {updatedAt:0}; }catch(e){ return {updatedAt:0}; }
+}
+function writeMeta(updatedAt){ localStorage.setItem(META_KEY, JSON.stringify({updatedAt})); }
+function setSyncStatus(status){
+  syncStatus = status;
+  const el = document.getElementById('sync-status');
+  if(!el) return;
+  const labels = {local:"Somente local", syncing:"Sincronizando…", synced:"Salvo na nuvem", error:"Erro ao sincronizar", locked:"Token necessário"};
+  el.textContent = labels[status] || status;
+  el.className = 'sync-status sync-' + status;
+}
+function getToken(){ return localStorage.getItem(TOKEN_KEY) || ""; }
+function askToken(){
+  const t = prompt('Token de acesso para sincronizar com a nuvem:');
+  if(t){ localStorage.setItem(TOKEN_KEY, t.trim()); return true; }
+  return false;
+}
+async function syncRequest(method, body){
+  if(!getToken() && !askToken()){ setSyncStatus('locked'); throw new Error('no-token'); }
+  const res = await fetch(SYNC_URL, {
+    method,
+    headers: {'Content-Type':'application/json', 'x-app-token': getToken()},
+    body: body ? JSON.stringify(body) : undefined
+  });
+  if(res.status===401){ localStorage.removeItem(TOKEN_KEY); setSyncStatus('locked'); throw new Error('unauthorized'); }
+  if(!res.ok) throw new Error('http-'+res.status);
+  return res.json();
+}
+async function pushState(){
+  pushTimer = null;
+  setSyncStatus('syncing');
+  try{
+    await syncRequest('PUT', {updatedAt: readMeta().updatedAt, state: STATE});
+    setSyncStatus('synced');
+  }catch(e){ if(syncStatus!=='locked') setSyncStatus('error'); }
+}
+function schedulePush(){
+  if(pushTimer) clearTimeout(pushTimer);
+  pushTimer = setTimeout(pushState, 600);
+}
+async function pullState(){
+  setSyncStatus('syncing');
+  try{
+    const remote = await syncRequest('GET');
+    const localAt = readMeta().updatedAt;
+    if(remote.state && remote.updatedAt > localAt){
+      STATE = Object.assign(defaultState(), remote.state);
+      (SEED.extraSections||[]).forEach(s=>{ if(!Array.isArray(STATE[s.key])) STATE[s.key] = []; });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(STATE));
+      writeMeta(remote.updatedAt);
+      syncReady = true;
+      setSyncStatus('synced');
+      route();
+      return;
+    }
+    syncReady = true;
+    if(localAt > remote.updatedAt || (!remote.state && STATE.projectStart)){
+      if(!localAt) writeMeta(Date.now());
+      await pushState();
+    } else {
+      setSyncStatus('synced');
+    }
+  }catch(e){
+    syncReady = true;
+    if(syncStatus!=='locked') setSyncStatus('error');
+  }
+}
+function saveState(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(STATE));
+  if(!syncReady) return;
+  writeMeta(Date.now());
+  schedulePush();
+}
 
 function esc(s){
   if(s===undefined||s===null) return "";
@@ -799,7 +883,7 @@ function renderCheckpoints(){
 function renderBackup(){
   return `<div class="panel">
     <h2>Backup</h2>
-    <p class="small">Projeto: <strong>${esc(SEED.formatoFinal.estudante)} — ${esc(SEED.projectId)}</strong>. Todos os dados ficam salvos localmente no seu navegador (localStorage), em uma chave exclusiva deste projeto.</p>
+    <p class="small">Projeto: <strong>${esc(SEED.formatoFinal.estudante)} — ${esc(SEED.projectId)}</strong>. Os dados ficam salvos no navegador (localStorage) e sincronizados na nuvem (Vercel + Upstash Redis) via /api/state.</p>
     <div class="actions-row">
       <button data-action="export-backup">Exportar backup (JSON)</button>
       <button class="secondary" data-action="trigger-import">Importar backup</button>
@@ -928,13 +1012,15 @@ function resetData(){
   if(!confirm('Confirmação final: apagar permanentemente os dados de '+STORAGE_KEY+'?')) return;
   localStorage.removeItem(STORAGE_KEY);
   STATE = defaultState();
+  saveState();
   render();
 }
 
-function render(){ route(); }
+function render(){ route(); setSyncStatus(syncStatus); }
 window.addEventListener('hashchange', route);
-window.addEventListener('DOMContentLoaded', function(){ ensureProjectStart(); injectExtraMenu(); renumberMenu(); route(); });
-if(document.readyState !== 'loading'){ ensureProjectStart(); injectExtraMenu(); renumberMenu(); route(); }
+function boot(){ ensureProjectStart(); injectExtraMenu(); renumberMenu(); route(); setSyncStatus('local'); pullState(); }
+window.addEventListener('DOMContentLoaded', boot);
+if(document.readyState !== 'loading'){ boot(); }
 })();
 </script>
 </body>
