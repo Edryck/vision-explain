@@ -13,3 +13,4 @@ data/*
 *.safetensors
 .vercel
 .DS_Store
+.env*

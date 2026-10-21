@@ -941,13 +941,17 @@ document.addEventListener('click', function(e){
   if(e.target.closest('[data-action="cancel-edit"]')){ render(); }
 });
 
+const datasetGetter = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'dataset').get;
+function datasetOf(el){ return datasetGetter.call(el); }
+
 document.addEventListener('submit', function(e){
   const form = e.target;
-  if(!form.dataset.form) return;
+  const ds = datasetOf(form);
+  if(!ds.form) return;
   e.preventDefault();
-  const type = form.dataset.form;
+  const type = ds.form;
   if(type==='task-update'){
-    const wk = Number(form.dataset.week);
+    const wk = Number(ds.week);
     setTaskState(wk, {
       status: form.elements.status.value,
       horasRealizadas: form.elements.horasRealizadas.value,
@@ -956,10 +960,10 @@ document.addEventListener('submit', function(e){
     });
     render();
   } else if(type==='crud-add'){
-    handleCrudAdd(form.dataset.key, form);
+    handleCrudAdd(ds.key, form);
     render();
   } else if(type==='crud-edit'){
-    handleCrudUpdate(form.dataset.key, form.dataset.id, form);
+    handleCrudUpdate(ds.key, ds.id, form);
     render();
   } else if(type==='add-ref'){
     const rec = {id:'C'+uid()};
@@ -975,7 +979,7 @@ document.addEventListener('submit', function(e){
     STATE.artefato.releases.push({versao:form.elements.versao.value||'0.'+(STATE.artefato.releases.length+1), data:form.elements.data.value, notas:form.elements.notas.value});
     saveState(); render();
   } else if(type==='checkpoint-update'){
-    const m = form.dataset.month;
+    const m = ds.month;
     const data = {};
     CHECKPOINT_FIELDS.forEach(f=>{ data[f.name] = form.elements[f.name].value; });
     STATE.checkpoints[m] = data;
