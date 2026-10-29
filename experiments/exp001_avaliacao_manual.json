@@ -1,0 +1,379 @@
+{
+  "experiment_id": "exp001",
+  "week": 4,
+  "title": "Manual claim-level factuality evaluation of SmolVLM",
+  "model": "HuggingFaceTB/SmolVLM-Instruct",
+  "generation": {
+    "do_sample": false,
+    "max_new_tokens": 128,
+    "device": "cpu",
+    "dtype": "float32"
+  },
+  "source_notebook": "notebooks/01_smolvlm_inferencia.ipynb",
+  "protocol": "Split each answer into atomic claims; mark verifiable=true if the claim can be confirmed in the image, false otherwise.",
+  "status": "draft_pending_human_review",
+  "items": [
+    {
+      "id": 1,
+      "image": "data/test_images/image-1.jpg",
+      "question": "What is in this image?",
+      "answer": "A group of people are sitting at a bar/pub/restaurant. There are 4 people in the foreground and 11 in the background. The people in the foreground are sitting at a table with a pizza on it. The pizza is round and has toppings on it. There are also some other food items on the table. The people in the background are standing behind the people in the foreground. There is a bar/counter behind the people in the foreground. There are bottles of alcohol on the bar/counter.",
+      "claims": [
+        {
+          "text": "Group of people sitting at a bar/pub/restaurant",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "There are 4 people in the foreground",
+          "verifiable": false,
+          "note": "about 3 clearly in the foreground"
+        },
+        {
+          "text": "There are 11 people in the background",
+          "verifiable": false,
+          "note": "about 8-10 visible, count not supported"
+        },
+        {
+          "text": "Foreground people sit at a table with a pizza on it",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "The pizza is round",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "The pizza has toppings",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "There are other food items on the table",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "People in the background are standing behind the foreground people",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "There is a bar/counter behind the foreground people",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "There are bottles of alcohol on the bar/counter",
+          "verifiable": true,
+          "note": "bottles on shelves"
+        }
+      ],
+      "n_claims": 10,
+      "n_verifiable": 8,
+      "verifiable_ratio": 0.8
+    },
+    {
+      "id": 2,
+      "image": "data/test_images/image-1.jpg",
+      "question": "Describe the image in one sentence.",
+      "answer": "The image depicts a group of people sitting at a bar or restaurant, likely enjoying a meal together. The setting appears to be a casual, possibly a pub or a cozy restaurant, as indicated by the presence of a bar counter and various bottles of liquor. The individuals are engaged in conversation, and some are actively eating, with one person holding a pizza on a pizza stand. The individuals are dressed in casual attire, suggesting a relaxed and informal atmosphere. The bar counter is adorned with bottles of liquor, indicating that the establishment serves alcoholic beverages. The presence of a pizza stand suggests that the restaurant offers a variety of food options, including",
+      "claims": [
+        {
+          "text": "Group of people sitting at a bar or restaurant",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "They are enjoying a meal together",
+          "verifiable": false,
+          "note": "speculation"
+        },
+        {
+          "text": "The setting is casual, a pub or cozy restaurant",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "There is a bar counter",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "There are various bottles of liquor",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "The individuals are engaged in conversation",
+          "verifiable": false,
+          "note": "not verifiable in a still image"
+        },
+        {
+          "text": "Some are actively eating",
+          "verifiable": false,
+          "note": "no one clearly eating"
+        },
+        {
+          "text": "One person is holding a pizza on a pizza stand",
+          "verifiable": false,
+          "note": "pizza stand is on the table, nobody holds it"
+        },
+        {
+          "text": "The individuals are dressed in casual attire",
+          "verifiable": true,
+          "note": ""
+        }
+      ],
+      "n_claims": 9,
+      "n_verifiable": 5,
+      "verifiable_ratio": 0.556
+    },
+    {
+      "id": 3,
+      "image": "data/test_images/image-2.jpg",
+      "question": "What is in this image?",
+      "answer": "A glass of beer with the word Tennent's on it.",
+      "claims": [
+        {
+          "text": "Glass of beer",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "The word Tennent's is on the glass",
+          "verifiable": true,
+          "note": ""
+        }
+      ],
+      "n_claims": 2,
+      "n_verifiable": 2,
+      "verifiable_ratio": 1.0
+    },
+    {
+      "id": 4,
+      "image": "data/test_images/image-2.jpg",
+      "question": "Describe the image in one sentence.",
+      "answer": "The image is a close-up of a glass of beer with a label that says Tennent's of Scotland.",
+      "claims": [
+        {
+          "text": "The image is a close-up",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "The image shows a glass of beer",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "The label says Tennent's of Scotland",
+          "verifiable": true,
+          "note": ""
+        }
+      ],
+      "n_claims": 3,
+      "n_verifiable": 3,
+      "verifiable_ratio": 1.0
+    },
+    {
+      "id": 5,
+      "image": "data/test_images/image-3.jpg",
+      "question": "What is in this image?",
+      "answer": "A screenshot of a news article about Juruong East.",
+      "claims": [
+        {
+          "text": "The image is a screenshot",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "It is a news article",
+          "verifiable": false,
+          "note": "looks like a Wikipedia Geography section"
+        },
+        {
+          "text": "It is about Juruong East",
+          "verifiable": false,
+          "note": "text says Jurong East, misspelled"
+        }
+      ],
+      "n_claims": 3,
+      "n_verifiable": 1,
+      "verifiable_ratio": 0.333
+    },
+    {
+      "id": 6,
+      "image": "data/test_images/image-3.jpg",
+      "question": "Describe the image in one sentence.",
+      "answer": "Page showing information about geography.",
+      "claims": [
+        {
+          "text": "Page showing information about geography",
+          "verifiable": true,
+          "note": "heading Geography"
+        }
+      ],
+      "n_claims": 1,
+      "n_verifiable": 1,
+      "verifiable_ratio": 1.0
+    },
+    {
+      "id": 7,
+      "image": "data/test_images/image-4.jpg",
+      "question": "What is in this image?",
+      "answer": "A green wicker fruit bowl filled with bananas, grapes, oranges, and a red apple.",
+      "claims": [
+        {
+          "text": "The bowl is green",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "The bowl is wicker",
+          "verifiable": false,
+          "note": "looks like plastic"
+        },
+        {
+          "text": "Contains bananas",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "Contains grapes",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "Contains oranges",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "Contains a red apple",
+          "verifiable": false,
+          "note": "red fruit looks like a pomegranate"
+        }
+      ],
+      "n_claims": 6,
+      "n_verifiable": 4,
+      "verifiable_ratio": 0.667
+    },
+    {
+      "id": 8,
+      "image": "data/test_images/image-4.jpg",
+      "question": "Describe the image in one sentence.",
+      "answer": "The image shows a green plastic fruit basket filled with various fruits. The basket contains several types of fruits, including green grapes, bananas, and red and yellow apples. The fruits are arranged in a visually appealing manner, with the green grapes placed on top of the bananas and the apples placed on the right side of the basket. The background of the image is blurred, focusing attention on the fruits in the basket. The image is taken from a top-down perspective, providing a clear view of the contents of the basket.",
+      "claims": [
+        {
+          "text": "Green plastic fruit basket",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "Filled with various fruits",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "Contains green grapes",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "Contains bananas",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "Contains red and yellow apples",
+          "verifiable": false,
+          "note": "no apples visible"
+        },
+        {
+          "text": "Green grapes are placed on top of the bananas",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "Apples are placed on the right side of the basket",
+          "verifiable": false,
+          "note": "no apples"
+        },
+        {
+          "text": "The background is blurred",
+          "verifiable": false,
+          "note": "almost no background visible"
+        },
+        {
+          "text": "The image is taken from a top-down perspective",
+          "verifiable": true,
+          "note": ""
+        }
+      ],
+      "n_claims": 9,
+      "n_verifiable": 6,
+      "verifiable_ratio": 0.667
+    },
+    {
+      "id": 9,
+      "image": "data/test_images/image-5.jpg",
+      "question": "What is in this image?",
+      "answer": "Three bottles of wine are lined up on a table.",
+      "claims": [
+        {
+          "text": "Three bottles",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "The bottles are wine",
+          "verifiable": true,
+          "note": "champagne is sparkling wine"
+        },
+        {
+          "text": "The bottles are lined up on a table",
+          "verifiable": true,
+          "note": ""
+        }
+      ],
+      "n_claims": 3,
+      "n_verifiable": 3,
+      "verifiable_ratio": 1.0
+    },
+    {
+      "id": 10,
+      "image": "data/test_images/image-5.jpg",
+      "question": "Describe the image in one sentence.",
+      "answer": "Three bottles of wine are lined up on a table.",
+      "claims": [
+        {
+          "text": "Three bottles",
+          "verifiable": true,
+          "note": ""
+        },
+        {
+          "text": "The bottles are wine",
+          "verifiable": true,
+          "note": "champagne is sparkling wine"
+        },
+        {
+          "text": "The bottles are lined up on a table",
+          "verifiable": true,
+          "note": ""
+        }
+      ],
+      "n_claims": 3,
+      "n_verifiable": 3,
+      "verifiable_ratio": 1.0
+    }
+  ],
+  "summary": {
+    "n_questions": 10,
+    "n_claims": 49,
+    "n_verifiable": 36,
+    "overall_ratio": 0.735,
+    "mean_ratio_per_answer": 0.802
+  }
+}
