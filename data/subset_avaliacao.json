@@ -1,0 +1,342 @@
+{
+  "dataset": "MVTec AD",
+  "category": "bottle",
+  "seed": 42,
+  "per_defect_type": 10,
+  "questions": [
+    {
+      "id": "q1_presence",
+      "text": "Is there any defect in this image?"
+    },
+    {
+      "id": "q2_location",
+      "text": "Where is the defect located in the image?"
+    },
+    {
+      "id": "q3_type",
+      "text": "What type of defect is it?"
+    }
+  ],
+  "images": [
+    {
+      "id": "bottle_broken_large_000",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/000.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_large/000_mask.png"
+    },
+    {
+      "id": "bottle_broken_large_001",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/001.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_large/001_mask.png"
+    },
+    {
+      "id": "bottle_broken_large_002",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/002.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_large/002_mask.png"
+    },
+    {
+      "id": "bottle_broken_large_003",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/003.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_large/003_mask.png"
+    },
+    {
+      "id": "bottle_broken_large_007",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/007.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_large/007_mask.png"
+    },
+    {
+      "id": "bottle_broken_large_008",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/008.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_large/008_mask.png"
+    },
+    {
+      "id": "bottle_broken_large_010",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/010.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_large/010_mask.png"
+    },
+    {
+      "id": "bottle_broken_large_011",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/011.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_large/011_mask.png"
+    },
+    {
+      "id": "bottle_broken_large_016",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/016.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_large/016_mask.png"
+    },
+    {
+      "id": "bottle_broken_large_017",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/017.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_large/017_mask.png"
+    },
+    {
+      "id": "bottle_broken_small_000",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/000.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_small/000_mask.png"
+    },
+    {
+      "id": "bottle_broken_small_001",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/001.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_small/001_mask.png"
+    },
+    {
+      "id": "bottle_broken_small_002",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/002.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_small/002_mask.png"
+    },
+    {
+      "id": "bottle_broken_small_003",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/003.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_small/003_mask.png"
+    },
+    {
+      "id": "bottle_broken_small_006",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/006.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_small/006_mask.png"
+    },
+    {
+      "id": "bottle_broken_small_008",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/008.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_small/008_mask.png"
+    },
+    {
+      "id": "bottle_broken_small_009",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/009.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_small/009_mask.png"
+    },
+    {
+      "id": "bottle_broken_small_013",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/013.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_small/013_mask.png"
+    },
+    {
+      "id": "bottle_broken_small_018",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/018.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_small/018_mask.png"
+    },
+    {
+      "id": "bottle_broken_small_021",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/021.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_small/021_mask.png"
+    },
+    {
+      "id": "bottle_contamination_000",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/000.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/contamination/000_mask.png"
+    },
+    {
+      "id": "bottle_contamination_004",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/004.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/contamination/004_mask.png"
+    },
+    {
+      "id": "bottle_contamination_006",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/006.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/contamination/006_mask.png"
+    },
+    {
+      "id": "bottle_contamination_007",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/007.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/contamination/007_mask.png"
+    },
+    {
+      "id": "bottle_contamination_009",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/009.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/contamination/009_mask.png"
+    },
+    {
+      "id": "bottle_contamination_013",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/013.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/contamination/013_mask.png"
+    },
+    {
+      "id": "bottle_contamination_015",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/015.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/contamination/015_mask.png"
+    },
+    {
+      "id": "bottle_contamination_017",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/017.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/contamination/017_mask.png"
+    },
+    {
+      "id": "bottle_contamination_019",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/019.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/contamination/019_mask.png"
+    },
+    {
+      "id": "bottle_contamination_020",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/020.png",
+      "category": "bottle",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/contamination/020_mask.png"
+    },
+    {
+      "id": "bottle_good_001",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/good/001.png",
+      "category": "bottle",
+      "label": "normal",
+      "defect_type": null,
+      "mask_path": null
+    },
+    {
+      "id": "bottle_good_003",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/good/003.png",
+      "category": "bottle",
+      "label": "normal",
+      "defect_type": null,
+      "mask_path": null
+    },
+    {
+      "id": "bottle_good_004",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/good/004.png",
+      "category": "bottle",
+      "label": "normal",
+      "defect_type": null,
+      "mask_path": null
+    },
+    {
+      "id": "bottle_good_005",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/good/005.png",
+      "category": "bottle",
+      "label": "normal",
+      "defect_type": null,
+      "mask_path": null
+    },
+    {
+      "id": "bottle_good_008",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/good/008.png",
+      "category": "bottle",
+      "label": "normal",
+      "defect_type": null,
+      "mask_path": null
+    },
+    {
+      "id": "bottle_good_010",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/good/010.png",
+      "category": "bottle",
+      "label": "normal",
+      "defect_type": null,
+      "mask_path": null
+    },
+    {
+      "id": "bottle_good_011",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/good/011.png",
+      "category": "bottle",
+      "label": "normal",
+      "defect_type": null,
+      "mask_path": null
+    },
+    {
+      "id": "bottle_good_012",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/good/012.png",
+      "category": "bottle",
+      "label": "normal",
+      "defect_type": null,
+      "mask_path": null
+    },
+    {
+      "id": "bottle_good_013",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/good/013.png",
+      "category": "bottle",
+      "label": "normal",
+      "defect_type": null,
+      "mask_path": null
+    },
+    {
+      "id": "bottle_good_019",
+      "path": "data/mvtec_ad/mvtec-ad/bottle/test/good/019.png",
+      "category": "bottle",
+      "label": "normal",
+      "defect_type": null,
+      "mask_path": null
+    }
+  ]
+}

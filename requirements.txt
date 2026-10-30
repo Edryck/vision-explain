@@ -5,3 +5,4 @@ accelerate
 pillow
 jupyter
 ipykernel
+anomalib

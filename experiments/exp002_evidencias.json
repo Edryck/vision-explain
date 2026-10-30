@@ -1,0 +1,188 @@
+[
+  {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/000.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.947,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          312,
+          267,
+          802,
+          837
+        ],
+        "area_pixels": 141538,
+        "area_fraction": 0.17474,
+        "centroid": [
+          598.1,
+          605.2
+        ],
+        "position": "lower center",
+        "max_score": 0.8155,
+        "mean_score": 0.6583,
+        "id": 1
+      }
+    ],
+    "ground_truth": {
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_large/000_mask.png"
+    }
+  },
+  {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/000.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.6491,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          226,
+          524,
+          321,
+          630
+        ],
+        "area_pixels": 7797,
+        "area_fraction": 0.00963,
+        "centroid": [
+          273.9,
+          576.0
+        ],
+        "position": "middle left",
+        "max_score": 0.6057,
+        "mean_score": 0.552,
+        "id": 1
+      }
+    ],
+    "ground_truth": {
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/broken_small/000_mask.png"
+    }
+  },
+  {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/000.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.8145,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          257,
+          263,
+          620,
+          594
+        ],
+        "area_pixels": 82442,
+        "area_fraction": 0.10178,
+        "centroid": [
+          432.9,
+          429.6
+        ],
+        "position": "center",
+        "max_score": 0.7197,
+        "mean_score": 0.6193,
+        "id": 1
+      }
+    ],
+    "ground_truth": {
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/contamination/000_mask.png"
+    }
+  },
+  {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/004.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.6095,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          209,
+          517,
+          425,
+          729
+        ],
+        "area_pixels": 15500,
+        "area_fraction": 0.01914,
+        "centroid": [
+          324.4,
+          619.1
+        ],
+        "position": "lower center",
+        "max_score": 0.5665,
+        "mean_score": 0.52,
+        "id": 1
+      }
+    ],
+    "ground_truth": {
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "mask_path": "data/mvtec_ad/mvtec-ad/bottle/ground_truth/contamination/004_mask.png"
+    }
+  },
+  {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/good/001.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.3432,
+    "threshold": 0.5,
+    "is_anomalous": false,
+    "regions": [],
+    "ground_truth": {
+      "label": "normal",
+      "defect_type": null,
+      "mask_path": null
+    }
+  }
+]
