@@ -42,6 +42,25 @@ Total: 120 pares imagem-pergunta por configuração.
 - O bloco `Question: ...` é idêntico. A única diferença é o bloco de evidências que a Configuração B adiciona antes dele (`src/prompts.py`).
 - As evidências vêm de `src/extract_evidence.py` (PatchCore, limiar normalizado 0,5).
 
+## Otimizações de inferência (semana 9)
+
+A primeira execução em CPU levou cerca de 204 s por pergunta (cerca de 6,8 h para 120 perguntas). Ela foi interrompida com 7 respostas, descartadas. Toda a Configuração A foi refeita com as duas mudanças abaixo, que valem igualmente para a Configuração B.
+
+- Resolução: `longest_edge = 1152` no processador (`LONGEST_EDGE` em `src/vlm.py`), no lugar do padrão 1536. As imagens do `bottle` têm 900x900; o padrão as ampliava. O valor 1152 equivale a 3 x 384 e reduz o número de tiles e de tokens visuais.
+- Cache: as 3 perguntas de uma imagem compartilham o prefixo com a imagem. O prefixo é calculado uma vez e seu KV cache é copiado para cada pergunta (`generate_answers_shared_image`). Na Configuração B, o bloco de evidências é o mesmo nas 3 perguntas e também entra no prefixo.
+
+Regras:
+
+- As respostas de A e de B usam o mesmo `longest_edge` e o mesmo caminho de geração.
+- A medição de custo (`src/measure_cost.py`) não usa o cache: mede uma pergunta isolada, do início ao fim, com a máquina ociosa.
+- O `exp001` e o notebook 02 usaram `longest_edge = 1536`; não são diretamente comparáveis às respostas do `exp003`.
+- O verificador da métrica usa imagem sem splitting (`do_image_splitting = False`), por custo.
+
+## Métricas (semanas 10 e 11)
+
+- Acerto por gabarito (`src/ground_truth_score.py`): compara a resposta com rótulo, máscara em grade 3x3 e tipo de defeito, por palavras-chave. Medida principal proposta, pendente de aprovação do orientador.
+- FaithScore simplificado (`src/faithscore.py`): decomposição por regras e SmolVLM como verificador. Medida secundária; ver `docs/relatorio_fase3.md`.
+
 ## Limitações conhecidas
 
 - Uma só categoria; resultados não se estendem a texturas ou objetos deformáveis.
