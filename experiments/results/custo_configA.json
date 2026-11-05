@@ -1,0 +1,113 @@
+{
+  "configuration": "A",
+  "model": "HuggingFaceTB/SmolVLM-Instruct",
+  "precision": "float32",
+  "batch_size": 1,
+  "max_new_tokens": 128,
+  "device": "cpu",
+  "hardware": {
+    "cpu": "AMD Ryzen 5 3500U with Radeon Vega Mobile Gfx",
+    "threads": 4
+  },
+  "vram_note": "No GPU available; peak process RSS is reported instead of VRAM.",
+  "protocol": {
+    "warmup_runs": 1,
+    "images": 4,
+    "repeats_per_image": 3,
+    "question_id": "q1_presence"
+  },
+  "model_load_seconds": 6.56,
+  "latency_seconds": {
+    "mean": 109.1,
+    "std": 0.79,
+    "min": 107.831,
+    "max": 110.121
+  },
+  "peak_memory_megabytes": 13174.5,
+  "runs": [
+    {
+      "image_id": "bottle_broken_large_000",
+      "repeat": 0,
+      "seconds": 108.053,
+      "prompt_tokens": 928,
+      "new_tokens": 14
+    },
+    {
+      "image_id": "bottle_broken_large_000",
+      "repeat": 1,
+      "seconds": 110.121,
+      "prompt_tokens": 928,
+      "new_tokens": 14
+    },
+    {
+      "image_id": "bottle_broken_large_000",
+      "repeat": 2,
+      "seconds": 109.783,
+      "prompt_tokens": 928,
+      "new_tokens": 14
+    },
+    {
+      "image_id": "bottle_broken_small_000",
+      "repeat": 0,
+      "seconds": 109.459,
+      "prompt_tokens": 928,
+      "new_tokens": 13
+    },
+    {
+      "image_id": "bottle_broken_small_000",
+      "repeat": 1,
+      "seconds": 109.617,
+      "prompt_tokens": 928,
+      "new_tokens": 13
+    },
+    {
+      "image_id": "bottle_broken_small_000",
+      "repeat": 2,
+      "seconds": 109.155,
+      "prompt_tokens": 928,
+      "new_tokens": 13
+    },
+    {
+      "image_id": "bottle_contamination_000",
+      "repeat": 0,
+      "seconds": 108.261,
+      "prompt_tokens": 928,
+      "new_tokens": 11
+    },
+    {
+      "image_id": "bottle_contamination_000",
+      "repeat": 1,
+      "seconds": 107.831,
+      "prompt_tokens": 928,
+      "new_tokens": 11
+    },
+    {
+      "image_id": "bottle_contamination_000",
+      "repeat": 2,
+      "seconds": 108.203,
+      "prompt_tokens": 928,
+      "new_tokens": 11
+    },
+    {
+      "image_id": "bottle_good_001",
+      "repeat": 0,
+      "seconds": 109.538,
+      "prompt_tokens": 928,
+      "new_tokens": 13
+    },
+    {
+      "image_id": "bottle_good_001",
+      "repeat": 1,
+      "seconds": 109.874,
+      "prompt_tokens": 928,
+      "new_tokens": 13
+    },
+    {
+      "image_id": "bottle_good_001",
+      "repeat": 2,
+      "seconds": 109.278,
+      "prompt_tokens": 928,
+      "new_tokens": 13
+    }
+  ]
+}
