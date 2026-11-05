@@ -44,6 +44,8 @@ Total: 120 pares imagem-pergunta por configuração.
 
 ## Otimizações de inferência (semana 9)
 
+Aprovadas pelo orientador por enquanto, desde que exatamente iguais em A e B. A revisão do artigo decide se ficam.
+
 A primeira execução em CPU levou cerca de 204 s por pergunta (cerca de 6,8 h para 120 perguntas). Ela foi interrompida com 7 respostas, descartadas. Toda a Configuração A foi refeita com as duas mudanças abaixo, que valem igualmente para a Configuração B.
 
 - Resolução: `longest_edge = 1152` no processador (`LONGEST_EDGE` em `src/vlm.py`), no lugar do padrão 1536. As imagens do `bottle` têm 900x900; o padrão as ampliava. O valor 1152 equivale a 3 x 384 e reduz o número de tiles e de tokens visuais.
@@ -58,7 +60,7 @@ Regras:
 
 ## Métricas (semanas 10 e 11)
 
-- Acerto por gabarito (`src/ground_truth_score.py`): compara a resposta com rótulo, máscara em grade 3x3 e tipo de defeito, por palavras-chave. Medida principal proposta, pendente de aprovação do orientador.
+- Acerto por gabarito (`src/ground_truth_score.py`): compara a resposta com rótulo, máscara em grade 3x3 e tipo de defeito, por palavras-chave. Medida principal, aprovada pelo orientador, a conferir na avaliação do artigo.
 - FaithScore simplificado (`src/faithscore.py`): decomposição por regras e SmolVLM como verificador. Medida secundária; ver `docs/relatorio_fase3.md`.
 
 ## Limitações conhecidas

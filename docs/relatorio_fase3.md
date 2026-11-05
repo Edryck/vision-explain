@@ -84,3 +84,13 @@ Recomendação: usar o acerto por gabarito como medida principal na comparação
 4. Definir se a Configuração B roda neste note, no Mac M4 ou no Colab. O custo de A e B precisa vir da mesma máquina.
 5. Decidir se q2 deve ser reformulada, sabendo que isso exige refazer a Configuração A.
 6. Definir se vale testar um verificador diferente do SmolVLM.
+
+## Decisões da reunião
+
+1. Acerto por gabarito como métrica principal e FaithScore simplificado como secundária, a conferir na avaliação do artigo.
+2. Validação manual no MVTec: a definir.
+3. Otimizações aprovadas por enquanto, desde que exatamente iguais em A e B. A revisão do artigo decide se ficam.
+4. A Configuração B roda neste notebook. Outras máquinas podem ser avaliadas depois.
+5. Reformulação da q2: a definir.
+6. Verificador: a definir; por enquanto, fica o SmolVLM.
+7. PatchCore mantido por enquanto.
