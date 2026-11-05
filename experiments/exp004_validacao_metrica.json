@@ -1,0 +1,592 @@
+{
+  "experiment_id": "exp004",
+  "week": 10,
+  "title": "Validation of simplified FaithScore against exp001 manual evaluation",
+  "verifier": {
+    "model": "HuggingFaceTB/SmolVLM-Instruct",
+    "image_splitting": false,
+    "threshold": 0.5
+  },
+  "manual_reference_status": "draft_pending_human_review",
+  "claim_level": {
+    "n_claims": 49,
+    "accuracy": 0.8571,
+    "majority_baseline": 0.7347,
+    "cohen_kappa": 0.5574,
+    "confusion_rows_manual_cols_metric": [
+      [
+        6,
+        7
+      ],
+      [
+        0,
+        36
+      ]
+    ]
+  },
+  "threshold_sweep_diagnostic": {
+    "0.1": {
+      "n_claims": 49,
+      "accuracy": 0.7755,
+      "majority_baseline": 0.7347,
+      "cohen_kappa": 0.2108,
+      "confusion_rows_manual_cols_metric": [
+        [
+          2,
+          11
+        ],
+        [
+          0,
+          36
+        ]
+      ]
+    },
+    "0.3": {
+      "n_claims": 49,
+      "accuracy": 0.8367,
+      "majority_baseline": 0.7347,
+      "cohen_kappa": 0.4787,
+      "confusion_rows_manual_cols_metric": [
+        [
+          5,
+          8
+        ],
+        [
+          0,
+          36
+        ]
+      ]
+    },
+    "0.5": {
+      "n_claims": 49,
+      "accuracy": 0.8571,
+      "majority_baseline": 0.7347,
+      "cohen_kappa": 0.5574,
+      "confusion_rows_manual_cols_metric": [
+        [
+          6,
+          7
+        ],
+        [
+          0,
+          36
+        ]
+      ]
+    },
+    "0.7": {
+      "n_claims": 49,
+      "accuracy": 0.8367,
+      "majority_baseline": 0.7347,
+      "cohen_kappa": 0.5596,
+      "confusion_rows_manual_cols_metric": [
+        [
+          8,
+          5
+        ],
+        [
+          3,
+          33
+        ]
+      ]
+    },
+    "0.9": {
+      "n_claims": 49,
+      "accuracy": 0.7143,
+      "majority_baseline": 0.7347,
+      "cohen_kappa": 0.4117,
+      "confusion_rows_manual_cols_metric": [
+        [
+          11,
+          2
+        ],
+        [
+          12,
+          24
+        ]
+      ]
+    }
+  },
+  "answer_level_manual_claims": {
+    "n_answers": 10,
+    "manual_mean": 0.8023,
+    "metric_mean": 0.9222,
+    "mean_absolute_error": 0.12,
+    "pearson": 0.4693,
+    "spearman": 0.5894
+  },
+  "answer_level_automatic_claims": {
+    "n_answers": 10,
+    "manual_mean": 0.8023,
+    "metric_mean": 0.7714,
+    "mean_absolute_error": 0.0803,
+    "pearson": 0.948,
+    "spearman": 0.9355
+  },
+  "items": [
+    {
+      "id": 1,
+      "image": "data/test_images/image-1.jpg",
+      "question": "What is in this image?",
+      "verifiable_ratio": 0.8,
+      "claims": [
+        {
+          "text": "Group of people sitting at a bar/pub/restaurant",
+          "verifiable": true,
+          "p_yes": 0.7699
+        },
+        {
+          "text": "There are 4 people in the foreground",
+          "verifiable": false,
+          "p_yes": 0.8667
+        },
+        {
+          "text": "There are 11 people in the background",
+          "verifiable": false,
+          "p_yes": 0.7713
+        },
+        {
+          "text": "Foreground people sit at a table with a pizza on it",
+          "verifiable": true,
+          "p_yes": 0.9042
+        },
+        {
+          "text": "The pizza is round",
+          "verifiable": true,
+          "p_yes": 0.9347
+        },
+        {
+          "text": "The pizza has toppings",
+          "verifiable": true,
+          "p_yes": 0.9078
+        },
+        {
+          "text": "There are other food items on the table",
+          "verifiable": true,
+          "p_yes": 0.6951
+        },
+        {
+          "text": "People in the background are standing behind the foreground people",
+          "verifiable": true,
+          "p_yes": 0.6443
+        },
+        {
+          "text": "There is a bar/counter behind the foreground people",
+          "verifiable": true,
+          "p_yes": 0.979
+        },
+        {
+          "text": "There are bottles of alcohol on the bar/counter",
+          "verifiable": true,
+          "p_yes": 0.9657
+        }
+      ],
+      "automatic_claims": [
+        {
+          "text": "A group of people are sitting at a bar/pub/restaurant",
+          "p_yes": 0.8714
+        },
+        {
+          "text": "There are 4 people in the foreground and 11 in the background",
+          "p_yes": 0.6354
+        },
+        {
+          "text": "The people in the foreground are sitting at a table with a pizza on it",
+          "p_yes": 0.9226
+        },
+        {
+          "text": "The pizza is round and has toppings on it",
+          "p_yes": 0.939
+        },
+        {
+          "text": "There are also some other food items on the table",
+          "p_yes": 0.6147
+        },
+        {
+          "text": "The people in the background are standing behind the people in the foreground",
+          "p_yes": 0.6267
+        },
+        {
+          "text": "There is a bar/counter behind the people in the foreground",
+          "p_yes": 0.9863
+        },
+        {
+          "text": "There are bottles of alcohol on the bar/counter",
+          "p_yes": 0.9657
+        }
+      ],
+      "metric_manual_claims": 1.0,
+      "metric_automatic_claims": 1.0
+    },
+    {
+      "id": 2,
+      "image": "data/test_images/image-1.jpg",
+      "question": "Describe the image in one sentence.",
+      "verifiable_ratio": 0.556,
+      "claims": [
+        {
+          "text": "Group of people sitting at a bar or restaurant",
+          "verifiable": true,
+          "p_yes": 0.8217
+        },
+        {
+          "text": "They are enjoying a meal together",
+          "verifiable": false,
+          "p_yes": 0.9048
+        },
+        {
+          "text": "The setting is casual, a pub or cozy restaurant",
+          "verifiable": true,
+          "p_yes": 0.9788
+        },
+        {
+          "text": "There is a bar counter",
+          "verifiable": true,
+          "p_yes": 0.9241
+        },
+        {
+          "text": "There are various bottles of liquor",
+          "verifiable": true,
+          "p_yes": 0.9175
+        },
+        {
+          "text": "The individuals are engaged in conversation",
+          "verifiable": false,
+          "p_yes": 0.7208
+        },
+        {
+          "text": "Some are actively eating",
+          "verifiable": false,
+          "p_yes": 0.2815
+        },
+        {
+          "text": "One person is holding a pizza on a pizza stand",
+          "verifiable": false,
+          "p_yes": 0.3287
+        },
+        {
+          "text": "The individuals are dressed in casual attire",
+          "verifiable": true,
+          "p_yes": 0.915
+        }
+      ],
+      "automatic_claims": [
+        {
+          "text": "The individuals are engaged in conversation",
+          "p_yes": 0.7208
+        },
+        {
+          "text": "some are actively eating, with one person holding a pizza on a pizza stand",
+          "p_yes": 0.4224
+        }
+      ],
+      "metric_manual_claims": 0.7777777777777778,
+      "metric_automatic_claims": 0.5
+    },
+    {
+      "id": 3,
+      "image": "data/test_images/image-2.jpg",
+      "question": "What is in this image?",
+      "verifiable_ratio": 1.0,
+      "claims": [
+        {
+          "text": "Glass of beer",
+          "verifiable": true,
+          "p_yes": 0.7443
+        },
+        {
+          "text": "The word Tennent's is on the glass",
+          "verifiable": true,
+          "p_yes": 0.9739
+        }
+      ],
+      "automatic_claims": [
+        {
+          "text": "A glass of beer with the word Tennent's on it",
+          "p_yes": 0.9786
+        }
+      ],
+      "metric_manual_claims": 1.0,
+      "metric_automatic_claims": 1.0
+    },
+    {
+      "id": 4,
+      "image": "data/test_images/image-2.jpg",
+      "question": "Describe the image in one sentence.",
+      "verifiable_ratio": 1.0,
+      "claims": [
+        {
+          "text": "The image is a close-up",
+          "verifiable": true,
+          "p_yes": 0.9655
+        },
+        {
+          "text": "The image shows a glass of beer",
+          "verifiable": true,
+          "p_yes": 0.8996
+        },
+        {
+          "text": "The label says Tennent's of Scotland",
+          "verifiable": true,
+          "p_yes": 0.9656
+        }
+      ],
+      "automatic_claims": [
+        {
+          "text": "The image is a close-up of a glass of beer with a label that says Tennent's of Scotland",
+          "p_yes": 0.9744
+        }
+      ],
+      "metric_manual_claims": 1.0,
+      "metric_automatic_claims": 1.0
+    },
+    {
+      "id": 5,
+      "image": "data/test_images/image-3.jpg",
+      "question": "What is in this image?",
+      "verifiable_ratio": 0.333,
+      "claims": [
+        {
+          "text": "The image is a screenshot",
+          "verifiable": true,
+          "p_yes": 0.7868
+        },
+        {
+          "text": "It is a news article",
+          "verifiable": false,
+          "p_yes": 0.5991
+        },
+        {
+          "text": "It is about Juruong East",
+          "verifiable": false,
+          "p_yes": 0.6195
+        }
+      ],
+      "automatic_claims": [
+        {
+          "text": "A screenshot of a news article about Juruong East",
+          "p_yes": 0.4316
+        }
+      ],
+      "metric_manual_claims": 1.0,
+      "metric_automatic_claims": 0.0
+    },
+    {
+      "id": 6,
+      "image": "data/test_images/image-3.jpg",
+      "question": "Describe the image in one sentence.",
+      "verifiable_ratio": 1.0,
+      "claims": [
+        {
+          "text": "Page showing information about geography",
+          "verifiable": true,
+          "p_yes": 0.6723
+        }
+      ],
+      "automatic_claims": [
+        {
+          "text": "Page showing information about geography",
+          "p_yes": 0.6723
+        }
+      ],
+      "metric_manual_claims": 1.0,
+      "metric_automatic_claims": 1.0
+    },
+    {
+      "id": 7,
+      "image": "data/test_images/image-4.jpg",
+      "question": "What is in this image?",
+      "verifiable_ratio": 0.667,
+      "claims": [
+        {
+          "text": "The bowl is green",
+          "verifiable": true,
+          "p_yes": 0.9925
+        },
+        {
+          "text": "The bowl is wicker",
+          "verifiable": false,
+          "p_yes": 0.0569
+        },
+        {
+          "text": "Contains bananas",
+          "verifiable": true,
+          "p_yes": 0.8278
+        },
+        {
+          "text": "Contains grapes",
+          "verifiable": true,
+          "p_yes": 0.9194
+        },
+        {
+          "text": "Contains oranges",
+          "verifiable": true,
+          "p_yes": 0.8189
+        },
+        {
+          "text": "Contains a red apple",
+          "verifiable": false,
+          "p_yes": 0.2625
+        }
+      ],
+      "automatic_claims": [
+        {
+          "text": "A green wicker fruit bowl filled with bananas, grapes, oranges",
+          "p_yes": 0.9773
+        },
+        {
+          "text": "a red apple",
+          "p_yes": 0.1946
+        }
+      ],
+      "metric_manual_claims": 0.6666666666666666,
+      "metric_automatic_claims": 0.5
+    },
+    {
+      "id": 8,
+      "image": "data/test_images/image-4.jpg",
+      "question": "Describe the image in one sentence.",
+      "verifiable_ratio": 0.667,
+      "claims": [
+        {
+          "text": "Green plastic fruit basket",
+          "verifiable": true,
+          "p_yes": 0.8492
+        },
+        {
+          "text": "Filled with various fruits",
+          "verifiable": true,
+          "p_yes": 0.9122
+        },
+        {
+          "text": "Contains green grapes",
+          "verifiable": true,
+          "p_yes": 0.9618
+        },
+        {
+          "text": "Contains bananas",
+          "verifiable": true,
+          "p_yes": 0.8278
+        },
+        {
+          "text": "Contains red and yellow apples",
+          "verifiable": false,
+          "p_yes": 0.2237
+        },
+        {
+          "text": "Green grapes are placed on top of the bananas",
+          "verifiable": true,
+          "p_yes": 0.9425
+        },
+        {
+          "text": "Apples are placed on the right side of the basket",
+          "verifiable": false,
+          "p_yes": 0.0356
+        },
+        {
+          "text": "The background is blurred",
+          "verifiable": false,
+          "p_yes": 0.9794
+        },
+        {
+          "text": "The image is taken from a top-down perspective",
+          "verifiable": true,
+          "p_yes": 0.9329
+        }
+      ],
+      "automatic_claims": [
+        {
+          "text": "The image shows a green plastic fruit basket filled with various fruits",
+          "p_yes": 0.9737
+        },
+        {
+          "text": "The basket contains several types of fruits, including green grapes, bananas",
+          "p_yes": 0.9822
+        },
+        {
+          "text": "red and yellow apples",
+          "p_yes": 0.1354
+        },
+        {
+          "text": "The fruits are arranged in a visually appealing manner, with the green grapes placed on top of the bananas",
+          "p_yes": 0.9724
+        },
+        {
+          "text": "the apples placed on the right side of the basket",
+          "p_yes": 0.0418
+        },
+        {
+          "text": "The background of the image is blurred, focusing attention on the fruits in the basket",
+          "p_yes": 0.9683
+        },
+        {
+          "text": "The image is taken from a top-down perspective, providing a clear view of the contents of the basket",
+          "p_yes": 0.9586
+        }
+      ],
+      "metric_manual_claims": 0.7777777777777778,
+      "metric_automatic_claims": 0.7142857142857143
+    },
+    {
+      "id": 9,
+      "image": "data/test_images/image-5.jpg",
+      "question": "What is in this image?",
+      "verifiable_ratio": 1.0,
+      "claims": [
+        {
+          "text": "Three bottles",
+          "verifiable": true,
+          "p_yes": 0.9076
+        },
+        {
+          "text": "The bottles are wine",
+          "verifiable": true,
+          "p_yes": 0.976
+        },
+        {
+          "text": "The bottles are lined up on a table",
+          "verifiable": true,
+          "p_yes": 0.9545
+        }
+      ],
+      "automatic_claims": [
+        {
+          "text": "Three bottles of wine are lined up on a table",
+          "p_yes": 0.9637
+        }
+      ],
+      "metric_manual_claims": 1.0,
+      "metric_automatic_claims": 1.0
+    },
+    {
+      "id": 10,
+      "image": "data/test_images/image-5.jpg",
+      "question": "Describe the image in one sentence.",
+      "verifiable_ratio": 1.0,
+      "claims": [
+        {
+          "text": "Three bottles",
+          "verifiable": true,
+          "p_yes": 0.9076
+        },
+        {
+          "text": "The bottles are wine",
+          "verifiable": true,
+          "p_yes": 0.976
+        },
+        {
+          "text": "The bottles are lined up on a table",
+          "verifiable": true,
+          "p_yes": 0.9545
+        }
+      ],
+      "automatic_claims": [
+        {
+          "text": "Three bottles of wine are lined up on a table",
+          "p_yes": 0.9637
+        }
+      ],
+      "metric_manual_claims": 1.0,
+      "metric_automatic_claims": 1.0
+    }
+  ]
+}
