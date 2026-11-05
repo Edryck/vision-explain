@@ -1,0 +1,126 @@
+{
+  "status": "draft_pending_human_review",
+  "selection": "Rule-based categories; first distinct answers per category, in subset order.",
+  "category_counts": {
+    "image_quality": 5,
+    "missed_defect": 36,
+    "phantom_context": 15,
+    "wrong_object": 8,
+    "invented_defect": 7
+  },
+  "uncategorized_wrong": 1,
+  "inconsistent_images": [
+    "bottle_broken_large_001",
+    "bottle_broken_large_003",
+    "bottle_broken_large_011",
+    "bottle_broken_small_000",
+    "bottle_broken_small_003",
+    "bottle_broken_small_021",
+    "bottle_contamination_004",
+    "bottle_contamination_006",
+    "bottle_contamination_020",
+    "bottle_good_001",
+    "bottle_good_003",
+    "bottle_good_008",
+    "bottle_good_011",
+    "bottle_good_019"
+  ],
+  "metric_blind_spot": {
+    "wrong_answers_scored": 64,
+    "wrong_answers_with_faithscore_1": 45,
+    "correct_answers_scored": 46,
+    "correct_answers_with_faithscore_0": 4
+  },
+  "gallery": [
+    {
+      "file": "missed_defect_bottle_broken_large_001_q2_location.png",
+      "category": "missed_defect",
+      "image_id": "bottle_broken_large_001",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "file": "missed_defect_bottle_broken_large_001_q3_type.png",
+      "category": "missed_defect",
+      "image_id": "bottle_broken_large_001",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "file": "invented_defect_bottle_good_001_q1_presence.png",
+      "category": "invented_defect",
+      "image_id": "bottle_good_001",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a reflection of light in this image.",
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "file": "invented_defect_bottle_good_003_q1_presence.png",
+      "category": "invented_defect",
+      "image_id": "bottle_good_003",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a reflection of light in the middle of this image.",
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "file": "wrong_object_bottle_broken_large_002_q3_type.png",
+      "category": "wrong_object",
+      "image_id": "bottle_broken_large_002",
+      "question_id": "q3_type",
+      "answer": "It is a lens.",
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "file": "wrong_object_bottle_broken_large_003_q3_type.png",
+      "category": "wrong_object",
+      "image_id": "bottle_broken_large_003",
+      "question_id": "q3_type",
+      "answer": "It is a black hole.",
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "file": "phantom_context_bottle_broken_large_002_q2_location.png",
+      "category": "phantom_context",
+      "image_id": "bottle_broken_large_002",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts provided, so we cannot determine its location.",
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "file": "phantom_context_bottle_broken_small_013_q2_location.png",
+      "category": "phantom_context",
+      "image_id": "bottle_broken_small_013",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts provided, so we cannot answer this question.",
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "file": "image_quality_bottle_broken_large_001_q1_presence.png",
+      "category": "image_quality",
+      "image_id": "bottle_broken_large_001",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a blur in this image.",
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "file": "image_quality_bottle_broken_large_003_q1_presence.png",
+      "category": "image_quality",
+      "image_id": "bottle_broken_large_003",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a blur in the image.",
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    }
+  ]
+}
