@@ -1,0 +1,2296 @@
+{
+  "source": "experiments/exp003_configA_completo.json",
+  "configuration": "A",
+  "verifier": {
+    "model": "HuggingFaceTB/SmolVLM-Instruct",
+    "image_splitting": false,
+    "threshold": 0.5
+  },
+  "n_responses": 120,
+  "mean_new_tokens": 11.44,
+  "faithscore": {
+    "overall": {
+      "n": 113,
+      "n_undefined": 7,
+      "mean": 0.7965,
+      "std": 0.4044,
+      "median": 1.0,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "by_question": {
+      "q1_presence": {
+        "n": 39,
+        "n_undefined": 1,
+        "mean": 0.8718,
+        "std": 0.3387,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q2_location": {
+        "n": 40,
+        "n_undefined": 0,
+        "mean": 0.625,
+        "std": 0.4903,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q3_type": {
+        "n": 34,
+        "n_undefined": 6,
+        "mean": 0.9118,
+        "std": 0.2879,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      }
+    },
+    "by_defect_type": {
+      "broken_large": {
+        "n": 27,
+        "n_undefined": 3,
+        "mean": 0.963,
+        "std": 0.1925,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "broken_small": {
+        "n": 26,
+        "n_undefined": 4,
+        "mean": 0.8077,
+        "std": 0.4019,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "contamination": {
+        "n": 30,
+        "n_undefined": 0,
+        "mean": 0.6,
+        "std": 0.4983,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "good": {
+        "n": 30,
+        "n_undefined": 0,
+        "mean": 0.8333,
+        "std": 0.379,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      }
+    }
+  },
+  "ground_truth_correct": {
+    "overall": {
+      "n": 116,
+      "n_undefined": 4,
+      "mean": 0.4483,
+      "std": 0.4995,
+      "median": 0.0,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "by_question": {
+      "q1_presence": {
+        "n": 39,
+        "n_undefined": 1,
+        "mean": 0.5897,
+        "std": 0.4983,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q2_location": {
+        "n": 37,
+        "n_undefined": 3,
+        "mean": 0.4054,
+        "std": 0.4977,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q3_type": {
+        "n": 40,
+        "n_undefined": 0,
+        "mean": 0.35,
+        "std": 0.483,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0
+      }
+    },
+    "by_defect_type": {
+      "broken_large": {
+        "n": 29,
+        "n_undefined": 1,
+        "mean": 0.5172,
+        "std": 0.5085,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "broken_small": {
+        "n": 27,
+        "n_undefined": 3,
+        "mean": 0.4074,
+        "std": 0.5007,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "contamination": {
+        "n": 30,
+        "n_undefined": 0,
+        "mean": 0.1,
+        "std": 0.3051,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "good": {
+        "n": 30,
+        "n_undefined": 0,
+        "mean": 0.7667,
+        "std": 0.4302,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      }
+    },
+    "by_question_and_type": {
+      "q1_presence|broken_large": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 0.8,
+        "std": 0.4216,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q1_presence|broken_small": {
+        "n": 9,
+        "n_undefined": 1,
+        "mean": 0.7778,
+        "std": 0.441,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q1_presence|contamination": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 0.3,
+        "std": 0.483,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q1_presence|good": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 0.5,
+        "std": 0.527,
+        "median": 0.5,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q2_location|broken_large": {
+        "n": 9,
+        "n_undefined": 1,
+        "mean": 0.4444,
+        "std": 0.527,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q2_location|broken_small": {
+        "n": 8,
+        "n_undefined": 2,
+        "mean": 0.125,
+        "std": 0.3536,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q2_location|contamination": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 0.0,
+        "std": 0.0,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "q2_location|good": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 1.0,
+        "std": 0.0,
+        "median": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "q3_type|broken_large": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 0.3,
+        "std": 0.483,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q3_type|broken_small": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 0.3,
+        "std": 0.483,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q3_type|contamination": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 0.0,
+        "std": 0.0,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "q3_type|good": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 0.8,
+        "std": 0.4216,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      }
+    }
+  },
+  "responses": [
+    {
+      "image_id": "bottle_broken_large_000",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a hole in the middle of the image.",
+      "new_tokens": 14,
+      "claims": [
+        {
+          "claim": "Yes, there is a hole in the middle of the image",
+          "p_yes": 0.9368
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_000",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "The defect is on the glass.",
+      "new_tokens": 8,
+      "claims": [
+        {
+          "claim": "The defect is on the glass",
+          "p_yes": 0.9392
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": null
+    },
+    {
+      "image_id": "bottle_broken_large_000",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "Crack.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_001",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a blur in this image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "Yes, there is a blur in this image",
+          "p_yes": 0.9341
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_001",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.8936
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_001",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9707
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_002",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "No, there is no defect in this image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "No, there is no defect in this image",
+          "p_yes": 0.5959
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_002",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts provided, so we cannot determine its location.",
+      "new_tokens": 18,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the facts provided, so we cannot determine its location",
+          "p_yes": 0.0872
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_002",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "It is a lens.",
+      "new_tokens": 6,
+      "claims": [
+        {
+          "claim": "It is a lens",
+          "p_yes": 0.9775
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_003",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a blur in the image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "Yes, there is a blur in the image",
+          "p_yes": 0.9706
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_003",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image; it is a clear image of a black object.",
+      "new_tokens": 20,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.6537
+        },
+        {
+          "claim": "it is a clear image of a black object",
+          "p_yes": 0.9515
+        }
+      ],
+      "n_claims": 2,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_003",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "It is a black hole.",
+      "new_tokens": 7,
+      "claims": [
+        {
+          "claim": "It is a black hole",
+          "p_yes": 0.9361
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_007",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "No, there is no defect in this image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "No, there is no defect in this image",
+          "p_yes": 0.9559
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_007",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.9668
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_007",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9871
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_008",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a crack in the middle of the image.",
+      "new_tokens": 14,
+      "claims": [
+        {
+          "claim": "Yes, there is a crack in the middle of the image",
+          "p_yes": 0.9519
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_008",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "The defect is on the right side of the image.",
+      "new_tokens": 12,
+      "claims": [
+        {
+          "claim": "The defect is on the right side of the image",
+          "p_yes": 0.5686
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_008",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "Crack.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_010",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a hole in the middle of the image.",
+      "new_tokens": 14,
+      "claims": [
+        {
+          "claim": "Yes, there is a hole in the middle of the image",
+          "p_yes": 0.9603
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_010",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "The defect is on the top left side of the image.",
+      "new_tokens": 13,
+      "claims": [
+        {
+          "claim": "The defect is on the top left side of the image",
+          "p_yes": 0.7986
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_010",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "Crack.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_011",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a blur in the image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "Yes, there is a blur in the image",
+          "p_yes": 0.9829
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_011",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.8014
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_011",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9313
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_016",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a black object in the middle of the image.",
+      "new_tokens": 15,
+      "claims": [
+        {
+          "claim": "Yes, there is a black object in the middle of the image",
+          "p_yes": 0.8922
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_016",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "The defect is in the middle of the image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "The defect is in the middle of the image",
+          "p_yes": 0.6217
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_016",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "It is a lens.",
+      "new_tokens": 6,
+      "claims": [
+        {
+          "claim": "It is a lens",
+          "p_yes": 0.9787
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_017",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a hole in the middle of the image.",
+      "new_tokens": 14,
+      "claims": [
+        {
+          "claim": "Yes, there is a hole in the middle of the image",
+          "p_yes": 0.9657
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_017",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "The defect is in the middle of the image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "The defect is in the middle of the image",
+          "p_yes": 0.6632
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_017",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "It is a camera lens.",
+      "new_tokens": 7,
+      "claims": [
+        {
+          "claim": "It is a camera lens",
+          "p_yes": 0.8915
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_000",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a reflection of light in this image.",
+      "new_tokens": 13,
+      "claims": [
+        {
+          "claim": "Yes, there is a reflection of light in this image",
+          "p_yes": 0.9082
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_000",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts provided, so we cannot determine its location.",
+      "new_tokens": 18,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the facts provided, so we cannot determine its location",
+          "p_yes": 0.1858
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_000",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9324
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_001",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "No, there is no defect in this image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "No, there is no defect in this image",
+          "p_yes": 0.5907
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_001",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts provided, so we cannot determine its location.",
+      "new_tokens": 18,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the facts provided, so we cannot determine its location",
+          "p_yes": 0.1573
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_001",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9339
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_002",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a white color thing on the glass.",
+      "new_tokens": 13,
+      "claims": [
+        {
+          "claim": "Yes, there is a white color thing on the glass",
+          "p_yes": 0.8787
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_002",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "The defect is on the glass.",
+      "new_tokens": 8,
+      "claims": [
+        {
+          "claim": "The defect is on the glass",
+          "p_yes": 0.7055
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": null
+    },
+    {
+      "image_id": "bottle_broken_small_002",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "Crack.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_003",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a blur in the image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "Yes, there is a blur in the image",
+          "p_yes": 0.9799
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_003",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.831
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_003",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9394
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_006",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "No, there is no defect in this image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "No, there is no defect in this image",
+          "p_yes": 0.6602
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_006",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts provided, so we cannot determine its location.",
+      "new_tokens": 18,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the facts provided, so we cannot determine its location",
+          "p_yes": 0.1591
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_006",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9518
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_008",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a crack on the glass.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "Yes, there is a crack on the glass",
+          "p_yes": 0.9874
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_008",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "The defect is in the middle of the image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "The defect is in the middle of the image",
+          "p_yes": 0.8174
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_008",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "Crack.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_009",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a small piece of glass in the middle of the image.",
+      "new_tokens": 17,
+      "claims": [
+        {
+          "claim": "Yes, there is a small piece of glass in the middle of the image",
+          "p_yes": 0.984
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_009",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "The defect is located in the middle of the image.",
+      "new_tokens": 12,
+      "claims": [
+        {
+          "claim": "The defect is located in the middle of the image",
+          "p_yes": 0.5912
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_009",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "Crack.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_013",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Answer: Yes.",
+      "new_tokens": 5,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": null
+    },
+    {
+      "image_id": "bottle_broken_small_013",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts provided, so we cannot answer this question.",
+      "new_tokens": 18,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the facts provided, so we cannot answer this question",
+          "p_yes": 0.3132
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_013",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9713
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_018",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a white spot on the glass.",
+      "new_tokens": 12,
+      "claims": [
+        {
+          "claim": "Yes, there is a white spot on the glass",
+          "p_yes": 0.8674
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_018",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "The defect is on the glass.",
+      "new_tokens": 8,
+      "claims": [
+        {
+          "claim": "The defect is on the glass",
+          "p_yes": 0.7419
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": null
+    },
+    {
+      "image_id": "bottle_broken_small_018",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "It is a bubble.",
+      "new_tokens": 6,
+      "claims": [
+        {
+          "claim": "It is a bubble",
+          "p_yes": 0.957
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_021",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a reflection of a thread in the middle of the image.",
+      "new_tokens": 17,
+      "claims": [
+        {
+          "claim": "Yes, there is a reflection of a thread in the middle of the image",
+          "p_yes": 0.9607
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_021",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts provided, so we cannot determine its location.",
+      "new_tokens": 18,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the facts provided, so we cannot determine its location",
+          "p_yes": 0.1077
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_021",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9389
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_000",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "No, there is no defect in this image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "No, there is no defect in this image",
+          "p_yes": 0.3878
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_000",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts provided, so we cannot determine its location.",
+      "new_tokens": 18,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the facts provided, so we cannot determine its location",
+          "p_yes": 0.1021
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_000",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image; it is a glass with a drink in it.",
+      "new_tokens": 19,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.8672
+        },
+        {
+          "claim": "it is a glass with a drink in it",
+          "p_yes": 0.9321
+        }
+      ],
+      "n_claims": 2,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_004",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a reflection of light in the image.",
+      "new_tokens": 13,
+      "claims": [
+        {
+          "claim": "Yes, there is a reflection of light in the image",
+          "p_yes": 0.8432
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_004",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts provided, so we cannot answer this question.",
+      "new_tokens": 18,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the facts provided, so we cannot answer this question",
+          "p_yes": 0.2438
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_004",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9608
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_006",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "Yes: The image is blurry.",
+      "new_tokens": 8,
+      "claims": [
+        {
+          "claim": "Yes: The image is blurry",
+          "p_yes": 0.9407
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_006",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts provided, so we cannot determine its location.",
+      "new_tokens": 18,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the facts provided, so we cannot determine its location",
+          "p_yes": 0.1498
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_006",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "It is a lens defect.",
+      "new_tokens": 7,
+      "claims": [
+        {
+          "claim": "It is a lens defect",
+          "p_yes": 0.3268
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_007",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "No, the image is clear and well-focused.",
+      "new_tokens": 12,
+      "claims": [
+        {
+          "claim": "No, the image is clear and well-focused",
+          "p_yes": 0.6965
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_007",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts provided, so it cannot be determined from the image.",
+      "new_tokens": 20,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the facts provided, so it cannot be determined from the image",
+          "p_yes": 0.0443
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_007",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "It is a hole.",
+      "new_tokens": 6,
+      "claims": [
+        {
+          "claim": "It is a hole",
+          "p_yes": 0.7588
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_009",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "No, there is no defect in this image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "No, there is no defect in this image",
+          "p_yes": 0.8116
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_009",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.8913
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_009",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9663
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_013",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "No defect: No.",
+      "new_tokens": 6,
+      "claims": [
+        {
+          "claim": "No defect: No",
+          "p_yes": 0.8629
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_013",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts provided, so we cannot determine its location.",
+      "new_tokens": 18,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the facts provided, so we cannot determine its location",
+          "p_yes": 0.0636
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_013",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9607
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_015",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "No, there is no defect in this image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "No, there is no defect in this image",
+          "p_yes": 0.3969
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_015",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.6178
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_015",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.8088
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_017",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "No, there is no defect in this image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "No, there is no defect in this image",
+          "p_yes": 0.2192
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_017",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned or visible in the image.",
+      "new_tokens": 12,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned or visible in the image",
+          "p_yes": 0.6707
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_017",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "There is no defect mentioned in the image, as it only shows a glass with a black object in it.",
+      "new_tokens": 23,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the image, as it only shows a glass with a black object in it",
+          "p_yes": 0.5691
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_019",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "No, there is no defect in this image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "No, there is no defect in this image",
+          "p_yes": 0.4861
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_019",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts, so we cannot determine its location.",
+      "new_tokens": 17,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the facts, so we cannot determine its location",
+          "p_yes": 0.1484
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_019",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image, as it is a photograph of a glass with liquid in it.",
+      "new_tokens": 22,
+      "claims": [
+        {
+          "claim": "There is no defect in the image, as it is a photograph of a glass with liquid in it",
+          "p_yes": 0.7649
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_020",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a reflection of light in the middle of the image.",
+      "new_tokens": 16,
+      "claims": [
+        {
+          "claim": "Yes, there is a reflection of light in the middle of the image",
+          "p_yes": 0.9496
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_020",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.8254
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_020",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "It is a lens defect.",
+      "new_tokens": 7,
+      "claims": [
+        {
+          "claim": "It is a lens defect",
+          "p_yes": 0.4202
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_good_001",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a reflection of light in this image.",
+      "new_tokens": 13,
+      "claims": [
+        {
+          "claim": "Yes, there is a reflection of light in this image",
+          "p_yes": 0.8519
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_good_001",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts, so we cannot determine its location.",
+      "new_tokens": 17,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the facts, so we cannot determine its location",
+          "p_yes": 0.1504
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_001",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image; it is a glass with a liquid inside.",
+      "new_tokens": 18,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.8629
+        },
+        {
+          "claim": "it is a glass with a liquid inside",
+          "p_yes": 0.9381
+        }
+      ],
+      "n_claims": 2,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_003",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a reflection of light in the middle of this image.",
+      "new_tokens": 16,
+      "claims": [
+        {
+          "claim": "Yes, there is a reflection of light in the middle of this image",
+          "p_yes": 0.9305
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_good_003",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.7794
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_003",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9175
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_004",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "No, there is no defect in this image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "No, there is no defect in this image",
+          "p_yes": 0.571
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_004",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.7434
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_004",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9046
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_005",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "No, there is no defect in this image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "No, there is no defect in this image",
+          "p_yes": 0.6831
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_005",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.7841
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_005",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9301
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_008",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a reflection of light in the middle of this image.",
+      "new_tokens": 16,
+      "claims": [
+        {
+          "claim": "Yes, there is a reflection of light in the middle of this image",
+          "p_yes": 0.8912
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_good_008",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts provided, so we cannot determine its location.",
+      "new_tokens": 18,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the facts provided, so we cannot determine its location",
+          "p_yes": 0.1164
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_008",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.8694
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_010",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "No, there is no defect in this image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "No, there is no defect in this image",
+          "p_yes": 0.6128
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_010",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.8075
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_010",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.936
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_011",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a reflection of light in this image.",
+      "new_tokens": 13,
+      "claims": [
+        {
+          "claim": "Yes, there is a reflection of light in this image",
+          "p_yes": 0.8757
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_good_011",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.7406
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_011",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "It is a lens defect.",
+      "new_tokens": 7,
+      "claims": [
+        {
+          "claim": "It is a lens defect",
+          "p_yes": 0.5133
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_good_012",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "No defect: There is no defect in this image.",
+      "new_tokens": 12,
+      "claims": [
+        {
+          "claim": "No defect: There is no defect in this image",
+          "p_yes": 0.7472
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_012",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.7654
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_012",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.9157
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_013",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "No, there is no defect in this image.",
+      "new_tokens": 11,
+      "claims": [
+        {
+          "claim": "No, there is no defect in this image",
+          "p_yes": 0.4259
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_013",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.6924
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_013",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "There is no defect in the image.",
+      "new_tokens": 9,
+      "claims": [
+        {
+          "claim": "There is no defect in the image",
+          "p_yes": 0.8625
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_019",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "Yes, there is a reflection of the bottle in the image.",
+      "new_tokens": 14,
+      "claims": [
+        {
+          "claim": "Yes, there is a reflection of the bottle in the image",
+          "p_yes": 0.8751
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_good_019",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect mentioned in the facts provided, so we cannot answer this question.",
+      "new_tokens": 18,
+      "claims": [
+        {
+          "claim": "There is no defect mentioned in the facts provided, so we cannot answer this question",
+          "p_yes": 0.2876
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_019",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "It is a circular defect.",
+      "new_tokens": 7,
+      "claims": [
+        {
+          "claim": "It is a circular defect",
+          "p_yes": 0.2558
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    }
+  ]
+}
