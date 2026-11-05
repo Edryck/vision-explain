@@ -27,6 +27,7 @@ def select_images(subset):
 def peak_memory_megabytes(device):
     if device == "cuda":
         return torch.cuda.max_memory_allocated() / 2**20
+    # No Linux, ru_maxrss vem em KB.
     return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss / 1024
 
 
@@ -44,12 +45,14 @@ def measure(configuration, prompt_builder, output_path):
     started = time.perf_counter()
     processor, model, device, dtype = load_vlm()
     load_seconds = time.perf_counter() - started
+    # Aquecimento fora da medição: a primeira execução inclui alocações iniciais.
     generate_answer(processor, model, device, images[0]["path"], prompt_builder(question["text"], images[0]))
     runs = []
     for image in images:
         for repeat in range(N_REPEATS):
             prompt = prompt_builder(question["text"], image)
             started = time.perf_counter()
+            # Sem cache de propósito: mede o custo de uma pergunta isolada.
             result = generate_answer(processor, model, device, image["path"], prompt)
             elapsed = time.perf_counter() - started
             runs.append(

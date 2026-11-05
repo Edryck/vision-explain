@@ -8,6 +8,7 @@ from src.extract_evidence import GRID_NAMES
 NEGATIVE_PATTERN = re.compile(r"^\s*no\b|\bno defects?\b|\bnot? (?:any|see|find)\b|\bthere (?:is|are) no\b", re.IGNORECASE)
 POSITIVE_PATTERN = re.compile(r"^\s*yes\b", re.IGNORECASE)
 HORIZONTAL_TERMS = {0: ("left",), 2: ("right",)}
+# neck, cap e rim assumem a garrafa de lado, mas as fotos são de cima. Nenhuma resposta do exp003 usa esses termos.
 VERTICAL_TERMS = {0: ("top", "upper", "neck", "cap", "rim"), 2: ("bottom", "lower", "base")}
 CENTER_TERMS = ("center", "centre", "middle")
 TYPE_TERMS = {
@@ -45,6 +46,7 @@ def answer_cells(answer):
     lowered = answer.lower()
     rows = {row for row, terms in VERTICAL_TERMS.items() if any(term in lowered for term in terms)}
     cols = {col for col, terms in HORIZONTAL_TERMS.items() if any(term in lowered for term in terms)}
+    # "center" só preenche o eixo não citado: "upper center" continua na linha de cima.
     if any(term in lowered for term in CENTER_TERMS):
         if not rows:
             rows.add(1)
@@ -52,6 +54,7 @@ def answer_cells(answer):
             cols.add(1)
     if not rows and not cols:
         return set()
+    # Termo em um só eixo, como "left", vale para toda a coluna.
     return {(row, col) for row in (rows or {0, 1, 2}) for col in (cols or {0, 1, 2})}
 
 
@@ -68,8 +71,10 @@ def score_location(response, mask_path):
     if claims_no_defect(response["answer"]):
         return False
     cells = answer_cells(response["answer"])
+    # Sem posição citada, o resultado é indefinido, não erro.
     if not cells:
         return None
+    # Critério permissivo: basta tocar a máscara.
     return bool(cells & mask_cells(mask_path))
 
 

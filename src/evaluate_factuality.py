@@ -12,6 +12,7 @@ from src.vlm import MODEL_ID, load_vlm
 
 
 def summarize(values):
+    # None significa indefinido: fica fora da média e é contado à parte.
     known = [value for value in values if value is not None]
     if not known:
         return {"n": 0, "n_undefined": len(values), "mean": None}

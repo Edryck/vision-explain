@@ -8,6 +8,7 @@ from src.prompts import build_messages
 
 MODEL_ID = "HuggingFaceTB/SmolVLM-Instruct"
 MAX_NEW_TOKENS = 128
+# Múltiplo do tile de 384 px. O padrão 1536 ampliava as imagens de 900 px, gastando tokens sem ganhar detalhe.
 LONGEST_EDGE = 1152
 
 
@@ -32,6 +33,7 @@ def generate_answer(processor, model, device, image_path, prompt_text, max_new_t
     with torch.no_grad():
         output = model.generate(**inputs, max_new_tokens=max_new_tokens, do_sample=False)
     prompt_tokens = inputs["input_ids"].shape[1]
+    # generate devolve prompt + resposta.
     new_tokens = output[0][prompt_tokens:]
     return {
         "answer": processor.decode(new_tokens, skip_special_tokens=True).strip(),
@@ -50,6 +52,7 @@ def common_prefix_length(sequences):
 
 def generate_answers_shared_image(processor, model, device, image_path, prompts, max_new_tokens=MAX_NEW_TOKENS):
     encoded = [prepare_inputs(processor, device, image_path, prompt) for prompt in prompts]
+    # A imagem vem antes da pergunta, então a parte cara do prompt é comum e roda uma só vez.
     prefix_length = common_prefix_length([item["input_ids"][0] for item in encoded])
     first = encoded[0]
     with torch.no_grad():
@@ -63,9 +66,11 @@ def generate_answers_shared_image(processor, model, device, image_path, prompts,
     results = []
     for item in encoded:
         with torch.no_grad():
+            # Recebe o prompt inteiro, mas só processa os tokens depois do cache; por isso dispensa pixel_values.
             output = model.generate(
                 input_ids=item["input_ids"],
                 attention_mask=item["attention_mask"],
+                # generate altera o cache; sem a cópia, uma pergunta contaminaria a seguinte.
                 past_key_values=copy.deepcopy(prefix.past_key_values),
                 max_new_tokens=max_new_tokens,
                 do_sample=False,

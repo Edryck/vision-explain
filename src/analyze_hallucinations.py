@@ -5,6 +5,7 @@ from pathlib import Path
 import cv2
 import matplotlib
 
+# Agg gera as figuras sem depender de interface gráfica.
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
@@ -14,6 +15,7 @@ from src.run_configuration import load_subset
 FACTUALITY_PATH = Path("experiments/results/exp003_factualidade_configA.json")
 OUTPUT_DIR = Path("experiments/figs/alucinacoes_configA")
 PER_CATEGORY = 2
+# "hole." com ponto pega "It is a hole.", e não "hole in the middle", que descreve a quebra.
 WRONG_OBJECT_TERMS = ("lens", "black hole", "bubble", "drink", "liquid", "hole.")
 CATEGORY_TITLES = {
     "missed_defect": "Defeito real negado",
@@ -24,6 +26,7 @@ CATEGORY_TITLES = {
 }
 
 
+# A ordem importa: cada resposta fica na primeira categoria que casar.
 def categorize(response):
     answer = response["answer"].lower()
     anomalous = response["label"] == "anomalous"

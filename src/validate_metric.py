@@ -51,6 +51,7 @@ def main():
     processor, model, device, _ = load_vlm()
     items = []
     for item in manual["items"]:
+        # Afirmações manuais isolam o erro do verificador.
         claims = [
             {
                 "text": claim["text"],
@@ -59,6 +60,7 @@ def main():
             }
             for claim in item["claims"]
         ]
+        # Afirmações automáticas medem também o erro da decomposição.
         automatic = [
             {"text": text, "p_yes": round(verify_claim(processor, model, device, item["image"], text), 4)}
             for text in decompose(item["answer"])
@@ -76,6 +78,7 @@ def main():
             }
         )
         print(item["id"], len(claims), len(automatic), flush=True)
+    # Só diagnóstico: escolher o limiar aqui seria ajustar a métrica à própria referência.
     sweep = {
         str(value): claim_agreement(items, value)
         for value in (0.1, 0.3, 0.5, 0.7, 0.9)

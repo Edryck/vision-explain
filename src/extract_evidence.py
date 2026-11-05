@@ -15,8 +15,10 @@ GRID_NAMES = [
     ["middle left", "center", "middle right"],
     ["lower left", "lower center", "lower right"],
 ]
+# O anomalib normaliza o mapa para que o limiar adaptativo da categoria caia em 0,5.
 NORMALIZED_THRESHOLD = 0.5
 DEFAULT_CKPT = RUNS_DIR / "Patchcore/MVTecAD/bottle/v1/weights/lightning/model.ckpt"
+# Regiões abaixo de 0,1% da imagem são tratadas como ruído.
 MIN_AREA_FRACTION = 0.001
 MAX_REGIONS = 5
 
@@ -51,11 +53,13 @@ def grid_position(cx, cy, width, height):
 
 
 def describe_regions(anomaly_map, threshold, width, height):
+    # O mapa sai na resolução de entrada do modelo; sem reescalar, bbox e área ficam erradas.
     resized = cv2.resize(anomaly_map, (width, height), interpolation=cv2.INTER_LINEAR)
     binary = (resized >= threshold).astype(np.uint8)
     count, labels, stats, centroids = cv2.connectedComponentsWithStats(binary, connectivity=8)
     min_area = MIN_AREA_FRACTION * width * height
     regions = []
+    # O rótulo 0 é o fundo.
     for label in range(1, count):
         x, y, w, h, area = stats[label]
         if area < min_area:
@@ -86,6 +90,7 @@ def load_patchcore(coreset_sampling_ratio=0.01):
 
 def extract_evidence(engine, model, image_path, category="bottle", ckpt_path=DEFAULT_CKPT):
     image_path = Path(image_path)
+    # O modelo recebido está vazio: pesos e memory bank vêm de ckpt_path.
     predictions = engine.predict(
         model=model, dataset=PredictDataset(str(image_path)), ckpt_path=str(ckpt_path)
     )

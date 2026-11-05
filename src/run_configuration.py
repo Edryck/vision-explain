@@ -54,6 +54,7 @@ def build_record(experiment_id, configuration, device, dtype, responses, expecte
 
 def save_record(record, output_path):
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+    # Grava em arquivo temporário porque replace é atômico: uma queda não corrompe o JSON.
     temporary = Path(output_path).with_suffix(".tmp")
     with open(temporary, "w", encoding="utf-8") as handle:
         json.dump(record, handle, ensure_ascii=False, indent=2)
@@ -64,6 +65,7 @@ def run_configuration(experiment_id, configuration, prompt_builder, output_path)
     subset = load_subset()
     processor, model, device, dtype = load_vlm()
     responses = load_existing(output_path)
+    # A retomada é por imagem: as 3 respostas compartilham o cache e são salvas juntas.
     finished = {item["image_id"] for item in responses}
     questions = subset["questions"]
     expected = len(subset["images"]) * len(questions)

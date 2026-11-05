@@ -4,6 +4,7 @@ import torch
 
 from src.vlm import prepare_inputs
 
+# Sentenças analíticas ficam fora do cálculo, como no FaithScore original (E4). "indicat" e "suggest" são prefixos.
 ANALYTIC_MARKERS = (
     "likely",
     "possibly",
@@ -24,6 +25,7 @@ VERIFIER_TEMPLATE = (
     "Does the image support this statement? Answer with only yes or no."
 )
 VERIFIER_THRESHOLD = 0.5
+# "and" só divide antes de início de oração, para não quebrar expressões como "black and white".
 CLAUSE_SPLIT = re.compile(r"(?:;|,\s+and\s+|,\s+but\s+|\s+and\s+(?=there\s|it\s|the\s|a\s|an\s))", re.IGNORECASE)
 SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+")
 MIN_CLAIM_WORDS = 3
@@ -53,21 +55,26 @@ def decompose(answer):
 def token_ids(processor, word):
     tokenizer = processor.tokenizer
     variants = {word, word.capitalize(), f" {word}", f" {word.capitalize()}"}
+    # Com e sem espaço inicial, a mesma palavra vira tokens diferentes.
     return sorted({tokenizer.encode(item, add_special_tokens=False)[0] for item in variants})
 
 
 def verify_claim(processor, model, device, image_path, claim):
     prompt = VERIFIER_TEMPLATE.format(claim=claim)
+    # Imagem sem tiles, por custo. Efeito colateral: vale para as próximas chamadas deste processor.
     processor.image_processor.do_image_splitting = False
     inputs = prepare_inputs(processor, device, image_path, prompt)
     with torch.no_grad():
+        # A última posição prevê a primeira palavra da resposta, sem precisar gerar texto.
         logits = model(**inputs).logits[0, -1].float()
     yes_score = torch.logsumexp(logits[token_ids(processor, "yes")], dim=0)
     no_score = torch.logsumexp(logits[token_ids(processor, "no")], dim=0)
+    # sigmoid(yes - no) é P(yes) considerando só as duas opções.
     return float(torch.sigmoid(yes_score - no_score))
 
 
 def score_claims(probabilities, threshold=VERIFIER_THRESHOLD):
+    # None, e não 0: uma resposta sem afirmações, como "Crack.", não é infiel.
     if not probabilities:
         return None
     return sum(value >= threshold for value in probabilities) / len(probabilities)

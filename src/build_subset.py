@@ -17,6 +17,7 @@ def build_subset():
     rng = random.Random(SEED)
     test_dir = MVTEC_ROOT / CATEGORY / "test"
     images = []
+    # iterdir não garante ordem; sem sorted, a mesma semente sortearia imagens diferentes.
     for defect_dir in sorted(test_dir.iterdir()):
         files = sorted(defect_dir.glob("*.png"))
         chosen = sorted(rng.sample(files, PER_TYPE))
