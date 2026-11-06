@@ -1,0 +1,14 @@
+{
+  "experiment_id": "exp006",
+  "week": 17,
+  "title": "Configuration C feasibility decision",
+  "status": "not_run",
+  "decision": "Configuration C was not run on this machine.",
+  "reasons": [
+    "No GPU: only a CPU AMD Ryzen 5 3500U with 17 GB of RAM.",
+    "SmolVLM-Instruct already peaks at about 13.2 GB of RSS in float32.",
+    "A larger VLM would need quantization, which changes precision and hurts comparability.",
+    "The advisor chose to keep this notebook for now; no API or other machine was approved."
+  ],
+  "next_step": "Discuss with the advisor whether to run 12 images on Colab or an API."
+}
