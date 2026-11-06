@@ -63,6 +63,10 @@ Regras:
 - Acerto por gabarito (`src/ground_truth_score.py`): compara a resposta com rótulo, máscara em grade 3x3 e tipo de defeito, por palavras-chave. Medida principal, aprovada pelo orientador, a conferir na avaliação do artigo.
 - FaithScore simplificado (`src/faithscore.py`): decomposição por regras e SmolVLM como verificador. Medida secundária; ver `docs/relatorio_fase3.md`.
 
+## Configuração B (semana 15)
+
+As evidências estão em `experiments/exp002b_evidencias_subconjunto.json`. A e B compartilham `src/run_configuration.py`; só o construtor de prompt muda (`src/configurations.py`). A comparação usa o acerto por gabarito, porque o FaithScore fica indefinido na maioria das respostas da B.
+
 ## Limitações conhecidas
 
 - Uma só categoria; resultados não se estendem a texturas ou objetos deformáveis.

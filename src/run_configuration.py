@@ -1,3 +1,4 @@
+import argparse
 import json
 import platform
 import time
@@ -6,11 +7,14 @@ from pathlib import Path
 import torch
 import transformers
 
-from src.prompts import build_prompt_a
+from src.configurations import get_prompt_builder
 from src.vlm import LONGEST_EDGE, MAX_NEW_TOKENS, MODEL_ID, generate_answers_shared_image, load_vlm
 
 SUBSET_PATH = Path("data/subset_avaliacao.json")
-OUTPUT_A = Path("experiments/exp003_configA_completo.json")
+RUNS = {
+    "A": ("exp003", Path("experiments/exp003_configA_completo.json")),
+    "B": ("exp005", Path("experiments/exp005_configB_completo.json")),
+}
 
 
 def load_subset(path=SUBSET_PATH):
@@ -100,9 +104,9 @@ def run_configuration(experiment_id, configuration, prompt_builder, output_path)
     return responses
 
 
-def prompt_builder_a(question, image):
-    return build_prompt_a(question)
-
-
 if __name__ == "__main__":
-    run_configuration("exp003", "A", prompt_builder_a, OUTPUT_A)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", choices=sorted(RUNS), required=True)
+    arguments = parser.parse_args()
+    experiment_id, output_path = RUNS[arguments.config]
+    run_configuration(experiment_id, arguments.config, get_prompt_builder(arguments.config), output_path)

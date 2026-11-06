@@ -8,7 +8,7 @@ from pathlib import Path
 
 import torch
 
-from src.prompts import build_prompt_a
+from src.configurations import get_prompt_builder
 from src.run_configuration import load_subset
 from src.vlm import MAX_NEW_TOKENS, MODEL_ID, generate_answer, load_vlm
 
@@ -97,13 +97,10 @@ def measure(configuration, prompt_builder, output_path):
     return report
 
 
-def prompt_builder_a(question, image):
-    return build_prompt_a(question)
-
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", default="experiments/results/custo_configA.json")
+    parser.add_argument("--config", choices=["A", "B"], required=True)
+    parser.add_argument("--output", required=True)
     arguments = parser.parse_args()
-    outcome = measure("A", prompt_builder_a, arguments.output)
+    outcome = measure(arguments.config, get_prompt_builder(arguments.config), arguments.output)
     print(outcome["latency_seconds"], outcome["peak_memory_megabytes"])

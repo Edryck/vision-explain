@@ -1,0 +1,1492 @@
+{
+  "bottle_broken_large_000": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/000.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.947,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          312,
+          267,
+          802,
+          837
+        ],
+        "area_pixels": 141538,
+        "area_fraction": 0.17474,
+        "centroid": [
+          598.1,
+          605.2
+        ],
+        "position": "lower center",
+        "max_score": 0.8155,
+        "mean_score": 0.6583,
+        "id": 1
+      }
+    ],
+    "seconds": 0.94,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.3158,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_large_001": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/001.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.9572,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          120,
+          373,
+          750,
+          785
+        ],
+        "area_pixels": 141821,
+        "area_fraction": 0.17509,
+        "centroid": [
+          426.6,
+          598.9
+        ],
+        "position": "center",
+        "max_score": 0.8142,
+        "mean_score": 0.6301,
+        "id": 1
+      }
+    ],
+    "seconds": 0.74,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.2953,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_large_002": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/002.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.9331,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          132,
+          130,
+          801,
+          655
+        ],
+        "area_pixels": 205980,
+        "area_fraction": 0.2543,
+        "centroid": [
+          485.2,
+          361.6
+        ],
+        "position": "center",
+        "max_score": 0.8058,
+        "mean_score": 0.6417,
+        "id": 1
+      }
+    ],
+    "seconds": 0.85,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.3581,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_large_003": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/003.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 1.0,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          52,
+          84,
+          709,
+          849
+        ],
+        "area_pixels": 326691,
+        "area_fraction": 0.40332,
+        "centroid": [
+          356.8,
+          469.7
+        ],
+        "position": "center",
+        "max_score": 0.8596,
+        "mean_score": 0.6659,
+        "id": 1
+      }
+    ],
+    "seconds": 0.86,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.4123,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_large_007": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/007.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.893,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          124,
+          285,
+          773,
+          817
+        ],
+        "area_pixels": 186056,
+        "area_fraction": 0.2297,
+        "centroid": [
+          433.4,
+          585.2
+        ],
+        "position": "center",
+        "max_score": 0.776,
+        "mean_score": 0.6272,
+        "id": 1
+      }
+    ],
+    "seconds": 0.89,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.3723,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_large_008": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/008.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.9669,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          176,
+          289,
+          801,
+          826
+        ],
+        "area_pixels": 173146,
+        "area_fraction": 0.21376,
+        "centroid": [
+          523.0,
+          601.2
+        ],
+        "position": "lower center",
+        "max_score": 0.8281,
+        "mean_score": 0.6623,
+        "id": 1
+      }
+    ],
+    "seconds": 0.8,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.3147,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_large_010": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/010.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.9941,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          108,
+          147,
+          532,
+          764
+        ],
+        "area_pixels": 145013,
+        "area_fraction": 0.17903,
+        "centroid": [
+          293.4,
+          428.4
+        ],
+        "position": "middle left",
+        "max_score": 0.8411,
+        "mean_score": 0.6417,
+        "id": 1
+      }
+    ],
+    "seconds": 1.19,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.3441,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_large_011": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/011.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.7854,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          232,
+          476,
+          732,
+          749
+        ],
+        "area_pixels": 61160,
+        "area_fraction": 0.07551,
+        "centroid": [
+          490.2,
+          642.1
+        ],
+        "position": "lower center",
+        "max_score": 0.6877,
+        "mean_score": 0.5933,
+        "id": 1
+      }
+    ],
+    "seconds": 1.38,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.4003,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_large_016": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/016.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.9032,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          214,
+          174,
+          803,
+          765
+        ],
+        "area_pixels": 166558,
+        "area_fraction": 0.20563,
+        "centroid": [
+          562.7,
+          507.1
+        ],
+        "position": "center",
+        "max_score": 0.7725,
+        "mean_score": 0.644,
+        "id": 1
+      }
+    ],
+    "seconds": 1.07,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.3347,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_large_017": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_large/017.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.9488,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          105,
+          145,
+          708,
+          697
+        ],
+        "area_pixels": 152371,
+        "area_fraction": 0.18811,
+        "centroid": [
+          357.4,
+          364.6
+        ],
+        "position": "center",
+        "max_score": 0.8025,
+        "mean_score": 0.6334,
+        "id": 1
+      }
+    ],
+    "seconds": 1.05,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.3338,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_small_000": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/000.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.6491,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          226,
+          524,
+          321,
+          630
+        ],
+        "area_pixels": 7797,
+        "area_fraction": 0.00963,
+        "centroid": [
+          273.9,
+          576.0
+        ],
+        "position": "middle left",
+        "max_score": 0.6057,
+        "mean_score": 0.552,
+        "id": 1
+      }
+    ],
+    "seconds": 0.94,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.4642,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_small_001": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/001.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.9038,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          174,
+          243,
+          348,
+          462
+        ],
+        "area_pixels": 29206,
+        "area_fraction": 0.03606,
+        "centroid": [
+          256.6,
+          347.1
+        ],
+        "position": "middle left",
+        "max_score": 0.7835,
+        "mean_score": 0.6284,
+        "id": 1
+      }
+    ],
+    "seconds": 0.82,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.2603,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_small_002": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/002.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.9362,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          526,
+          220,
+          758,
+          528
+        ],
+        "area_pixels": 41391,
+        "area_fraction": 0.0511,
+        "centroid": [
+          653.4,
+          365.5
+        ],
+        "position": "middle right",
+        "max_score": 0.789,
+        "mean_score": 0.6159,
+        "id": 1
+      }
+    ],
+    "seconds": 0.81,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.392,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_small_003": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/003.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.9029,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          198,
+          470,
+          718,
+          764
+        ],
+        "area_pixels": 77824,
+        "area_fraction": 0.09608,
+        "centroid": [
+          441.3,
+          643.1
+        ],
+        "position": "lower center",
+        "max_score": 0.7879,
+        "mean_score": 0.6113,
+        "id": 1
+      }
+    ],
+    "seconds": 0.83,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.3831,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_small_006": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/006.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.938,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          350,
+          151,
+          620,
+          318
+        ],
+        "area_pixels": 33664,
+        "area_fraction": 0.04156,
+        "centroid": [
+          493.6,
+          234.7
+        ],
+        "position": "upper center",
+        "max_score": 0.796,
+        "mean_score": 0.6243,
+        "id": 1
+      }
+    ],
+    "seconds": 0.86,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.4686,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_small_008": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/008.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.7934,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          419,
+          554,
+          675,
+          764
+        ],
+        "area_pixels": 33554,
+        "area_fraction": 0.04142,
+        "centroid": [
+          550.8,
+          664.0
+        ],
+        "position": "lower center",
+        "max_score": 0.7,
+        "mean_score": 0.5893,
+        "id": 1
+      }
+    ],
+    "seconds": 0.91,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.3211,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_small_009": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/009.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.9144,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          236,
+          586,
+          487,
+          758
+        ],
+        "area_pixels": 30414,
+        "area_fraction": 0.03755,
+        "centroid": [
+          363.3,
+          667.4
+        ],
+        "position": "lower center",
+        "max_score": 0.7873,
+        "mean_score": 0.6299,
+        "id": 1
+      }
+    ],
+    "seconds": 0.85,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.4374,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_small_013": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/013.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.8316,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          472,
+          156,
+          739,
+          366
+        ],
+        "area_pixels": 38973,
+        "area_fraction": 0.04811,
+        "centroid": [
+          599.2,
+          264.8
+        ],
+        "position": "upper center",
+        "max_score": 0.7329,
+        "mean_score": 0.6042,
+        "id": 1
+      }
+    ],
+    "seconds": 1.0,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.427,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_small_018": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/018.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 1.0,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          160,
+          408,
+          508,
+          759
+        ],
+        "area_pixels": 65747,
+        "area_fraction": 0.08117,
+        "centroid": [
+          315.1,
+          606.4
+        ],
+        "position": "lower center",
+        "max_score": 0.8813,
+        "mean_score": 0.6626,
+        "id": 1
+      }
+    ],
+    "seconds": 0.98,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.3662,
+      "evidence_correct": true
+    }
+  },
+  "bottle_broken_small_021": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/broken_small/021.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.8956,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          595,
+          426,
+          752,
+          652
+        ],
+        "area_pixels": 26285,
+        "area_fraction": 0.03245,
+        "centroid": [
+          673.7,
+          540.4
+        ],
+        "position": "middle right",
+        "max_score": 0.7685,
+        "mean_score": 0.6199,
+        "id": 1
+      }
+    ],
+    "seconds": 0.89,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.4148,
+      "evidence_correct": true
+    }
+  },
+  "bottle_contamination_000": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/000.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.8145,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          257,
+          263,
+          620,
+          594
+        ],
+        "area_pixels": 82442,
+        "area_fraction": 0.10178,
+        "centroid": [
+          432.9,
+          429.6
+        ],
+        "position": "center",
+        "max_score": 0.7197,
+        "mean_score": 0.6193,
+        "id": 1
+      }
+    ],
+    "seconds": 0.88,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.4886,
+      "evidence_correct": true
+    }
+  },
+  "bottle_contamination_004": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/004.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.6095,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          209,
+          517,
+          425,
+          729
+        ],
+        "area_pixels": 15500,
+        "area_fraction": 0.01914,
+        "centroid": [
+          324.4,
+          619.1
+        ],
+        "position": "lower center",
+        "max_score": 0.5665,
+        "mean_score": 0.52,
+        "id": 1
+      }
+    ],
+    "seconds": 0.9,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.354,
+      "evidence_correct": true
+    }
+  },
+  "bottle_contamination_006": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/006.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.8933,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          274,
+          306,
+          651,
+          661
+        ],
+        "area_pixels": 107673,
+        "area_fraction": 0.13293,
+        "centroid": [
+          460.0,
+          485.9
+        ],
+        "position": "center",
+        "max_score": 0.7781,
+        "mean_score": 0.6151,
+        "id": 1
+      }
+    ],
+    "seconds": 0.87,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.8039,
+      "evidence_correct": true
+    }
+  },
+  "bottle_contamination_007": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/007.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 1.0,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          417,
+          287,
+          840,
+          900
+        ],
+        "area_pixels": 141173,
+        "area_fraction": 0.17429,
+        "centroid": [
+          617.3,
+          616.7
+        ],
+        "position": "lower right",
+        "max_score": 1.0,
+        "mean_score": 0.726,
+        "id": 1
+      }
+    ],
+    "seconds": 0.86,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.1735,
+      "evidence_correct": true
+    }
+  },
+  "bottle_contamination_009": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/009.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.9746,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          334,
+          316,
+          606,
+          574
+        ],
+        "area_pixels": 54220,
+        "area_fraction": 0.06694,
+        "centroid": [
+          463.5,
+          441.7
+        ],
+        "position": "center",
+        "max_score": 0.8287,
+        "mean_score": 0.6346,
+        "id": 1
+      }
+    ],
+    "seconds": 0.91,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.6199,
+      "evidence_correct": true
+    }
+  },
+  "bottle_contamination_013": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/013.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 1.0,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          0,
+          273,
+          494,
+          591
+        ],
+        "area_pixels": 121723,
+        "area_fraction": 0.15028,
+        "centroid": [
+          225.4,
+          431.5
+        ],
+        "position": "middle left",
+        "max_score": 0.9558,
+        "mean_score": 0.7246,
+        "id": 1
+      }
+    ],
+    "seconds": 0.91,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.263,
+      "evidence_correct": true
+    }
+  },
+  "bottle_contamination_015": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/015.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.9387,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          302,
+          271,
+          600,
+          552
+        ],
+        "area_pixels": 59131,
+        "area_fraction": 0.073,
+        "centroid": [
+          451.7,
+          418.7
+        ],
+        "position": "center",
+        "max_score": 0.803,
+        "mean_score": 0.6353,
+        "id": 1
+      }
+    ],
+    "seconds": 0.92,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.3182,
+      "evidence_correct": true
+    }
+  },
+  "bottle_contamination_017": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/017.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 1.0,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          30,
+          52,
+          558,
+          496
+        ],
+        "area_pixels": 146455,
+        "area_fraction": 0.18081,
+        "centroid": [
+          253.8,
+          309.1
+        ],
+        "position": "middle left",
+        "max_score": 0.9455,
+        "mean_score": 0.7163,
+        "id": 1
+      }
+    ],
+    "seconds": 0.94,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.262,
+      "evidence_correct": true
+    }
+  },
+  "bottle_contamination_019": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/019.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.5744,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          662,
+          441,
+          716,
+          508
+        ],
+        "area_pixels": 2622,
+        "area_fraction": 0.00324,
+        "centroid": [
+          687.9,
+          473.6
+        ],
+        "position": "middle right",
+        "max_score": 0.5342,
+        "mean_score": 0.5153,
+        "id": 1
+      }
+    ],
+    "seconds": 0.87,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.1165,
+      "evidence_correct": true
+    }
+  },
+  "bottle_contamination_020": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/contamination/020.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.58,
+    "threshold": 0.5,
+    "is_anomalous": true,
+    "regions": [
+      {
+        "bbox": [
+          348,
+          377,
+          485,
+          625
+        ],
+        "area_pixels": 21077,
+        "area_fraction": 0.02602,
+        "centroid": [
+          414.2,
+          502.2
+        ],
+        "position": "center",
+        "max_score": 0.5566,
+        "mean_score": 0.5219,
+        "id": 1
+      }
+    ],
+    "seconds": 0.93,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": 0.2799,
+      "evidence_correct": true
+    }
+  },
+  "bottle_good_001": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/good/001.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.3432,
+    "threshold": 0.5,
+    "is_anomalous": false,
+    "regions": [],
+    "seconds": 0.83,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": null,
+      "evidence_correct": true
+    }
+  },
+  "bottle_good_003": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/good/003.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.2422,
+    "threshold": 0.5,
+    "is_anomalous": false,
+    "regions": [],
+    "seconds": 0.85,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": null,
+      "evidence_correct": true
+    }
+  },
+  "bottle_good_004": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/good/004.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.2568,
+    "threshold": 0.5,
+    "is_anomalous": false,
+    "regions": [],
+    "seconds": 0.89,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": null,
+      "evidence_correct": true
+    }
+  },
+  "bottle_good_005": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/good/005.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.2539,
+    "threshold": 0.5,
+    "is_anomalous": false,
+    "regions": [],
+    "seconds": 0.95,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": null,
+      "evidence_correct": true
+    }
+  },
+  "bottle_good_008": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/good/008.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.2798,
+    "threshold": 0.5,
+    "is_anomalous": false,
+    "regions": [],
+    "seconds": 0.9,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": null,
+      "evidence_correct": true
+    }
+  },
+  "bottle_good_010": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/good/010.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.2754,
+    "threshold": 0.5,
+    "is_anomalous": false,
+    "regions": [],
+    "seconds": 0.99,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": null,
+      "evidence_correct": true
+    }
+  },
+  "bottle_good_011": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/good/011.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.2485,
+    "threshold": 0.5,
+    "is_anomalous": false,
+    "regions": [],
+    "seconds": 0.91,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": null,
+      "evidence_correct": true
+    }
+  },
+  "bottle_good_012": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/good/012.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.2696,
+    "threshold": 0.5,
+    "is_anomalous": false,
+    "regions": [],
+    "seconds": 1.05,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": null,
+      "evidence_correct": true
+    }
+  },
+  "bottle_good_013": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/good/013.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.2516,
+    "threshold": 0.5,
+    "is_anomalous": false,
+    "regions": [],
+    "seconds": 0.93,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": null,
+      "evidence_correct": true
+    }
+  },
+  "bottle_good_019": {
+    "image": "data/mvtec_ad/mvtec-ad/bottle/test/good/019.png",
+    "category": "bottle",
+    "model": {
+      "name": "PatchCore",
+      "backbone": "wide_resnet50_2",
+      "library": "anomalib"
+    },
+    "image_size": {
+      "width": 900,
+      "height": 900
+    },
+    "image_score": 0.3411,
+    "threshold": 0.5,
+    "is_anomalous": false,
+    "regions": [],
+    "seconds": 0.91,
+    "quality": {
+      "detection_correct": true,
+      "box_iou": null,
+      "evidence_correct": true
+    }
+  }
+}
