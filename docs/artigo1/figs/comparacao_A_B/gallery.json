@@ -1,0 +1,99 @@
+{
+  "pair_counts": {
+    "b_worsened_a": 6,
+    "b_corrected_a": 38,
+    "both_wrong": 26
+  },
+  "gallery": [
+    {
+      "file": "b_worsened_a_bottle_broken_large_000_q3_type.png",
+      "case": "b_worsened_a",
+      "image_id": "bottle_broken_large_000",
+      "question_id": "q3_type",
+      "answer_a": "Crack.",
+      "answer_b": "anomaly",
+      "evidence": "The anomaly detector flagged this image as anomalous (score 0.947, threshold 0.5).\nRegion 1: lower center, covers 17.5% of the image, peak score 0.8155."
+    },
+    {
+      "file": "b_corrected_a_bottle_broken_large_001_q2_location.png",
+      "case": "b_corrected_a",
+      "image_id": "bottle_broken_large_001",
+      "question_id": "q2_location",
+      "answer_a": "There is no defect present in the image.",
+      "answer_b": "center",
+      "evidence": "The anomaly detector flagged this image as anomalous (score 0.9572, threshold 0.5).\nRegion 1: center, covers 17.5% of the image, peak score 0.8142."
+    },
+    {
+      "file": "both_wrong_bottle_broken_large_001_q3_type.png",
+      "case": "both_wrong",
+      "image_id": "bottle_broken_large_001",
+      "question_id": "q3_type",
+      "answer_a": "There is no defect in the image.",
+      "answer_b": "anomaly detection",
+      "evidence": "The anomaly detector flagged this image as anomalous (score 0.9572, threshold 0.5).\nRegion 1: center, covers 17.5% of the image, peak score 0.8142."
+    },
+    {
+      "file": "b_corrected_a_bottle_broken_small_000_q2_location.png",
+      "case": "b_corrected_a",
+      "image_id": "bottle_broken_small_000",
+      "question_id": "q2_location",
+      "answer_a": "There is no defect mentioned in the facts provided, so we cannot determine its location.",
+      "answer_b": "middle left",
+      "evidence": "The anomaly detector flagged this image as anomalous (score 0.6491, threshold 0.5).\nRegion 1: middle left, covers 1.0% of the image, peak score 0.6057."
+    },
+    {
+      "file": "both_wrong_bottle_broken_small_000_q3_type.png",
+      "case": "both_wrong",
+      "image_id": "bottle_broken_small_000",
+      "question_id": "q3_type",
+      "answer_a": "There is no defect in the image.",
+      "answer_b": "anomaly",
+      "evidence": "The anomaly detector flagged this image as anomalous (score 0.6491, threshold 0.5).\nRegion 1: middle left, covers 1.0% of the image, peak score 0.6057."
+    },
+    {
+      "file": "b_worsened_a_bottle_broken_small_002_q3_type.png",
+      "case": "b_worsened_a",
+      "image_id": "bottle_broken_small_002",
+      "question_id": "q3_type",
+      "answer_a": "Crack.",
+      "answer_b": "Anomalous",
+      "evidence": "The anomaly detector flagged this image as anomalous (score 0.9362, threshold 0.5).\nRegion 1: middle right, covers 5.1% of the image, peak score 0.789."
+    },
+    {
+      "file": "b_corrected_a_bottle_contamination_000_q1_presence.png",
+      "case": "b_corrected_a",
+      "image_id": "bottle_contamination_000",
+      "question_id": "q1_presence",
+      "answer_a": "No, there is no defect in this image.",
+      "answer_b": "Yes.",
+      "evidence": "The anomaly detector flagged this image as anomalous (score 0.8145, threshold 0.5).\nRegion 1: center, covers 10.2% of the image, peak score 0.7197."
+    },
+    {
+      "file": "both_wrong_bottle_contamination_000_q3_type.png",
+      "case": "both_wrong",
+      "image_id": "bottle_contamination_000",
+      "question_id": "q3_type",
+      "answer_a": "There is no defect in the image; it is a glass with a drink in it.",
+      "answer_b": "anomaly",
+      "evidence": "The anomaly detector flagged this image as anomalous (score 0.8145, threshold 0.5).\nRegion 1: center, covers 10.2% of the image, peak score 0.7197."
+    },
+    {
+      "file": "b_worsened_a_bottle_contamination_006_q1_presence.png",
+      "case": "b_worsened_a",
+      "image_id": "bottle_contamination_006",
+      "question_id": "q1_presence",
+      "answer_a": "Yes: The image is blurry.",
+      "answer_b": "No.",
+      "evidence": "The anomaly detector flagged this image as anomalous (score 0.8933, threshold 0.5).\nRegion 1: center, covers 13.3% of the image, peak score 0.7781."
+    },
+    {
+      "file": "b_corrected_a_bottle_good_001_q1_presence.png",
+      "case": "b_corrected_a",
+      "image_id": "bottle_good_001",
+      "question_id": "q1_presence",
+      "answer_a": "Yes, there is a reflection of light in this image.",
+      "answer_b": "No.",
+      "evidence": "The anomaly detector found no anomalous region in this image."
+    }
+  ]
+}
