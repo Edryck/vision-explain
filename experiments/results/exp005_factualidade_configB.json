@@ -1,0 +1,1796 @@
+{
+  "source": "experiments/exp005_configB_completo.json",
+  "configuration": "B",
+  "verifier": {
+    "model": "HuggingFaceTB/SmolVLM-Instruct",
+    "image_splitting": false,
+    "threshold": 0.5
+  },
+  "n_responses": 120,
+  "mean_new_tokens": 3.89,
+  "faithscore": {
+    "overall": {
+      "n": 17,
+      "n_undefined": 103,
+      "mean": 0.6471,
+      "std": 0.4926,
+      "median": 1.0,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "by_question": {
+      "q1_presence": {
+        "n": 0,
+        "n_undefined": 40,
+        "mean": null
+      },
+      "q2_location": {
+        "n": 10,
+        "n_undefined": 30,
+        "mean": 1.0,
+        "std": 0.0,
+        "median": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "q3_type": {
+        "n": 7,
+        "n_undefined": 33,
+        "mean": 0.1429,
+        "std": 0.378,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0
+      }
+    },
+    "by_defect_type": {
+      "broken_large": {
+        "n": 0,
+        "n_undefined": 30,
+        "mean": null
+      },
+      "broken_small": {
+        "n": 3,
+        "n_undefined": 27,
+        "mean": 0.3333,
+        "std": 0.5774,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "contamination": {
+        "n": 4,
+        "n_undefined": 26,
+        "mean": 0.0,
+        "std": 0.0,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "good": {
+        "n": 10,
+        "n_undefined": 20,
+        "mean": 1.0,
+        "std": 0.0,
+        "median": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      }
+    }
+  },
+  "ground_truth_correct": {
+    "overall": {
+      "n": 120,
+      "n_undefined": 0,
+      "mean": 0.7333,
+      "std": 0.4441,
+      "median": 1.0,
+      "min": 0.0,
+      "max": 1.0
+    },
+    "by_question": {
+      "q1_presence": {
+        "n": 40,
+        "n_undefined": 0,
+        "mean": 0.875,
+        "std": 0.3349,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q2_location": {
+        "n": 40,
+        "n_undefined": 0,
+        "mean": 1.0,
+        "std": 0.0,
+        "median": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "q3_type": {
+        "n": 40,
+        "n_undefined": 0,
+        "mean": 0.325,
+        "std": 0.4743,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0
+      }
+    },
+    "by_defect_type": {
+      "broken_large": {
+        "n": 30,
+        "n_undefined": 0,
+        "mean": 0.6667,
+        "std": 0.4795,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "broken_small": {
+        "n": 30,
+        "n_undefined": 0,
+        "mean": 0.7333,
+        "std": 0.4498,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "contamination": {
+        "n": 30,
+        "n_undefined": 0,
+        "mean": 0.5333,
+        "std": 0.5074,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "good": {
+        "n": 30,
+        "n_undefined": 0,
+        "mean": 1.0,
+        "std": 0.0,
+        "median": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      }
+    },
+    "by_question_and_type": {
+      "q1_presence|broken_large": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 0.9,
+        "std": 0.3162,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q1_presence|broken_small": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 1.0,
+        "std": 0.0,
+        "median": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "q1_presence|contamination": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 0.6,
+        "std": 0.5164,
+        "median": 1.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q1_presence|good": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 1.0,
+        "std": 0.0,
+        "median": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "q2_location|broken_large": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 1.0,
+        "std": 0.0,
+        "median": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "q2_location|broken_small": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 1.0,
+        "std": 0.0,
+        "median": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "q2_location|contamination": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 1.0,
+        "std": 0.0,
+        "median": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "q2_location|good": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 1.0,
+        "std": 0.0,
+        "median": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "q3_type|broken_large": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 0.1,
+        "std": 0.3162,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q3_type|broken_small": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 0.2,
+        "std": 0.4216,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 1.0
+      },
+      "q3_type|contamination": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 0.0,
+        "std": 0.0,
+        "median": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "q3_type|good": {
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 1.0,
+        "std": 0.0,
+        "median": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      }
+    }
+  },
+  "responses": [
+    {
+      "image_id": "bottle_broken_large_000",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_000",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "lower center",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_000",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "anomaly",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_001",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_001",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "center",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_001",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "anomaly detection",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_002",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_002",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "Center",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_002",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "Anomalous",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_003",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_003",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "Center",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_003",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "Anomaly detection",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_007",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_007",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "center",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_007",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "Anomalous",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_008",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_008",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "Lower center",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_008",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "Anomaly detection",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_010",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_010",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "Middle left",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_010",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "Crack",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_011",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "No.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_011",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "lower center",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_011",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "No defect.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_016",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_016",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "Center",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_016",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "Anomalous",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_large_017",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_017",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q2_location",
+      "answer": "Center",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_large_017",
+      "label": "anomalous",
+      "defect_type": "broken_large",
+      "question_id": "q3_type",
+      "answer": "anomaly",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_000",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_000",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "middle left",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_000",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "anomaly",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_001",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_001",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "Middle left",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_001",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "anomaly detection",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_002",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_002",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "Middle right",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_002",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "Anomalous",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_003",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_003",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "Lower center",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_003",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "anomaly",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_006",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_006",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "upper center",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_006",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "anomaly detection",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_008",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_008",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "Lower center",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_008",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "Crack",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_009",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_009",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "Lower center",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_009",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "Crack",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_013",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_013",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "Center",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_013",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "Anomaly detection model.",
+      "new_tokens": 6,
+      "claims": [
+        {
+          "claim": "Anomaly detection model",
+          "p_yes": 0.3653
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_018",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_018",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "Lower center",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_018",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "Anomaly detection model: anomaly.",
+      "new_tokens": 8,
+      "claims": [
+        {
+          "claim": "Anomaly detection model: anomaly",
+          "p_yes": 0.3454
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_broken_small_021",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_021",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q2_location",
+      "answer": "Middle right",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_broken_small_021",
+      "label": "anomalous",
+      "defect_type": "broken_small",
+      "question_id": "q3_type",
+      "answer": "Anomaly detection model: Anomalous.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "Anomaly detection model: Anomalous",
+          "p_yes": 0.5248
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_000",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_000",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "Center",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_000",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "anomaly",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_004",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_004",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "Lower center",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_004",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "anomaly detection",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_006",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "No.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_006",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "Center",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_006",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "No defect.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_007",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_007",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "Lower right",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_007",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "Anomaly detection model: anomaly.",
+      "new_tokens": 8,
+      "claims": [
+        {
+          "claim": "Anomaly detection model: anomaly",
+          "p_yes": 0.3273
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_009",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_009",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "Center",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_009",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "Anomaly detection model: anomaly.",
+      "new_tokens": 8,
+      "claims": [
+        {
+          "claim": "Anomaly detection model: anomaly",
+          "p_yes": 0.3589
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_013",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_013",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "Middle left",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_013",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "Anomalous",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_015",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "No.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_015",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "Center",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_015",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "Anomaly detection model: anomaly.",
+      "new_tokens": 8,
+      "claims": [
+        {
+          "claim": "Anomaly detection model: anomaly",
+          "p_yes": 0.3775
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_017",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "Yes.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_017",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "Middle left",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_017",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "anomaly detection",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_019",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "No.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_019",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "Middle right",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_019",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "anomaly detection",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_020",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q1_presence",
+      "answer": "No.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_contamination_020",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q2_location",
+      "answer": "Center",
+      "new_tokens": 2,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_contamination_020",
+      "label": "anomalous",
+      "defect_type": "contamination",
+      "question_id": "q3_type",
+      "answer": "Anomaly detection model: anomaly.",
+      "new_tokens": 8,
+      "claims": [
+        {
+          "claim": "Anomaly detection model: anomaly",
+          "p_yes": 0.282
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 0.0,
+      "ground_truth_correct": 0
+    },
+    {
+      "image_id": "bottle_good_001",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "No.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_001",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.746
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_001",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "No defect.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_003",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "No.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_003",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.7794
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_003",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "No defect.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_004",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "No.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_004",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.7434
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_004",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "No defect.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_005",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "No.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_005",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.7841
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_005",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "No defect.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_008",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "No.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_008",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.6565
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_008",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "No defect.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_010",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "No.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_010",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.8075
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_010",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "No defect.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_011",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "No.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_011",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.7406
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_011",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "No defect.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_012",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "No.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_012",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.7654
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_012",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "No defect.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_013",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "No.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_013",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.6924
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_013",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "No defect.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_019",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q1_presence",
+      "answer": "No.",
+      "new_tokens": 3,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_019",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q2_location",
+      "answer": "There is no defect present in the image.",
+      "new_tokens": 10,
+      "claims": [
+        {
+          "claim": "There is no defect present in the image",
+          "p_yes": 0.8582
+        }
+      ],
+      "n_claims": 1,
+      "faithscore": 1.0,
+      "ground_truth_correct": 1
+    },
+    {
+      "image_id": "bottle_good_019",
+      "label": "normal",
+      "defect_type": "good",
+      "question_id": "q3_type",
+      "answer": "No defect.",
+      "new_tokens": 4,
+      "claims": [],
+      "n_claims": 0,
+      "faithscore": null,
+      "ground_truth_correct": 1
+    }
+  ]
+}

@@ -41,6 +41,31 @@ def save(result, output_path):
         json.dump(result, handle, ensure_ascii=False, indent=2)
 
 
+def build_result(input_path, configuration, scored):
+    result = {
+        "source": str(input_path),
+        "configuration": configuration,
+        "verifier": {"model": MODEL_ID, "image_splitting": False, "threshold": VERIFIER_THRESHOLD},
+        "n_responses": len(scored),
+        "mean_new_tokens": round(float(np.mean([item["new_tokens"] for item in scored])), 2),
+        "faithscore": {
+            "overall": summarize([item["faithscore"] for item in scored]),
+            "by_question": group_summary(scored, "faithscore", lambda item: item["question_id"]),
+            "by_defect_type": group_summary(scored, "faithscore", lambda item: item["defect_type"]),
+        },
+        "ground_truth_correct": {
+            "overall": summarize([item["ground_truth_correct"] for item in scored]),
+            "by_question": group_summary(scored, "ground_truth_correct", lambda item: item["question_id"]),
+            "by_defect_type": group_summary(scored, "ground_truth_correct", lambda item: item["defect_type"]),
+            "by_question_and_type": group_summary(
+                scored, "ground_truth_correct", lambda item: f"{item['question_id']}|{item['defect_type']}"
+            ),
+        },
+        "responses": scored,
+    }
+    return result
+
+
 def evaluate(input_path, output_path):
     with open(input_path, encoding="utf-8") as handle:
         experiment = json.load(handle)
@@ -65,27 +90,22 @@ def evaluate(input_path, output_path):
             }
         )
         print(index, len(experiment["responses"]), metric["n_claims"], flush=True)
-    result = {
-        "source": str(input_path),
-        "configuration": experiment["configuration"],
-        "verifier": {"model": MODEL_ID, "image_splitting": False, "threshold": VERIFIER_THRESHOLD},
-        "n_responses": len(scored),
-        "mean_new_tokens": round(float(np.mean([item["new_tokens"] for item in scored])), 2),
-        "faithscore": {
-            "overall": summarize([item["faithscore"] for item in scored]),
-            "by_question": group_summary(scored, "faithscore", lambda item: item["question_id"]),
-            "by_defect_type": group_summary(scored, "faithscore", lambda item: item["defect_type"]),
-        },
-        "ground_truth_correct": {
-            "overall": summarize([item["ground_truth_correct"] for item in scored]),
-            "by_question": group_summary(scored, "ground_truth_correct", lambda item: item["question_id"]),
-            "by_defect_type": group_summary(scored, "ground_truth_correct", lambda item: item["defect_type"]),
-            "by_question_and_type": group_summary(
-                scored, "ground_truth_correct", lambda item: f"{item['question_id']}|{item['defect_type']}"
-            ),
-        },
-        "responses": scored,
-    }
+    result = build_result(input_path, experiment["configuration"], scored)
+    save(result, output_path)
+    return result
+
+
+def rescore(output_path):
+    with open(output_path, encoding="utf-8") as handle:
+        previous = json.load(handle)
+    with open(previous["source"], encoding="utf-8") as handle:
+        originals = {(item["image_id"], item["question_id"]): item for item in json.load(handle)["responses"]}
+    masks = {image["id"]: image["mask_path"] for image in load_subset()["images"]}
+    for item in previous["responses"]:
+        original = originals[(item["image_id"], item["question_id"])]
+        correct = score_response(original, masks[item["image_id"]])
+        item["ground_truth_correct"] = None if correct is None else int(correct)
+    result = build_result(previous["source"], previous["configuration"], previous["responses"])
     save(result, output_path)
     return result
 
@@ -94,6 +114,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--input", default="experiments/exp003_configA_completo.json")
     parser.add_argument("--output", default="experiments/results/exp003_factualidade_configA.json")
+    parser.add_argument("--rescore", action="store_true")
     arguments = parser.parse_args()
-    outcome = evaluate(arguments.input, arguments.output)
+    outcome = rescore(arguments.output) if arguments.rescore else evaluate(arguments.input, arguments.output)
     print(json.dumps({key: outcome[key]["overall"] for key in ("faithscore", "ground_truth_correct")}, indent=2))

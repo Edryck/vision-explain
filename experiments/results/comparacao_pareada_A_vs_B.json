@@ -1,0 +1,38 @@
+{
+  "overall": {
+    "n_pairs": 117,
+    "only_a_correct": 6,
+    "only_b_correct": 38,
+    "both_correct": 47,
+    "both_wrong": 26,
+    "exact_p_value": 1e-06
+  },
+  "q1_presence": {
+    "n_pairs": 40,
+    "only_a_correct": 3,
+    "only_b_correct": 14,
+    "both_correct": 21,
+    "both_wrong": 2,
+    "exact_p_value": 0.012726
+  },
+  "q2_location": {
+    "n_pairs": 37,
+    "only_a_correct": 0,
+    "only_b_correct": 22,
+    "both_correct": 15,
+    "both_wrong": 0,
+    "exact_p_value": 0.0
+  },
+  "q3_type": {
+    "n_pairs": 40,
+    "only_a_correct": 3,
+    "only_b_correct": 2,
+    "both_correct": 11,
+    "both_wrong": 24,
+    "exact_p_value": 1.0
+  },
+  "location_copy": {
+    "anomalous_q2": 30,
+    "answer_is_report_position": 29
+  }
+}

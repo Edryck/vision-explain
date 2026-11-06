@@ -1,0 +1,16 @@
+medida,configuracao_A,configuracao_B
+acerto_gabarito_geral,0.453,0.7333
+acerto_gabarito_n,117,120
+acerto_q1_presence,0.6,0.875
+acerto_q2_location,0.4054,1.0
+acerto_q3_type,0.35,0.325
+acerto_broken_large,0.5172,0.6667
+acerto_broken_small,0.4286,0.7333
+acerto_contamination,0.1,0.5333
+acerto_good,0.7667,1.0
+faithscore_medio,0.7965,0.6471
+faithscore_n,113,17
+tokens_gerados_medio,11.44,3.89
+latencia_vlm_s,109.1,114.56
+latencia_patchcore_s,0,0.92
+pico_rss_mb,13174.5,13659.0
