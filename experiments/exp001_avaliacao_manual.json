@@ -11,7 +11,7 @@
   },
   "source_notebook": "notebooks/01_smolvlm_inferencia.ipynb",
   "protocol": "Split each answer into atomic claims; mark verifiable=true if the claim can be confirmed in the image, false otherwise.",
-  "status": "draft_pending_human_review",
+  "status": "assistant_reviewed_pending_student_confirmation",
   "items": [
     {
       "id": 1,
@@ -57,7 +57,7 @@
         {
           "text": "People in the background are standing behind the foreground people",
           "verifiable": true,
-          "note": ""
+          "note": "review: ambiguous, several background people look seated; kept"
         },
         {
           "text": "There is a bar/counter behind the foreground people",
@@ -88,7 +88,7 @@
         {
           "text": "They are enjoying a meal together",
           "verifiable": false,
-          "note": "speculation"
+          "note": "speculation; analytic under FaithScore"
         },
         {
           "text": "The setting is casual, a pub or cozy restaurant",
@@ -108,7 +108,7 @@
         {
           "text": "The individuals are engaged in conversation",
           "verifiable": false,
-          "note": "not verifiable in a still image"
+          "note": "not verifiable in a still image; analytic under FaithScore"
         },
         {
           "text": "Some are actively eating",
@@ -303,8 +303,8 @@
         },
         {
           "text": "The background is blurred",
-          "verifiable": false,
-          "note": "almost no background visible"
+          "verifiable": true,
+          "note": "review: visible background at the corners is blurred"
         },
         {
           "text": "The image is taken from a top-down perspective",
@@ -313,8 +313,8 @@
         }
       ],
       "n_claims": 9,
-      "n_verifiable": 6,
-      "verifiable_ratio": 0.667
+      "n_verifiable": 7,
+      "verifiable_ratio": 0.778
     },
     {
       "id": 9,
@@ -372,8 +372,21 @@
   "summary": {
     "n_questions": 10,
     "n_claims": 49,
-    "n_verifiable": 36,
-    "overall_ratio": 0.735,
-    "mean_ratio_per_answer": 0.802
+    "n_verifiable": 37,
+    "overall_ratio": 0.755,
+    "mean_ratio_per_answer": 0.813
+  },
+  "review": {
+    "date": "2026-11-05",
+    "by": "Claude, at the student request; not a human annotation",
+    "changes": 1,
+    "changed_claims": [
+      {
+        "item": 8,
+        "claim": "The background is blurred",
+        "from": false,
+        "to": true
+      }
+    ]
   }
 }

@@ -1,6 +1,6 @@
 # Galeria de alucinações: Configuração A
 
-Status: rascunho, pendente de revisão humana. As categorias vêm de regras em `src/analyze_hallucinations.py`. Contorno vermelho: máscara de ground truth. Dados de cada figura: `gallery.json`.
+Status: revisada em `docs/auditoria_fase3.md`, sem mudança de categoria; falta confirmação do aluno. As categorias vêm de regras em `src/analyze_hallucinations.py`. Contorno vermelho: máscara de ground truth. Dados de cada figura: `gallery.json`.
 
 A seleção não usou o FaithScore, porque ele aceitou a maioria das respostas erradas. Usou o acerto por gabarito e a categoria, com as 2 primeiras respostas distintas de cada uma.
 

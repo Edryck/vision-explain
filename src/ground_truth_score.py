@@ -6,7 +6,7 @@ import numpy as np
 from src.extract_evidence import GRID_NAMES
 
 NEGATIVE_PATTERN = re.compile(r"^\s*no\b|\bno defects?\b|\bnot? (?:any|see|find)\b|\bthere (?:is|are) no\b", re.IGNORECASE)
-POSITIVE_PATTERN = re.compile(r"^\s*yes\b", re.IGNORECASE)
+POSITIVE_PATTERN = re.compile(r"^\s*(?:answer:\s*)?yes\b", re.IGNORECASE)
 HORIZONTAL_TERMS = {0: ("left",), 2: ("right",)}
 # neck, cap e rim assumem a garrafa de lado, mas as fotos são de cima. Nenhuma resposta do exp003 usa esses termos.
 VERTICAL_TERMS = {0: ("top", "upper", "neck", "cap", "rim"), 2: ("bottom", "lower", "base")}

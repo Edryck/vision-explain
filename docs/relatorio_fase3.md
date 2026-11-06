@@ -14,31 +14,31 @@ SmolVLM-Instruct, float32, CPU AMD Ryzen 5 3500U (4 threads), `batch_size` 1, de
 
 ### Semana 10: validação da métrica (`experiments/exp004_validacao_metrica.json`)
 
-Métrica: FaithScore simplificado, com decomposição por regras e o próprio SmolVLM como verificador (sim ou não, sem splitting, limiar 0,5). Referência: 49 afirmações do `exp001`, cuja anotação ainda está como rascunho.
+Métrica: FaithScore simplificado, com decomposição por regras e o próprio SmolVLM como verificador (sim ou não, sem splitting, limiar 0,5). Referência: 49 afirmações do `exp001`, revisadas em `docs/auditoria_fase3.md`.
 
 | Medida | Valor |
 |---|---|
-| Acurácia por afirmação | 0,857 (baseline majoritário 0,735) |
-| Kappa de Cohen | 0,557 |
-| Afirmações falsas aceitas | 7 de 13 |
-| Afirmações verdadeiras rejeitadas | 0 de 36 |
-| Pearson por resposta, afirmações manuais | 0,469 (n=10) |
-| Pearson por resposta, afirmações automáticas | 0,948 (n=10) |
+| Acurácia por afirmação | 0,878 (baseline majoritário 0,755) |
+| Kappa de Cohen | 0,602 |
+| Afirmações falsas aceitas | 6 de 12 |
+| Afirmações verdadeiras rejeitadas | 0 de 37 |
+| Pearson por resposta, afirmações manuais | 0,419 (n=10) |
+| Pearson por resposta, afirmações automáticas | 0,957 (n=10) |
 
 ### Semana 11: factualidade (`experiments/results/exp003_factualidade_configA.json`)
 
 | Grupo | FaithScore simplificado | Acerto por gabarito |
 |---|---|---|
-| Geral | 0,797 (n=113) | 0,448 (n=116) |
-| q1 presença | 0,872 | 0,590 |
+| Geral | 0,797 (n=113) | 0,453 (n=117) |
+| q1 presença | 0,872 | 0,600 |
 | q2 localização | 0,625 | 0,405 |
 | q3 tipo | 0,912 | 0,350 |
 | `broken_large` | 0,963 | 0,517 |
-| `broken_small` | 0,808 | 0,407 |
+| `broken_small` | 0,808 | 0,429 |
 | `contamination` | 0,600 | 0,100 |
 | `good` | 0,833 | 0,767 |
 
-Indefinidos: 7 no FaithScore (respostas curtas, como "Crack.", sem afirmação) e 4 no gabarito.
+Indefinidos: 7 no FaithScore (respostas curtas, como "Crack.", sem afirmação) e 3 no gabarito.
 
 ### Semana 12: custo (`experiments/results/custo_configA.json`)
 
@@ -55,7 +55,7 @@ Indefinidos: 7 no FaithScore (respostas curtas, como "Crack.", sem afirmação) 
 
 ## Achados
 
-1. O modelo quase não separa imagem normal de anômala em q1. Diz "Yes" em 18 de 30 anômalas e em 5 de 10 normais. Há ainda uma resposta "Answer: Yes." sem pontuação, em imagem anômala.
+1. O modelo quase não separa imagem normal de anômala em q1. Diz "Yes" em 18 de 30 anômalas e em 5 de 10 normais. Há ainda uma resposta "Answer: Yes." em imagem anômala.
 2. O acerto em q1 está inflado. Metade dos 18 "Yes" em anômalas fala de blur ou reflexo, não do defeito real.
 3. `contamination` é o pior grupo, com 0,100. Nenhuma resposta acertou localização ou tipo.
 4. O acerto de 0,767 em `good` vem em boa parte de negar defeito por padrão, o mesmo comportamento que gera erro nas anômalas.

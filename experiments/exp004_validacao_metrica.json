@@ -7,120 +7,120 @@
     "image_splitting": false,
     "threshold": 0.5
   },
-  "manual_reference_status": "draft_pending_human_review",
+  "manual_reference_status": "assistant_reviewed_pending_student_confirmation",
   "claim_level": {
     "n_claims": 49,
-    "accuracy": 0.8571,
-    "majority_baseline": 0.7347,
-    "cohen_kappa": 0.5574,
+    "accuracy": 0.8776,
+    "majority_baseline": 0.7551,
+    "cohen_kappa": 0.6016,
     "confusion_rows_manual_cols_metric": [
       [
         6,
-        7
+        6
       ],
       [
         0,
-        36
+        37
       ]
     ]
   },
   "threshold_sweep_diagnostic": {
     "0.1": {
       "n_claims": 49,
-      "accuracy": 0.7755,
-      "majority_baseline": 0.7347,
-      "cohen_kappa": 0.2108,
+      "accuracy": 0.7959,
+      "majority_baseline": 0.7551,
+      "cohen_kappa": 0.232,
       "confusion_rows_manual_cols_metric": [
         [
           2,
-          11
+          10
         ],
         [
           0,
-          36
+          37
         ]
       ]
     },
     "0.3": {
       "n_claims": 49,
-      "accuracy": 0.8367,
-      "majority_baseline": 0.7347,
-      "cohen_kappa": 0.4787,
+      "accuracy": 0.8571,
+      "majority_baseline": 0.7551,
+      "cohen_kappa": 0.5189,
       "confusion_rows_manual_cols_metric": [
         [
           5,
-          8
+          7
         ],
         [
           0,
-          36
+          37
         ]
       ]
     },
     "0.5": {
       "n_claims": 49,
-      "accuracy": 0.8571,
-      "majority_baseline": 0.7347,
-      "cohen_kappa": 0.5574,
+      "accuracy": 0.8776,
+      "majority_baseline": 0.7551,
+      "cohen_kappa": 0.6016,
       "confusion_rows_manual_cols_metric": [
         [
           6,
-          7
+          6
         ],
         [
           0,
-          36
+          37
         ]
       ]
     },
     "0.7": {
       "n_claims": 49,
-      "accuracy": 0.8367,
-      "majority_baseline": 0.7347,
-      "cohen_kappa": 0.5596,
+      "accuracy": 0.8571,
+      "majority_baseline": 0.7551,
+      "cohen_kappa": 0.6025,
       "confusion_rows_manual_cols_metric": [
         [
           8,
-          5
+          4
         ],
         [
           3,
-          33
+          34
         ]
       ]
     },
     "0.9": {
       "n_claims": 49,
-      "accuracy": 0.7143,
-      "majority_baseline": 0.7347,
-      "cohen_kappa": 0.4117,
+      "accuracy": 0.7347,
+      "majority_baseline": 0.7551,
+      "cohen_kappa": 0.4523,
       "confusion_rows_manual_cols_metric": [
         [
           11,
-          2
+          1
         ],
         [
           12,
-          24
+          25
         ]
       ]
     }
   },
   "answer_level_manual_claims": {
     "n_answers": 10,
-    "manual_mean": 0.8023,
+    "manual_mean": 0.8134,
     "metric_mean": 0.9222,
-    "mean_absolute_error": 0.12,
-    "pearson": 0.4693,
-    "spearman": 0.5894
+    "mean_absolute_error": 0.1089,
+    "pearson": 0.4192,
+    "spearman": 0.5993
   },
   "answer_level_automatic_claims": {
     "n_answers": 10,
-    "manual_mean": 0.8023,
+    "manual_mean": 0.8134,
     "metric_mean": 0.7714,
-    "mean_absolute_error": 0.0803,
-    "pearson": 0.948,
-    "spearman": 0.9355
+    "mean_absolute_error": 0.082,
+    "pearson": 0.9572,
+    "spearman": 0.9432
   },
   "items": [
     {
@@ -445,7 +445,7 @@
       "id": 8,
       "image": "data/test_images/image-4.jpg",
       "question": "Describe the image in one sentence.",
-      "verifiable_ratio": 0.667,
+      "verifiable_ratio": 0.778,
       "claims": [
         {
           "text": "Green plastic fruit basket",
@@ -484,7 +484,7 @@
         },
         {
           "text": "The background is blurred",
-          "verifiable": false,
+          "verifiable": true,
           "p_yes": 0.9794
         },
         {

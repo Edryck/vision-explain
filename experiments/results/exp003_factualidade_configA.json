@@ -88,20 +88,20 @@
   },
   "ground_truth_correct": {
     "overall": {
-      "n": 116,
-      "n_undefined": 4,
-      "mean": 0.4483,
-      "std": 0.4995,
+      "n": 117,
+      "n_undefined": 3,
+      "mean": 0.453,
+      "std": 0.4999,
       "median": 0.0,
       "min": 0.0,
       "max": 1.0
     },
     "by_question": {
       "q1_presence": {
-        "n": 39,
-        "n_undefined": 1,
-        "mean": 0.5897,
-        "std": 0.4983,
+        "n": 40,
+        "n_undefined": 0,
+        "mean": 0.6,
+        "std": 0.4961,
         "median": 1.0,
         "min": 0.0,
         "max": 1.0
@@ -136,10 +136,10 @@
         "max": 1.0
       },
       "broken_small": {
-        "n": 27,
-        "n_undefined": 3,
-        "mean": 0.4074,
-        "std": 0.5007,
+        "n": 28,
+        "n_undefined": 2,
+        "mean": 0.4286,
+        "std": 0.504,
         "median": 0.0,
         "min": 0.0,
         "max": 1.0
@@ -174,10 +174,10 @@
         "max": 1.0
       },
       "q1_presence|broken_small": {
-        "n": 9,
-        "n_undefined": 1,
-        "mean": 0.7778,
-        "std": 0.441,
+        "n": 10,
+        "n_undefined": 0,
+        "mean": 0.8,
+        "std": 0.4216,
         "median": 1.0,
         "min": 0.0,
         "max": 1.0
@@ -1126,7 +1126,7 @@
       "claims": [],
       "n_claims": 0,
       "faithscore": null,
-      "ground_truth_correct": null
+      "ground_truth_correct": 1
     },
     {
       "image_id": "bottle_broken_small_013",
