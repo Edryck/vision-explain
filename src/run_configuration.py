@@ -29,7 +29,7 @@ def load_existing(output_path):
         return json.load(handle)["responses"]
 
 
-def build_record(experiment_id, configuration, device, dtype, responses, expected):
+def build_record(experiment_id, configuration, device, dtype, responses, expected, subset_path=SUBSET_PATH):
     return {
         "experiment_id": experiment_id,
         "configuration": configuration,
@@ -48,8 +48,9 @@ def build_record(experiment_id, configuration, device, dtype, responses, expecte
             "torch": torch.__version__,
             "transformers": transformers.__version__,
             "cpu_threads": torch.get_num_threads(),
+            "gpu": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
         },
-        "subset": SUBSET_PATH.as_posix(),
+        "subset": Path(subset_path).as_posix(),
         "n_expected": expected,
         "n_responses": len(responses),
         "responses": responses,
@@ -65,8 +66,8 @@ def save_record(record, output_path):
     temporary.replace(output_path)
 
 
-def run_configuration(experiment_id, configuration, prompt_builder, output_path):
-    subset = load_subset()
+def run_configuration(experiment_id, configuration, prompt_builder, output_path, subset_path=SUBSET_PATH):
+    subset = load_subset(subset_path)
     processor, model, device, dtype = load_vlm()
     responses = load_existing(output_path)
     # A retomada é por imagem: as 3 respostas compartilham o cache e são salvas juntas.
@@ -85,6 +86,7 @@ def run_configuration(experiment_id, configuration, prompt_builder, output_path)
                 {
                     "image_id": image["id"],
                     "image": image["path"],
+                    "category": image["category"],
                     "label": image["label"],
                     "defect_type": image["defect_type"],
                     "question_id": question["id"],
@@ -97,7 +99,7 @@ def run_configuration(experiment_id, configuration, prompt_builder, output_path)
                 }
             )
         save_record(
-            build_record(experiment_id, configuration, device, dtype, responses, expected),
+            build_record(experiment_id, configuration, device, dtype, responses, expected, subset_path),
             output_path,
         )
         print(len(responses), expected, image["id"], round(elapsed, 1), flush=True)

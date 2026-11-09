@@ -6,3 +6,4 @@ pillow
 jupyter
 ipykernel
 anomalib
+scipy

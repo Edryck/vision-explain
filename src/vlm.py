@@ -14,7 +14,10 @@ LONGEST_EDGE = 1152
 
 def load_vlm(model_id=MODEL_ID):
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    dtype = torch.bfloat16 if device == "cuda" else torch.float32
+    dtype = torch.float32
+    if device == "cuda":
+        # GPU sem bf16 (ex.: T4 do Colab) emula e fica lenta; fp16 é nativo nela.
+        dtype = torch.bfloat16 if torch.cuda.is_bf16_supported() else torch.float16
     processor = AutoProcessor.from_pretrained(model_id)
     processor.image_processor.size = {"longest_edge": LONGEST_EDGE}
     model = AutoModelForImageTextToText.from_pretrained(model_id, dtype=dtype).to(device)
