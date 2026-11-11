@@ -56,8 +56,14 @@ def score_configuration(configuration, with_faithscore):
 
         processor, model, device, _ = load_vlm()
         verifier = lambda response: faithscore(processor, model, device, response["image"], response["answer"])
-    scored = []
+    output = RESULTS_DIR / f"config{configuration}_pontuado.json"
+    # Na CPU o FaithScore leva horas; a retomada pula o que já foi pontuado.
+    scored = load_json(output)["responses"] if with_faithscore and output.exists() else []
+    done = {(item["image_id"], item["question_id"]) for item in scored if "faithscore" in item}
+    scored = [item for item in scored if "faithscore" in item]
     for index, response in enumerate(responses, start=1):
+        if (response["image_id"], response["question_id"]) in done:
+            continue
         image = images[response["image_id"]]
         evidence = evidences[response["image_id"]]
         item = {
@@ -77,9 +83,9 @@ def score_configuration(configuration, with_faithscore):
         if verifier:
             item["faithscore"] = verifier(response)["faithscore"]
         scored.append(item)
-        if verifier and index % 100 == 0:
+        if verifier and index % 50 == 0:
+            save_json({"configuration": configuration, "with_faithscore": with_faithscore, "responses": scored}, output)
             print(index, len(responses), flush=True)
-    output = RESULTS_DIR / f"config{configuration}_pontuado.json"
     save_json({"configuration": configuration, "with_faithscore": with_faithscore, "responses": scored}, output)
     print(output, len(scored))
 

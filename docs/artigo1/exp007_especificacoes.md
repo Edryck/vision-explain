@@ -1,6 +1,6 @@
 # exp007: especificações para o Artigo 1
 
-Experimento intermediário aprovado pelo orientador: repetir A vs. B nas 15 categorias do MVTec AD e medir mais coisas além do acerto por gabarito. Este texto entra na Metodologia (seção de experimentos) quando o `artigo1.md` for criado na semana 19. Os números de resultado só entram depois da execução no Colab.
+Experimento intermediário aprovado pelo orientador: repetir A vs. B nas 15 categorias do MVTec AD e medir mais coisas além do acerto por gabarito. Este texto entra na Metodologia (seção de experimentos) quando o `artigo1.md` for criado na semana 19. Os números de resultado só entram depois da execução.
 
 ## Dados
 
@@ -15,12 +15,12 @@ Experimento intermediário aprovado pelo orientador: repetir A vs. B nas 15 cate
 - CV: PatchCore (anomalib 2.x, backbone `wide_resnet50_2`), um modelo por categoria, coreset 0,01 (igual ao bottle), limiar adaptativo normalizado em 0,5. Regiões: componentes conexos acima do limiar, mínimo 0,1% da imagem, até 5, posição na grade 3x3.
 - VLM: `HuggingFaceTB/SmolVLM-Instruct`, decodificação gulosa, `max_new_tokens=128`, `longest_edge=1152`, cache do prefixo da imagem, batch 1.
 - Prompts A e B iguais aos do exp003/exp005 (`src/prompts.py`). Perguntas q1 presença, q2 localização, q3 tipo.
-- Hardware: Colab com GPU. bf16 em GPU com suporte (L4, A100); fp16 na T4. O tipo de GPU fica salvo no JSON de respostas (`environment.gpu`). Latência não é comparável com o notebook da Fase 4.
+- Hardware: o mesmo notebook da Fase 4, em CPU, float32, batch 1. A tentativa no Colab foi abandonada por problemas de ambiente. Por ser a mesma máquina, a latência é comparável com a da Fase 4.
 
 ## Métricas
 
 1. Acerto por gabarito (principal). q1 e q2 iguais ao bottle. q3 usa um dicionário de termos por tipo de defeito (73 tipos, `TYPE_TERMS` em `src/multicategory.py`), escrito antes de ver as respostas e permissivo de propósito. `combined` aceita os termos de qualquer tipo da categoria.
-2. FaithScore simplificado (secundária, mesmo verificador do exp004).
+2. FaithScore simplificado (secundária e opcional por custo em CPU, mesmo verificador do exp004).
 3. Qualidade da evidência (PatchCore): AUROC de imagem e de pixel no teste completo da categoria; no subconjunto, acurácia de detecção, falsos positivos e negativos, IoU das caixas com a máscara, acerto de célula 3x3 e evidência correta (detecção certa e caixa tocando a máscara).
 4. Fidelidade à evidência: q1 concorda com o veredito do PatchCore; q2 cita uma célula que a caixa do PatchCore toca; q2 copia literalmente a posição do relatório; q3 responde rótulo genérico ("anomaly"). Calculada para A também, como referência.
 5. Consistência entre perguntas: proporção de imagens em que q1 afirma defeito e q2/q3 negam, ou o contrário.
@@ -44,4 +44,4 @@ Experimento intermediário aprovado pelo orientador: repetir A vs. B nas 15 cate
 
 ## Como reproduzir
 
-Notebook `notebooks/03_exp007_multicategoria_colab.ipynb`, em ordem: evidências (`src.configB.exp007_multicategoria.evidences`), A (`src.configA.exp007_multicategoria.run`), B (`src.configB.exp007_multicategoria.run`), métricas (`src.multicategory_metrics score|report`).
+Notebook `notebooks/03_exp007_multicategoria.ipynb` (ou os mesmos comandos no terminal), em ordem: evidências (`src.configB.exp007_multicategoria.evidences`), A (`src.configA.exp007_multicategoria.run`), B (`src.configB.exp007_multicategoria.run`), métricas (`src.multicategory_metrics score|report`).

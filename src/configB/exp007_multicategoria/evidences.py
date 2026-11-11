@@ -30,7 +30,7 @@ def fit_and_test(category):
     model = Patchcore(coreset_sampling_ratio=CORESET_SAMPLING_RATIO)
     engine = build_engine()
     ckpt = checkpoint_path(category)
-    # Retomada no Colab: se o treino já existe, só refaz o teste.
+    # Retomada: se o treino já existe, só refaz o teste.
     if ckpt is None:
         engine.fit(model=model, datamodule=datamodule)
         ckpt = checkpoint_path(category)
@@ -61,7 +61,7 @@ def main():
             evidence["seconds"] = round(time.perf_counter() - started, 2)
             evidence["quality"] = {**evaluate_evidence(evidence, image), "cell_hit": cell_hit(evidence, image)}
             evidences[image["id"]] = evidence
-        # Salva por categoria: uma queda do Colab perde no máximo uma categoria.
+        # Salva por categoria: uma interrupção perde no máximo uma categoria.
         save_json(evidences, EVIDENCES_PATH)
         save_json(tests, PATCHCORE_TEST_PATH)
         print(category, metrics, flush=True)
