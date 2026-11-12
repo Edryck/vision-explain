@@ -1,157 +1,133 @@
-# Guia da Semana 6: extração de evidências estruturadas
+# Plano manual: semanas 15 a 22
 
-Objetivo: escrever `src/extract_evidence.py`, uma função que recebe uma imagem, roda o PatchCore (via `anomalib`) e devolve um JSON com as evidências. Rodar em 5 imagens e salvar em `experiments/exp002_evidencias.json`.
+Ordem de execução: 15, 16, 17, 18, 19, 20, 21, 22. Rode as semanas 15 e 16 na mesma máquina, com a mesma precisão e o mesmo `LONGEST_EDGE` da Configuração A. Antes de começar, leia os resultados em `docs/relatorio_fase3.md` e as decisões da reunião da semana 14.
 
-Pipeline desta semana: imagem → PatchCore → mapa de anomalia → regiões → JSON → (esboço do prompt do VLM).
+Decisões que afetam este plano: a B roda neste notebook; acerto por gabarito é a métrica principal, então use-o primeiro na tabela da semana 16; a q2 segue igual por enquanto. Se ela mudar depois, A e B precisam ser refeitas.
 
-Os nomes de classes e argumentos do `anomalib` mudam entre versões. Antes de copiar qualquer exemplo, rode `pip show anomalib` e leia a documentação da versão instalada.
+## Semana 15: Configuração B em todo o subconjunto
 
-## 1. Preparação
+Entrega: `experiments/exp002b_evidencias_subconjunto.json` e `experiments/exp005_configB_completo.json`.
 
-- [ ] Instalar `anomalib` no `.venv` e adicionar ao `requirements.txt`.
-- [ ] Conferir `python -c "import anomalib; print(anomalib.__version__)"`.
-- [ ] Baixar o MVTec AD pelo site oficial e extrair em `data/mvtec_ad/` (a pasta `data/` já é ignorada pelo git).
-- [ ] Escolher 1 categoria para começar (sugestão: `bottle`, `hazelnut` ou `screw`). Uma categoria basta nesta semana.
-- [ ] Olhar a estrutura da pasta: `train/good`, `test/<tipo_de_defeito>`, `ground_truth/<tipo_de_defeito>`. Entender o que o modelo vê no treino e o que vê no teste.
+- [ ] Criar `src/build_evidences.py`: carregar o PatchCore uma vez com `load_patchcore()` e chamar `extract_evidence` nas 40 imagens de `data/subset_avaliacao.json`.
+- [ ] Salvar a evidência de cada imagem com o `id` do subconjunto como chave.
+- [ ] Conferir se o PatchCore marcou as 10 imagens `good` como normais e as 30 anômalas como anômalas. Anotar falsos positivos e falsos negativos.
+- [ ] Calcular a concordância da região com a máscara (IoU ou célula 3x3). Sem isso, não dá para separar evidência certa de evidência errada.
+- [ ] Em `src/run_configuration.py`, criar `prompt_builder_b(question, image)` usando `build_prompt_b` e a evidência da imagem.
+- [ ] Adicionar um argumento `--config A|B` e rodar `run_configuration("exp005", "B", prompt_builder_b, "experiments/exp005_configB_completo.json")`.
+- [ ] Testar antes com 1 imagem: o bloco `Question:` tem de ser igual ao da A e o restante do prompt tem de ser só a evidência.
+- [ ] Conferir: 120 respostas e os mesmos pares `(image_id, question_id)` do `exp003`.
 
-## 2. Entender o PatchCore antes de codar
+Critério de conclusão: 100% das respostas salvas, com o mesmo conjunto de pares da Configuração A.
 
-- [ ] Ler o resumo e a seção de método do artigo do PatchCore.
-- [ ] Responder por escrito, com suas palavras:
-  - O que é o "memory bank" e do que ele é feito?
-  - Por que não há treino por gradiente?
-  - Como o score de anomalia de uma imagem é calculado a partir do mapa?
-  - O que o coreset subsampling faz e por que existe?
-- [ ] Perguntas que decidem o formato do JSON:
-  - Qual a resolução do mapa de anomalia em relação à imagem original?
-  - O score é comparável entre categorias? (Em geral não: cada categoria tem sua escala.)
-  - O modelo diz o tipo de defeito? (Não. Só localiza e pontua.)
+Armadilha: o prompt da B é mais longo, então `prompt_tokens` cresce. Isso faz parte do custo real da B.
 
-## 3. Rodar o modelo em uma imagem
+## Semana 16: factualidade, custo e tabela A vs. B
 
-- [ ] Treinar (ajustar) o PatchCore na categoria escolhida com `Engine` do `anomalib`.
-- [ ] Rodar a predição em 1 imagem de teste com defeito e 1 sem defeito.
-- [ ] Inspecionar a saída: quais campos existem (score, rótulo previsto, mapa, máscara)? Qual o `shape` e o `dtype` de cada um?
-- [ ] Salvar uma figura com a imagem, o mapa sobreposto e a máscara de ground truth, para você enxergar o que o modelo enxerga.
+Entrega: `experiments/results/exp005_factualidade_configB.json`, `experiments/results/custo_configB.json` e `experiments/results/tabela_A_vs_B.csv`.
 
-## 4. Converter a saída em regiões
+- [ ] Rodar `python -m src.evaluate_factuality --input experiments/exp005_configB_completo.json --output experiments/results/exp005_factualidade_configB.json`.
+- [ ] Em `src/measure_cost.py`, adicionar `prompt_builder_b`, mantendo imagens, repetições e aquecimento.
+- [ ] Rodar o custo da B com o computador ocioso, sem outros programas abertos.
+- [ ] Somar ao custo da B o tempo do PatchCore por imagem. Ele faz parte do pipeline.
+- [ ] Criar `src/compare_configurations.py` para gerar o CSV com: FaithScore simplificado, acerto por gabarito (q1, q2, q3), tamanho médio da resposta, latência e memória.
+- [ ] Separar os resultados por tipo de defeito e por evidência certa ou errada.
+- [ ] Como os pares são os mesmos, usar teste pareado (McNemar no acerto por gabarito, Wilcoxon no FaithScore) e relatar o tamanho do efeito.
+- [ ] Revisar à mão 10 linhas da tabela contra os JSONs de origem.
 
-O mapa de anomalia é uma matriz de números. O VLM precisa de regiões descritas em texto. Passos:
+Critério de conclusão: tabela com valores reais de factualidade e custo das duas configurações.
 
-- [ ] Normalizar o mapa e escolher um limiar (threshold). O `anomalib` calcula um limiar adaptativo no ajuste; verifique como acessá-lo na sua versão.
-- [ ] Binarizar o mapa com esse limiar.
-- [ ] Separar componentes conectados: cada componente vira uma região candidata.
-- [ ] Para cada região, calcular: caixa delimitadora (bbox), área em pixels, fração da imagem ocupada, centroide, score máximo e médio dentro da região.
-- [ ] Traduzir posição numérica para linguagem: por exemplo, dividir a imagem em uma grade 3x3 e nomear a célula ("canto superior esquerdo", "centro", etc.).
-- [ ] Decidir o que fazer quando não há região acima do limiar (imagem normal) e quando há muitas regiões minúsculas (ruído). Sugestão: descartar regiões abaixo de uma área mínima e limitar o número de regiões por imagem.
+Armadilha: respostas curtas como "Yes." geram 0 fatos e FaithScore indefinido. Relate quantas são em cada configuração; a B tende a respostas mais curtas (notebook 02), o que pode distorcer a média.
 
-Documentação útil: `cv2.connectedComponentsWithStats` (OpenCV) ou `skimage.measure.label` e `skimage.measure.regionprops` (scikit-image).
+## Semana 17: Configuração C (se viável)
 
-## 5. Desenhar o JSON
+Entrega: `experiments/exp006_configC.json` ou nota de decisão no Diário.
 
-Rascunho de esquema (ajuste conforme o que você descobrir na etapa 3):
+- [ ] Limitar a decisão a 1 dia de trabalho.
+- [ ] Listar opções: VLM maior local, Colab com GPU ou API. Anotar memória, custo e licença.
+- [ ] Decidir com o orientador se uma API paga é aceitável.
+- [ ] Se viável, rodar em 12 imagens (3 por grupo), com as mesmas 3 perguntas e sem evidências.
+- [ ] Avaliar com o mesmo `src/ground_truth_score.py`.
+- [ ] Se inviável, registrar o motivo no Diário e seguir.
 
-```json
-{
-  "image": "data/mvtec_ad/bottle/test/broken_large/000.png",
-  "category": "bottle",
-  "model": {"name": "PatchCore", "backbone": "wide_resnet50_2", "library": "anomalib"},
-  "image_size": {"width": 900, "height": 900},
-  "image_score": 0.87,
-  "threshold": 0.50,
-  "is_anomalous": true,
-  "regions": [
-    {
-      "id": 1,
-      "bbox": [x_min, y_min, x_max, y_max],
-      "area_px": 12345,
-      "area_fraction": 0.015,
-      "centroid": [cx, cy],
-      "position": "centro-esquerda",
-      "max_score": 0.91,
-      "mean_score": 0.72
-    }
-  ]
-}
-```
+Critério de conclusão: decisão registrada e, se aplicável, resultado parcial.
 
-Perguntas de projeto para decidir e registrar:
+## Semana 18: análise qualitativa A vs. B
 
-- Coordenadas em pixels absolutos ou normalizadas entre 0 e 1? (Normalizadas ajudam quando o VLM redimensiona a imagem.)
-- O score vai cru ou normalizado? Como explicar ao VLM o que "0.87" significa?
-- Incluir o nome da categoria ("bottle") no JSON? Isso é uma evidência ou uma dica que vaza informação?
-- Qual o campo mínimo sem o qual o JSON deixa de ser útil?
+Entrega: `docs/artigo1/figs/comparacao_A_B/` com a galeria comentada.
 
-## 6. Escrever `src/extract_evidence.py`
+- [ ] Selecionar pelo menos 8 pares da mesma imagem e pergunta, com critério escrito antes de olhar os resultados.
+- [ ] Cobrir 4 casos: B corrigiu A, B piorou A, os dois erraram, evidência errada do PatchCore.
+- [ ] Reaproveitar o formato da galeria da semana 13: imagem, máscara, resposta A, resposta B, evidência, comentário.
+- [ ] Usar as categorias de alucinação da semana 13 para classificar os dois lados.
+- [ ] Anotar se a B só repete a evidência ou se acrescenta algo visual.
 
-Regras do repositório: nomes em inglês, sem comentários no código.
+Critério de conclusão: 8 pares ou mais, incluindo casos em que a B não melhorou.
 
-- [ ] Uma função principal, por exemplo `extract_evidence(image_path, model, threshold=None) -> dict`.
-- [ ] Funções pequenas separadas: carregar o modelo, rodar a predição, mapa → regiões, região → dicionário, posição → texto.
-- [ ] A função de carregar o modelo não deve retreinar a cada chamada. Treine uma vez, salve o checkpoint e carregue.
-- [ ] Validar o JSON antes de devolver: campos obrigatórios presentes, bbox dentro da imagem, números convertidos para tipos nativos do Python (`float`, `int`), não `numpy` nem `torch` (senão `json.dump` falha).
-- [ ] Opcional: um bloco `if __name__ == "__main__"` ou um notebook `02_extract_evidence.ipynb` para chamar a função nas 5 imagens.
+## Semana 19: consolidar e criar o esqueleto do Artigo 1
 
-## 7. Testar em 5 imagens variadas
+Entrega: `docs/artigo1/artigo1.md`.
 
-Escolha de propósito casos diferentes:
+- [ ] Criar `docs/artigo1/` e copiar as tabelas e figuras finais para um único lugar.
+- [ ] Criar as seções: Introdução, Trabalhos relacionados, Metodologia, Experimentos, Resultados, Discussão, Conclusão, Referências.
+- [ ] Escrever em cada seção 3 a 5 tópicos do que ela vai afirmar.
+- [ ] Verificar o formato exigido pelo evento ou revista alvo.
+- [ ] Preencher o checklist inicial do Artigo 1 no dashboard.
+- [ ] Deixar claro no texto que A vs. B é uma avaliação preliminar.
 
-- [ ] 1 imagem normal (sem defeito).
-- [ ] 2 imagens com tipos diferentes de defeito.
-- [ ] 1 defeito pequeno.
-- [ ] 1 defeito grande.
-- [ ] Para cada uma, comparar as regiões extraídas com a máscara de ground truth (visualmente ou por IoU) e anotar acertos e erros.
-- [ ] Salvar tudo em `experiments/exp002_evidencias.json` com: versão do `anomalib`, categoria, limiar, parâmetros e a lista de evidências.
+Critério de conclusão: documento com todas as seções nomeadas.
 
-Critério de conclusão da semana: a função roda nas 5 imagens e cada saída é um JSON válido. Confira com `json.loads(json.dumps(result))` e abra o arquivo final em um validador.
+## Semana 20: Introdução e Trabalhos relacionados
 
-## 8. Esboço do template de prompt (começar já)
+Entrega: seções em `docs/artigo1/artigo1.md`.
 
-A dica da semana é pensar em como o JSON vira texto. Escreva em `docs/prompt_template_draft.md`:
+- [ ] Introdução: problema, por que usar VLMs pequenos, pipeline CV → evidências → VLM, pergunta de pesquisa e contribuições.
+- [ ] Citar E1, E2 e E3 como motivação e E5 já na introdução.
+- [ ] Trabalhos relacionados por tema: Small VLMs, alucinação e factualidade, detecção de anomalias.
+- [ ] Conferir se E5 e E7 têm fichamento. Hoje existem E1, E2, E3, E4 e E6. Fazer os que faltarem antes de citar.
+- [ ] Marcar as referências usadas no dashboard.
 
-- [ ] Uma versão do prompt Configuração A (só imagem + pergunta).
-- [ ] Uma versão Configuração B (imagem + evidências em texto + pergunta).
-- [ ] Uma função de conversão JSON → texto, em frases curtas. Exemplo de saída desejada:
+Critério de conclusão: pelo menos 5 referências verificadas citadas.
 
-```
-The anomaly detector flagged the image as anomalous (score 0.87).
-Region 1: center-left, covers 1.5% of the image, bounding box (x1, y1, x2, y2).
-```
+## Semana 21: Metodologia
 
-- [ ] Decidir o idioma do prompt (o SmolVLM funcionou em inglês no notebook 01).
-- [ ] Anotar o risco: o VLM pode repetir o score como se fosse um fato visual, ou inventar o tipo de defeito. Isso vira hipótese para os experimentos futuros.
+Entrega: seção em `docs/artigo1/artigo1.md`.
 
-## 9. O que pesquisar
+- [ ] Descrever o subconjunto: 40 imagens, 4 grupos, 3 perguntas, semente 42.
+- [ ] Descrever o PatchCore, o limiar e a conversão do mapa em regiões.
+- [ ] Incluir o texto exato dos prompts A e B.
+- [ ] Descrever geração: decodificação gulosa, `max_new_tokens`, `LONGEST_EDGE`, cache do prefixo, precisão e hardware.
+- [ ] Descrever as duas métricas: FaithScore simplificado (e o que difere do original) e acerto por gabarito.
+- [ ] Relatar a validação da semana 10 com os números reais, mesmo que sejam ruins.
+- [ ] Pedir a alguém que leia e diga se conseguiria reproduzir.
 
-- Como o `anomalib` expõe `anomaly_map`, `pred_score`, `pred_mask` e o limiar na sua versão.
-- Diferença entre score de imagem e mapa por pixel no PatchCore.
-- Por que o limiar é por categoria e como o `anomalib` o escolhe.
-- Como converter tensores (`torch`) em tipos nativos para JSON.
-- Métricas padrão do MVTec AD: AUROC de imagem e de pixel (apenas para saber o que o modelo já atinge na literatura).
+Critério de conclusão: dataset, pipeline e métrica descritos com detalhe para reprodução.
 
-## 10. Documentação e leitura
+## Semana 22: Resultados
 
-- Documentação do `anomalib`: https://anomalib.readthedocs.io
-- Repositório do `anomalib`: https://github.com/open-edge-platform/anomalib (confira se o endereço mudou)
-- PatchCore, Roth et al. 2022, "Towards Total Recall in Industrial Anomaly Detection": https://arxiv.org/abs/2106.08265
-- MVTec AD (download e descrição): https://www.mvtec.com/company/research/datasets/mvtec-ad
-- Artigo MVTec AD (E6), seção do dataset e das métricas: https://openaccess.thecvf.com/content_CVPR_2019/html/Bergmann_MVTec_AD_--_A_Comprehensive_Real-World_Dataset_for_Unsupervised_Anomaly_CVPR_2019_paper.html
-- OpenCV, componentes conectados: https://docs.opencv.org/4.x/d3/dc0/group__imgproc__shape.html
-- scikit-image, `regionprops`: https://scikit-image.org/docs/stable/api/skimage.measure.html
-- Módulo `json` do Python: https://docs.python.org/3/library/json.html
+Entrega: `docs/artigo1/figs/` e seção em `docs/artigo1/artigo1.md`.
 
-## 11. Armadilhas esperadas
+- [ ] Tabela final A vs. B (e C, se houver), com n e medida de dispersão.
+- [ ] Gráfico de dispersão de custo vs. factualidade.
+- [ ] Acerto por pergunta e por tipo de defeito.
+- [ ] Galeria qualitativa com legendas.
+- [ ] Texto descritivo de cada tabela e figura, sem interpretar: a interpretação vai na discussão (semana 23).
+- [ ] Conferir se cada figura citada existe como arquivo.
 
-- Rodar em CPU é lento. No notebook 01 o SmolVLM levou muito tempo por pergunta. O PatchCore em CPU também pode demorar na extração de features do treino; comece com 1 categoria e poucas imagens para testar o código, e rode a versão completa depois.
-- O mapa de anomalia costuma ter resolução menor que a imagem original; reescale antes de calcular bbox, senão as coordenadas ficam erradas.
-- Valores `numpy.float32` quebram `json.dump`.
-- Limiar mal escolhido gera regiões demais (ruído) ou nenhuma. Registre o limiar usado no JSON.
-- Não reajuste o limiar olhando as 5 imagens de teste para "dar certo". Fixe o critério antes e anote o que acontece.
+Critério de conclusão: todas as figuras citadas existem como arquivo com legenda.
 
-## 12. Evidências e registros da semana
 
-- `src/extract_evidence.py`
-- `experiments/exp002_evidencias.json`
-- Entrada em Experimentos (exp002): hipótese, dataset, modelo, parâmetros, resultado, análise.
-- Entrada no Diário Científico com decisões (formato do JSON, limiar, tratamento de imagem normal).
-- Observações da semana 6 no dashboard.
+1. Métrica principal da comparação A vs. B
+2. Validação da métrica em imagens do MVTec
+3. Otimizações de inferência (longest_edge=1152 e KV cache)
+4. Máquina da Configuração B
+5. Reformulação da pergunta q2
+6. Verificador diferente do SmolVLM
+7. Registro formal do PatchCore como modelo de CV
+
+1. Posso usar o acerto por gabarito como métrica principal e o FaithScore simplificado como secundária, já que 45 de 64 respostas erradas tiveram FaithScore 1,0?
+2. Devo anotar à mão cerca de 30 respostas do MVTec para validar a métrica, já que a validação atual usou fotos comuns?
+3. As otimizações são aceitáveis no artigo? O cache manteve as respostas em 6 de 6 testes, mas a resolução mudou 1 de 6.
+4. Rodo a Configuração B neste note, no Mac M4 ou no Colab? Trocar de máquina exige refazer a medição de custo da A.
+5. A q2 pressupõe que há defeito. Devo reformular, mesmo que isso exija refazer a Configuração A, ou registrar como limitação?
+6. Vale testar um verificador diferente do SmolVLM, ou isso foge do escopo do Artigo 1?
+7. O PatchCore via anomalib fica como modelo de CV definitivo, ou devo avaliar uma evolução dele?
