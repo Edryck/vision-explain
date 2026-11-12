@@ -1,0 +1,122 @@
+{
+  "bottle": {
+    "checkpoint": "data/anomalib_runs/Patchcore/MVTecAD/bottle/v1/weights/lightning/model.ckpt",
+    "coreset_sampling_ratio": 0.01,
+    "image_AUROC": 1.0,
+    "image_F1Score": 0.992,
+    "pixel_AUROC": 0.9852,
+    "pixel_F1Score": 0.723
+  },
+  "cable": {
+    "checkpoint": "data/anomalib_runs/Patchcore/MVTecAD/cable/v0/weights/lightning/model.ckpt",
+    "coreset_sampling_ratio": 0.01,
+    "image_AUROC": 0.985,
+    "image_F1Score": 0.9524,
+    "pixel_AUROC": 0.9833,
+    "pixel_F1Score": 0.6336
+  },
+  "capsule": {
+    "checkpoint": "data/anomalib_runs/Patchcore/MVTecAD/capsule/v0/weights/lightning/model.ckpt",
+    "coreset_sampling_ratio": 0.01,
+    "image_AUROC": 0.9964,
+    "image_F1Score": 0.9817,
+    "pixel_AUROC": 0.9905,
+    "pixel_F1Score": 0.5225
+  },
+  "carpet": {
+    "checkpoint": "data/anomalib_runs/Patchcore/MVTecAD/carpet/v0/weights/lightning/model.ckpt",
+    "coreset_sampling_ratio": 0.01,
+    "image_AUROC": 0.9827,
+    "image_F1Score": 0.9711,
+    "pixel_AUROC": 0.9901,
+    "pixel_F1Score": 0.6018
+  },
+  "grid": {
+    "checkpoint": "data/anomalib_runs/Patchcore/MVTecAD/grid/v0/weights/lightning/model.ckpt",
+    "coreset_sampling_ratio": 0.01,
+    "image_AUROC": 0.9825,
+    "image_F1Score": 0.9649,
+    "pixel_AUROC": 0.9805,
+    "pixel_F1Score": 0.3856
+  },
+  "hazelnut": {
+    "checkpoint": "data/anomalib_runs/Patchcore/MVTecAD/hazelnut/v0/weights/lightning/model.ckpt",
+    "coreset_sampling_ratio": 0.01,
+    "image_AUROC": 1.0,
+    "image_F1Score": 0.9928,
+    "pixel_AUROC": 0.9879,
+    "pixel_F1Score": 0.6169
+  },
+  "leather": {
+    "checkpoint": "data/anomalib_runs/Patchcore/MVTecAD/leather/v0/weights/lightning/model.ckpt",
+    "coreset_sampling_ratio": 0.01,
+    "image_AUROC": 1.0,
+    "image_F1Score": 0.9945,
+    "pixel_AUROC": 0.9922,
+    "pixel_F1Score": 0.4385
+  },
+  "metal_nut": {
+    "checkpoint": "data/anomalib_runs/Patchcore/MVTecAD/metal_nut/v0/weights/lightning/model.ckpt",
+    "coreset_sampling_ratio": 0.01,
+    "image_AUROC": 0.9995,
+    "image_F1Score": 0.9892,
+    "pixel_AUROC": 0.9872,
+    "pixel_F1Score": 0.8468
+  },
+  "pill": {
+    "checkpoint": "data/anomalib_runs/Patchcore/MVTecAD/pill/v0/weights/lightning/model.ckpt",
+    "coreset_sampling_ratio": 0.01,
+    "image_AUROC": 0.9583,
+    "image_F1Score": 0.9645,
+    "pixel_AUROC": 0.9829,
+    "pixel_F1Score": 0.7336
+  },
+  "screw": {
+    "checkpoint": "data/anomalib_runs/Patchcore/MVTecAD/screw/v0/weights/lightning/model.ckpt",
+    "coreset_sampling_ratio": 0.01,
+    "image_AUROC": 0.9828,
+    "image_F1Score": 0.9664,
+    "pixel_AUROC": 0.9806,
+    "pixel_F1Score": 0.3772
+  },
+  "tile": {
+    "checkpoint": "data/anomalib_runs/Patchcore/MVTecAD/tile/v0/weights/lightning/model.ckpt",
+    "coreset_sampling_ratio": 0.01,
+    "image_AUROC": 1.0,
+    "image_F1Score": 0.994,
+    "pixel_AUROC": 0.957,
+    "pixel_F1Score": 0.6201
+  },
+  "toothbrush": {
+    "checkpoint": "data/anomalib_runs/Patchcore/MVTecAD/toothbrush/v0/weights/lightning/model.ckpt",
+    "coreset_sampling_ratio": 0.01,
+    "image_AUROC": 0.8944,
+    "image_F1Score": 0.918,
+    "pixel_AUROC": 0.9883,
+    "pixel_F1Score": 0.6019
+  },
+  "transistor": {
+    "checkpoint": "data/anomalib_runs/Patchcore/MVTecAD/transistor/v0/weights/lightning/model.ckpt",
+    "coreset_sampling_ratio": 0.01,
+    "image_AUROC": 0.9908,
+    "image_F1Score": 0.9487,
+    "pixel_AUROC": 0.9657,
+    "pixel_F1Score": 0.6056
+  },
+  "wood": {
+    "checkpoint": "data/anomalib_runs/Patchcore/MVTecAD/wood/v0/weights/lightning/model.ckpt",
+    "coreset_sampling_ratio": 0.01,
+    "image_AUROC": 0.9868,
+    "image_F1Score": 0.9661,
+    "pixel_AUROC": 0.9355,
+    "pixel_F1Score": 0.4651
+  },
+  "zipper": {
+    "checkpoint": "data/anomalib_runs/Patchcore/MVTecAD/zipper/v0/weights/lightning/model.ckpt",
+    "coreset_sampling_ratio": 0.01,
+    "image_AUROC": 0.9779,
+    "image_F1Score": 0.9832,
+    "pixel_AUROC": 0.9811,
+    "pixel_F1Score": 0.5386
+  }
+}
