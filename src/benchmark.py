@@ -1,4 +1,6 @@
 import argparse
+import hashlib
+import json
 import platform
 import random
 import time
@@ -130,6 +132,50 @@ def responses_path(subset_name, key):
     return BENCH_DIR / subset_name / f"{key}.json"
 
 
+def log_line(tag, data):
+    print(tag, json.dumps(data, ensure_ascii=False), flush=True)
+
+
+def log_text(log_path):
+    # Aceita o log do Kaggle (lista de {"data": ...}), o .ipynb salvo com saídas ou texto copiado.
+    raw = Path(log_path).read_text(encoding="utf-8")
+    try:
+        parsed = json.loads(raw)
+    except json.JSONDecodeError:
+        return raw
+    if isinstance(parsed, list):
+        return "".join(item.get("data", "") for item in parsed)
+    outputs = [o for cell in parsed.get("cells", []) for o in cell.get("outputs", [])]
+    return "".join("".join(o.get("text", [])) for o in outputs)
+
+
+def recover(log_path):
+    rows = defaultdict(list)
+    for line in log_text(log_path).splitlines():
+        if line.startswith("BENCH_ROW "):
+            row = json.loads(line[len("BENCH_ROW "):])
+            rows[(row.pop("subset"), row.pop("model"))].append(row)
+    for (subset_name, key), found in rows.items():
+        path = responses_path(subset_name, key)
+        record = load_json(path) if path.exists() else {
+            "model": key,
+            "repo": MODELS[key]["repo"],
+            "configuration": "A",
+            "recovered_from_log": True,
+            "environment": {},
+            "peak_memory_gb": None,
+            "subset": SUBSETS[subset_name].as_posix(),
+            "n_expected": len(load_json(SUBSETS[subset_name])["images"]) * len(QUESTIONS),
+            "responses": [],
+        }
+        known = {(r["image_id"], r["question_id"]) for r in record["responses"]}
+        added = [r for r in found if (r["image_id"], r["question_id"]) not in known]
+        record["responses"] += added
+        record["n_responses"] = len(record["responses"])
+        save_json(record, path)
+        print(subset_name, key, "recuperadas:", len(added), "total:", record["n_responses"])
+
+
 def run(key, subset_name, limit=None):
     import transformers
 
@@ -142,13 +188,25 @@ def run(key, subset_name, limit=None):
     loaded = load_model(key)
     if loaded["device"] == "cuda":
         torch.cuda.reset_peak_memory_stats()
+    # Tudo vai também para o stdout: se a sessão cair antes de salvar, o log do Kaggle guarda os dados (ver recover).
+    log_line("BENCH_META", {
+        "model": key,
+        "repo": MODELS[key]["repo"],
+        "subset": subset_name,
+        "subset_sha256": hashlib.sha256(SUBSETS[subset_name].read_bytes()).hexdigest(),
+        "n_images": len(images),
+        "already_done": len(responses),
+        "transformers": transformers.__version__,
+        "gpu": torch.cuda.get_device_name(0) if torch.cuda.is_available() else None,
+        "dtype": str(loaded["dtype"]).replace("torch.", ""),
+    })
     for index, image in enumerate(images, start=1):
         pending = [q for q in subset["questions"] if (image["id"], q["id"]) not in done]
         for question in pending:
             prompt = build_prompt_a(question["text"])
             started = time.perf_counter()
             result = generate(loaded, image["path"], prompt)
-            responses.append({
+            row = {
                 "image_id": image["id"],
                 "image": image["path"],
                 "category": image["category"],
@@ -159,7 +217,9 @@ def run(key, subset_name, limit=None):
                 "prompt": prompt,
                 **result,
                 "seconds": round(time.perf_counter() - started, 3),
-            })
+            }
+            responses.append(row)
+            log_line("BENCH_ROW", {"model": key, "subset": subset_name, **row})
         if not pending:
             continue
         peak = torch.cuda.max_memory_allocated() / 1024**3 if loaded["device"] == "cuda" else None
@@ -395,12 +455,15 @@ def plot_results(subset_name, table, by_category):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=("run", "faithscore"))
-    parser.add_argument("--model", choices=sorted(MODELS), required=True)
-    parser.add_argument("--subset", choices=sorted(SUBSETS), required=True)
+    parser.add_argument("command", choices=("run", "faithscore", "recover"))
+    parser.add_argument("--model", choices=sorted(MODELS))
+    parser.add_argument("--subset", choices=sorted(SUBSETS))
+    parser.add_argument("--log", help="log do Kaggle, .ipynb com saídas ou texto com linhas BENCH_ROW")
     parser.add_argument("--limit", type=int, help="só as N primeiras imagens, para teste rápido")
     arguments = parser.parse_args()
-    if arguments.command == "run":
+    if arguments.command == "recover":
+        recover(arguments.log)
+    elif arguments.command == "run":
         run(arguments.model, arguments.subset, arguments.limit)
     else:
         add_faithscore(arguments.subset, arguments.model)
